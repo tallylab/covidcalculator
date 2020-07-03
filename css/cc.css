@@ -6,7 +6,10 @@ hr { margin: 3rem 0; }
 .hidden { display: none; }
 
 .feature-inset { text-align: center; }
-	.feature-inset > * { width: calc(100% - 2rem); max-width: 640px; }
+	.feature-inset > * { display: inline-block; width: calc(100% - 2rem); max-width: 640px; }
+	.feature-inset img { width: 100%; box-shadow: 2px 2px 2px #ccc; }
+	.feature-inset .btn-xl { font-size: 2rem; }
+
 .answer { float: left; font-size: 4rem; padding: 1rem; padding-left: 0; }
 
 .btn.active:before { content: '✓'; }
