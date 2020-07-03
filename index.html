@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="COVID-19 Situational Risk Calculator will help you decide whether to go to any given event.">
+    <meta name="author" content="COVID-19 Situational Risk Calculator">
+
+    <meta property="og:url"         content="https://skybondsor.com/apps/covid-calculator" />
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="COVID-19 Situational Risk Calculator" />
+    <meta property="og:description" content="COVID-19 Situational Risk Calculator will help you decide whether to go to any given event." />
+    <meta property="og:image"       content="https://skybondsor.com/apps/covid-calculator/img/og.png" />
+
+    <title>COVID-19 Situational Risk Calculator</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200702122230" />
+    <link rel="stylesheet" href="css/cc.css?20200702122230" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+	</head>
+
+	<body>
+
+		<div class="container">
+			<h1>C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</h1>
+
+			<h3 class="mt-4">This is a tool to help you think more clearly about whether or not to attend an in-person event.</h3>
+
+			<p class="alert alert-danger"><strong>This is not medical advice</strong>! If you are unclear on your risk, or have a pre-existing condition that makes you especially vulnerable to COVID-19, talk to your doctor.</p>
+
+			<hr >
+
+			<form id="covidCalculator">
+
+				<h2>STEP 1</h2>
+
+				<p>Find the current risk level for your state/county:</p>
+				
+				<p class="feature-inset"><a class="btn btn-xl btn-dark" style="font-size:2rem;" href="https://covidactnow.org/" target="_blank">Covid<span style="color:rgb(0, 208, 125);">ActNow.org</span> &rarr;</a></p>
+
+				<p>Once you search, the risk level will be in the upper right:</p>
+				
+				<p class="feature-inset"><img style="width:100%;box-shadow: 2px 2px 2px #ccc;" src="img/canrisklevel.png"></p>
+
+				<p><strong>Tip:</strong> If you search the county and the result is "unknown", try the state.</p>
+
+				<p>Choose the risk level you found:</p>
+
+				<div id="canRiskLevel" class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-light btn-low" for="riskLevelLow">
+						  <input type="radio" id="riskLevelLow" name="riskLevel" class="custom-control-input" value="1" required>
+						  Low
+						</label>
+					  <label class="btn btn-light btn-moderate" for="riskLevelModerate">
+					  	<input type="radio" id="riskLevelModerate" name="riskLevel" class="custom-control-input" value="2" required>
+					  	Moderate
+					  </label>
+					  <label class="btn btn-light btn-high" for="riskLevelHigh">
+						  <input type="radio" id="riskLevelHigh" name="riskLevel" class="custom-control-input" value="3" required>
+						  High
+						</label>
+					  <label class="btn btn-light btn-critical" for="riskLevelCritical">
+						  <input type="radio" id="riskLevelCritical" name="riskLevel" class="custom-control-input" value="4" required>
+						  Critical
+						</label>
+					</div>
+				</div>
+
+				<hr>
+
+				<h2>STEP 2</h2>
+
+				<p>Answer some questions about the event.</p>
+
+				<p>Is it indoors or outdoors?</p>
+
+				<div class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" for="locationCritical">
+						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="2" required>
+						  Indoors
+						</label>
+					  <label class="btn btn-secondary" for="locationLow">
+						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value="1" required>
+						  Outdoors
+						</label>
+					</div>
+				</div>
+				
+				<p>How big is the space?</p>
+
+				<div class="form-group">
+					<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" for="spaceCritical">
+						  <input type="radio" id="spaceCritical" name="space" class="custom-control-input" value="5" required>
+						  Small – living room or patio
+						</label>
+					  <label class="btn btn-secondary" for="spaceHigh">
+						  <input type="radio" id="spaceHigh" name="space" class="custom-control-input" value="3" required>
+						  Medium – restaurant
+						</label>
+					  <label class="btn btn-secondary" for="spaceModerate">
+					  	<input type="radio" id="spaceModerate" name="space" class="custom-control-input" value="2" required>
+					  	Large – movie theater
+					  </label>
+					  <label class="btn btn-secondary" for="spaceLow">
+						  <input type="radio" id="spaceLow" name="space" class="custom-control-input" value="1" required>
+						  Extra Large – stadium
+						</label>
+					</div>
+				</div>		
+
+				<p>How many people do you expect to be there? (including you)</p>
+
+				<div class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" for="peopleLow">
+						  <input type="radio" id="peopleLow" name="people" class="custom-control-input" value="1" required>
+						  2
+						</label>
+					  <label class="btn btn-secondary" for="peopleModerate">
+					  	<input type="radio" id="peopleModerate" name="people" class="custom-control-input" value="2" required>
+					  	3-10
+					  </label>
+					  <label class="btn btn-secondary" for="peopleHigh">
+						  <input type="radio" id="peopleHigh" name="people" class="custom-control-input" value="3" required>
+						  11-49
+						</label>
+					  <label class="btn btn-secondary" for="peopleCritical">
+						  <input type="radio" id="peopleCritical" name="people" class="custom-control-input" value="4" required>
+						  50+
+						</label>
+					</div>
+				</div>	
+
+				<p>How many people do you expect to wear a mask?</p>
+
+				<div class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" for="masksCritical">
+						  <input type="radio" id="masksCritical" name="masks" class="custom-control-input" value="4" required>
+						  None
+						</label>
+					  <label class="btn btn-secondary" for="masksHigh">
+						  <input type="radio" id="masksHigh" name="masks" class="custom-control-input" value="3" required>
+						  Some
+						</label>
+					  <label class="btn btn-secondary" for="masksModerate">
+					  	<input type="radio" id="masksModerate" name="masks" class="custom-control-input" value="2" required>
+					  	Most
+					  </label>
+					  <label class="btn btn-secondary" for="masksLow">
+						  <input type="radio" id="masksLow" name="masks" class="custom-control-input" value="1" required>
+						  All
+						</label>
+					</div>
+				</div>	
+
+				<p>How long will you stay? (in hours)</p>
+
+				<div class="form-group">
+					<div class="invalid-feedback">Hi</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" for="durationLow">
+						  <input type="radio" id="durationLow" name="duration" class="custom-control-input" value="1" required>
+						  < 1
+						</label>
+					  <label class="btn btn-secondary" for="durationModerate">
+					  	<input type="radio" id="durationModerate" name="duration" class="custom-control-input" value="2" required>
+					  	1-2
+					  </label>
+					  <label class="btn btn-secondary" for="durationHigh">
+						  <input type="radio" id="durationHigh" name="duration" class="custom-control-input" value="3" required>
+						  3-6
+						</label>
+					  <label class="btn btn-secondary" for="durationCritical">
+						  <input type="radio" id="durationCritical" name="duration" class="custom-control-input" value="4" required>
+						  7+
+						</label>
+					</div>
+				</div>
+
+				<p>Do any of the following apply? Select as many as you like.</p>
+
+				<div class="form-group checkboxes">
+					
+					<div class="btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary">
+					    <input type="checkbox" name="publicTransport" value="3"> You must take public transportation.
+					  </label>
+					</div>
+
+					<div class="btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary">
+					    <input type="checkbox" name="restrooms" value="2"> You will be using public or shared restrooms.
+					  </label>
+					</div>
+
+					<div class="btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary">
+					    <input type="checkbox" name="alcohol" value="2"> You and/or others will be drinking alcohol.
+					  </label>
+					</div>
+
+				</div>	
+
+				<p><button class="btn btn-xl btn-primary" type="submit">Calculate Risk</button></p>
+
+			</form>
+
+			<div id="result" class="hidden">
+
+				<hr>
+
+				<h1>RESULT</h1>
+
+				<p class="hidden alert alert-danger" id="no">
+					<strong>Do not go to this event.</strong> If you must go: Wear a mask. Wash your hands frequently. Leave as soon as you can. Stay as far from others as you can.
+				</p>
+				
+				<p class="hidden alert alert-primary" id="yes">
+					Go to this event, but be sure to <a href="https://www.nytimes.com/interactive/2020/06/25/burst/how-to-get-the-most-out-of-your-mask.html" target="_blank">wear a mask</a>, keep your distance from others, and wash your hands before and afterwards.
+				</p>
+
+				<p class="alert alert-warning">
+					No matter what, there will be some amount of risk of coronavirus infection with any public activity. Follow the mandates, laws, and advice of your location's government and health officials. Stay home as much as possible, preferably leaving only for essential tasks.
+				</p>
+
+			</div>
+
+		</div><!-- .container -->
+
+		<div id="footer">
+
+			<div class="container">
+
+				<h3>About the Calculator</h3>
+
+				<p>Inspired by <a href="https://twitter.com/DrTomFrieden/status/1276681525598224384" target="_blank">a tweet from Dr. Tom Freiden</a>. Based on recommendations from <a href="https://www.who.int/publications/i/item/public-health-criteria-to-adjust-public-health-and-social-measures-in-the-context-of-covid-19" target="_blank">WHO</a> & <a href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/deciding-to-go-out.html" target="_blank">CDC</a>.</p>
+
+				<p><a href="weights.txt">How things are weighted in the forumula.</a></p>
+
+				<p><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+
+				<a id="tallylabLogo" href="https://tallylab.com/" target="_blank">
+					<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
+				</a>
+
+				<p style="position:relative;top:40px;line-height:1.1;">
+					This calculator is a project of <a href="https://tallylab.com/" target="_blank">TallyLab</a>.
+				</p>
+
+
+			</div><!-- .container -->
+
+		</div><!-- #footer -->
+
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200702122230"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200702122230"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200702122230"></script>
+    <script type="text/javascript" src="js/cc.js?20200702122230"></script>
+
+	</body>
+</html>

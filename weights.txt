@@ -1,0 +1,51 @@
+---------------ADDS---------------
+
+LOCATION SIZE
+
+Small				5
+Medium				3
+Large				2
+Extra Large			1
+
+
+GROUP SIZE
+
+2				1
+3-10				2
+11-49				3
+50+				4
+
+
+HOURS AT EVENT
+
+< 1				1
+1-2				2
+3-6				3
+7+				4
+
+MISCELLANEOUS
+
+Public Transportation		3
+Public Restrooms		2
+Alcohol				2
+
+------------MULTIPLIES------------
+
+LOCATION TYPE
+
+Indoors				2
+Outdoors			1
+
+MASK WEARING
+
+None				5
+Some				4
+Most				3
+All				1
+
+CAN RISK LEVELS
+
+Low				1
+Moderate			2
+High				3
+Critical			4
