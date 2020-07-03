@@ -31,6 +31,6 @@ hr { margin: 3rem 0; }
 	.active.btn-critical:not(:disabled):not(.disabled) { background: rgba(255, 0, 52, 1); }
 
 #footer { margin-top: 5rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
-	#footer a { color: orange; }
+	#footer a.link { color: orange; }
 
 #tallylabLogo { float: left; margin: 0 1rem 0 0; background: white; padding: 2%; border-radius: 50%; overflow: hidden; }
