@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var cutoffScore = 28;
+
 	$('#covidCalculator').on('submit',function(e){
 		e.preventDefault();
 
@@ -16,8 +18,9 @@ $(document).ready(function(){
 					results    = objectifyForm(results);
 
 			var totalScore = theAlgorithm(results);
+			console.log(totalScore);
 
-			if ( totalScore > 28 ){
+			if ( totalScore > cutoffScore ){
 				$('#no').removeClass('hidden');
 			} else {
 				$('#yes').removeClass('hidden');
@@ -59,6 +62,189 @@ function theAlgorithm(results){
 	return ( results.space + results.people + results.duration + publicTransport + restrooms + alcohol ) * results.riskLevel * results.masks * results.location;
 }
 
-function allOutcomes(){
-	// TODO
-}
+var metrics = [
+	{
+		name: "riskLevel",
+		type: "multiply",
+		layout: "custom",
+		inputType: "radio",
+		options: [
+			{
+				label: "Low",
+				value: 1
+			},
+			{
+				label: "Medium",
+				value: 2
+			},
+			{
+				label: "High",
+				value: 3
+			},
+			{
+				label: "Critical",
+				value: 4
+			}
+		],
+		question: "Choose the risk level you found:"
+	},
+	{
+		name: "location",
+		type: "multiply",
+		layout: "btn-group",
+		inputType: "radio",
+		options: [
+			{
+				label: "Indoors",
+				value: 2
+			},
+			{
+				label: "Outdoors",
+				value: 1
+			}
+		],
+		question: "Is it indoors or outdoors?"
+	},
+	{
+		name: "space",
+		type: "add",
+		layout: "btn-group-vertical",
+		inputType: "radio",
+		options: [
+			{
+				label: "Small",
+				help: " - living room or patio",
+				value: 5
+			},
+			{
+				label: "Medium",
+				help: " - restaurant or backyard",
+				value: 3
+			},
+			{
+				label: "Large",
+				help: " - movie theater or park",
+				value: 2
+			},
+			{
+				label: "Extra Large",
+				help: " - stadium or arena",
+				value: 1
+			}
+		],
+		question: "How big is the space?"
+	},
+	{
+		name: "people",
+		type: "add",
+		layout: "btn-group",
+		inputType: "radio",
+		options: [
+			{
+				label: "2",
+				value: 1
+			},
+			{
+				label: "3-10",
+				value: 2
+			},
+			{
+				label: "11-49",
+				value: 3
+			},
+			{
+				label: "50+",
+				value: 4
+			}
+		],
+		question: "How many people do you expect to be there? (including you)"
+	},
+	{
+		name: "masks",
+		type: "multiply",
+		layout: "btn-group",
+		inputType: "radio",
+		options: [
+			{
+				label: "None",
+				value: 4
+			},
+			{
+				label: "Some",
+				value: 3
+			},
+			{
+				label: "Most",
+				value: 2
+			},
+			{
+				label: "All",
+				value: 1
+			}
+		],
+		question: "How many people do you expect to wear a mask?"
+	},
+	{
+		name: "duration",
+		type: "add",
+		layout: "btn-group",
+		inputType: "radio",
+		options: [
+			{
+				label: "< 1",
+				value: 1
+			},
+			{
+				label: "1-2",
+				value: 2
+			},
+			{
+				label: "3-6",
+				value: 3
+			},
+			{
+				label: "7+",
+				value: 4
+			}
+		],
+		question: "How long will you stay? (in hours)"
+	},
+	{
+		name: "publicTransport",
+		type: "add",
+		layout: "btn-group",
+		inputType: "checkbox",
+		options: [
+			{
+				label: "You must take public transportation.",
+				value: 3
+			}
+		]
+	},
+	{
+		name: "restrooms",
+		type: "add",
+		layout: "btn-group",
+		inputType: "checkbox",
+		options: [
+			{
+				label: "You will be using public or shared restrooms.",
+				value: 2
+			}
+		]
+	},
+	{
+		name: "alcohol",
+		type: "add",
+		layout: "btn-group",
+		inputType: "checkbox",
+		options: [
+			{
+				label: "Attendees will be drinking alcohol.",
+				value: 2
+			}
+		],
+	}
+];
+
+// end cc.js

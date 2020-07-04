@@ -12,6 +12,9 @@ hr { margin: 3rem 0; }
 
 .answer { float: left; font-size: 4rem; padding: 1rem; padding-left: 0; }
 
+.btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 1px solid #eee; }
+.btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 1px solid #eee; }
+
 .btn.active:before { content: '✓'; }
 .btn-secondary:before { content: '✓'; color: #6c757d; }
 .btn-secondary.active:before { color: #fff; }
@@ -34,6 +37,14 @@ hr { margin: 3rem 0; }
 	.active.btn-critical:not(:disabled):not(.disabled) { background: rgba(255, 0, 52, 1); }
 
 #footer { margin-top: 5rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
+	#footer .formula:before { content: "\022C7"; font-size: 2rem; position: relative; line-height: 1rem; top: .2rem; }
+	#footer .btn-group .btn + .btn { border-left: 1px solid #333; }
 	#footer a.link { color: orange; }
 
 #tallylabLogo { float: left; margin: 0 1rem 0 0; background: white; padding: 2%; border-radius: 50%; overflow: hidden; }
+
+table th { padding-top: 2rem; }
+
+.alert table + table { border-top: 1px solid rgba(0,0,0,.25); margin-top: 2rem; }
+
+/* end cc.css */
