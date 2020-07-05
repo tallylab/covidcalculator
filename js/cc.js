@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var cutoffScore = 28;
+	var cutoffScore = 35;
 
 	$('#covidCalculator').on('submit',function(e){
 		e.preventDefault();
@@ -48,7 +48,7 @@ function objectifyForm(formArray) {
   
   for (var i = 0; i < formArray.length; i++){
   	var key = formArray[i]['name'];
-    returnArray[key] = parseInt(formArray[i]['value']);
+    returnArray[key] = parseFloat(formArray[i]['value']); // All numbers, please
   }
   
   return returnArray;

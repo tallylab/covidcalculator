@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200703163546" />
-    <link rel="stylesheet" href="css/cc.css?20200703163546" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200705094500" />
+    <link rel="stylesheet" href="css/cc.css?20200705094500" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -25,15 +25,27 @@
 
 		<div class="container">
 
-			<p><a href="index.html">« Back to the Calculator</a></p>
+			<p id="top"><a href="index.html">« Back to the Calculator</a></p>
 
 			<h1>C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</h1>
 
 			<h2>Formula Details</h2>
 
+			<p>Jump to a section of this page:</p>
+
+			<ul>
+				<li><a href="#additiveMetrics">Additive Metrics</a></li>
+				<li><a href="#multiplyingMetrics">Multiplying Metrics</a></li>
+				<li><a href="#formula">Formula</a></li>
+				<li><a href="#cutoffScore">Cutoff Score</a></li>
+				<li><a href="#exampleGo">"Go" Example</a></li>
+				<li><a href="#exampleDontgo">"Don't Go" Example</a></li>
+				<li><a href="#changelog">Changelog</a></li>
+			</ul>
+
 			<hr>
 
-			<h3 class="text-center">Additive Metrics</h3>
+			<h3 id="additiveMetrics" class="text-center">Additive Metrics</h3>
 
 			<table width="100%">
 				<tbody>
@@ -112,9 +124,11 @@
 				</tbody>
 			</table>
 
+			<p><a href="#top">&UpArrow; top</a></p>
+
 			<hr>
 
-			<h3 class="text-center">Multiplying Metrics</h3>
+			<h3 id="multiplyingMetrics" class="text-center">Multiplying Metrics</h3>
 
 			<table width="100%">
 				<tbody>
@@ -153,39 +167,47 @@
 					</tr>
 					<tr>
 						<td>Low</td>
-						<td class="text-right">1</td>
+						<td class="text-right">0.0</td>
 					</tr>
 					<tr>
 						<td>Medium</td>
-						<td class="text-right">2</td>
+						<td class="text-right">1.2</td>
 					</tr>
 					<tr>
 						<td>High</td>
-						<td class="text-right">3</td>
+						<td class="text-right">1.5</td>
 					</tr>
 					<tr>
 						<td>Critical</td>
-						<td class="text-right">4</td>
+						<td class="text-right">2</td>
 					</tr>
 				</tbody>
 			</table>
 
+			<p><a href="#top">&UpArrow; top</a></p>
+
 			<hr>
 
-			<p>The base formula is:</p>
+			<h3 id="formula" class="text-center">Formula</h3>
 
 			<pre class="alert alert-warning text-center"><code>( [additive metric] + [additive metric] ... )
 x
 ( [multiplying metric] x [multiplying metric] ...)
 = total score</code></pre>
 
-			<p>The cutoff score is:</p>
-
-			<p class="alert alert-danger text-center"><strong>28</strong></p>
+			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<p>Examples:</p>
+			<h3 id="cutoffScore" class="text-center">Cutoff Score</h3>
+
+			<p class="alert alert-danger text-center"><strong id="cutoffScore">35</strong></p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="exampleGo" class="text-center">"Go" Example</h3>
 
 			<div class="alert alert-primary">
 				<table width="100%">
@@ -245,11 +267,11 @@ x
 						</tr>
 						<tr>
 							<td>Medium</td>
-							<td class="text-right">2</td>
+							<td class="text-right">1.5</td>
 						</tr>
 						<tr>
 							<th>PRODUCT OF MULTIPLYING METRICS</th>
-							<th class="text-right">2</th>
+							<th class="text-right">1.5</th>
 						</tr>
 					</tbody>
 				</table>
@@ -257,15 +279,21 @@ x
 					<tbody>
 						<tr>
 							<th>PRODUCT OF ADDITIVE & MULTIPLICATIVE METRICS</th>
-							<th class="text-right">18</th>
+							<th class="text-right">13.5</th>
 						</tr>
 						<tr>
 							<th>EVALUATE AGAINST CUTOFF</th>
-							<th class="text-right">18 < 28</th>
+							<th class="text-right">13.5 < 28</th>
 						</tr>
 					</tbody>
 				</table>
 			</div><!-- example 1 -->
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="exampleDontgo" class="text-center">"Don't Go" Example</h3>
 
 			<div class="alert alert-danger">
 				<table width="100%">
@@ -325,11 +353,11 @@ x
 						</tr>
 						<tr>
 							<td>Medium</td>
-							<td class="text-right">2</td>
+							<td class="text-right">1.5</td>
 						</tr>
 						<tr>
 							<th>PRODUCT OF MULTIPLYING METRICS</th>
-							<th class="text-right">6</th>
+							<th class="text-right">4.5</th>
 						</tr>
 					</tbody>
 				</table>
@@ -337,16 +365,62 @@ x
 					<tbody>
 						<tr>
 							<th>PRODUCT OF ADDITIVE & MULTIPLICATIVE METRICS</th>
-							<th class="text-right">66</th>
+							<th class="text-right">49.5</th>
 						</tr>
 						<tr>
 							<th>EVALUATE AGAINST CUTOFF</th>
-							<th class="text-right">66 > 28</th>
+							<th class="text-right">49.5 > 35</th>
 						</tr>
 					</tbody>
 				</table>
 			</div><!-- example 2 -->
 
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="changelog" class="text-center">Changelog</h3>
+
+			<div class="card">
+			  <div class="card-body">
+			    <h5 class="card-title">New Risk Level Mulipliers</h5>
+			    <h6 class="card-subtitle mb-2 text-muted">7/5/2020 9:45 am ET</h6>
+			    <p class="card-text">In light of feedback about low risk, outdoor, masked events in high-risk areas, I changed the multiplying values for CovidActNow.org Risk Levels:</p>
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th>CovidActNow.org Risk Level</th>
+								<th>Old Value</th>
+								<th>New Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Low</td>
+								<td>1</td>
+								<td>0.9</td>
+							</tr>
+							<tr>
+								<td>Medium</td>
+								<td>2</td>
+								<td>1.2</td>
+							</tr>
+							<tr>
+								<td>High</td>
+								<td>3</td>
+								<td>1.5</td>
+							</tr>
+							<tr>
+								<td>Critical</td>
+								<td>4</td>
+								<td>2</td>
+							</tr>
+						</tbody>
+					</table>
+			  </div>
+			</div>
+
+			<p><a href="#top">&UpArrow; top</a></p>
 
 		</div><!-- .container -->
 
@@ -378,10 +452,10 @@ x
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200703163546"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200703163546"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200703163546"></script>
-    <script type="text/javascript" src="js/cc.js?20200703163546"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200705094500"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200705094500"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200705094500"></script>
+    <script type="text/javascript" src="js/cc.js?20200705094500"></script>
 
 	</body>
 </html>
