@@ -71,19 +71,19 @@ var metrics = [
 		options: [
 			{
 				label: "Low",
-				value: 1
+				value: 0.9
 			},
 			{
 				label: "Medium",
-				value: 2
+				value: 1.2
 			},
 			{
 				label: "High",
-				value: 3
+				value: 1.5
 			},
 			{
 				label: "Critical",
-				value: 4
+				value: 2
 			}
 		],
 		question: "Choose the risk level you found:"
