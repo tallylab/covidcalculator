@@ -37,6 +37,7 @@ hr { margin: 3rem 0; }
 	.active.btn-critical:not(:disabled):not(.disabled) { background: rgba(255, 0, 52, 1); }
 
 #footer { margin-top: 5rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
+	#footer .faq:before { content: "?"; display: inline-block; text-align: center; padding: .1rem .35rem; position: relative; line-height: 1rem; top: .05rem; left: -.25rem; border-radius: 50%; background: #222; color: #ffc107; font-size: 90%; }
 	#footer .formula:before { content: "\022C7"; font-size: 2rem; position: relative; line-height: 1rem; top: .2rem; }
 	#footer .btn-group .btn + .btn { border-left: 1px solid #333; }
 	#footer a.link { color: orange; }
