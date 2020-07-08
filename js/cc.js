@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 		var $form = $(this);
 
-		$('#no,#yes,#result').addClass('hidden');
+		$('#no .nudge,#no,#yes,#result').addClass('hidden');
 
     if ($form[0].checkValidity() === false) {
       event.preventDefault();
@@ -22,6 +22,13 @@ $(document).ready(function(){
 
 			if ( totalScore > cutoffScore ){
 				$('#no').removeClass('hidden');
+
+				if ( results.location > 1){	$('#no .location').removeClass('hidden'); }
+				if ( results.space 		> 1){	$('#no .space').removeClass('hidden'); }
+				if ( results.people 	> 1){	$('#no .people').removeClass('hidden'); }
+				if ( results.masks 		> 1){	$('#no .masks').removeClass('hidden'); }
+				if ( results.duration 		> 1){	$('#no .duration').removeClass('hidden'); }
+
 			} else {
 				$('#yes').removeClass('hidden');
 			}
