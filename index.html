@@ -65,7 +65,7 @@
 					  	Medium
 					  </label>
 					  <label class="btn btn-light btn-high" for="riskLevelHigh">
-						  <input type="radio" id="riskLevelHigh" name="riskLevel" class="custom-control-input" value="3" required>
+						  <input type="radio" id="riskLevelHigh" name="riskLevel" class="custom-control-input" value="5" required>
 						  High
 						</label>
 					  <label class="btn btn-light btn-critical" for="riskLevelCritical">
@@ -86,11 +86,11 @@
 				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-secondary" for="locationCritical">
-						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="5" required>
+						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="2" required>
 						  Indoors
 						</label>
 					  <label class="btn btn-secondary" for="locationLow">
-						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value=".9" required>
+						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value=".1" required>
 						  Outdoors
 						</label>
 					</div>
@@ -98,46 +98,53 @@
 				
 				<p>How big is the space?</p>
 
-				<div class="form-group">
-					<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-secondary" for="spaceCritical">
-						  <input type="radio" id="spaceCritical" name="space" class="custom-control-input" value="250" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Small</div>
-								<div class="col-7"><em>living room, patio, or coffee kiosk</em></div>
-						  </div>
-						</label>
-					  <label class="btn btn-secondary" for="spaceHigh">
-						  <input type="radio" id="spaceHigh" name="space" class="custom-control-input" value="5000" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Medium</div>
-								<div class="col-7"><em>restaurant, post office, or backyard</em></div>
-						  </div>
-						</label>
-					  <label class="btn btn-secondary" for="spaceModerate">
-					  	<input type="radio" id="spaceModerate" name="space" class="custom-control-input" value="50000" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Large</div>
-								<div class="col-7"><em>supermarket, box store, or small park</em></div>
-						  </div>
-					  </label>
-					  <label class="btn btn-secondary" for="spaceLow">
-						  <input type="radio" id="spaceLow" name="space" class="custom-control-input" value="500000" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Extra Large</div>
-								<div class="col-7"><em>stadium or large park</em></div>
-						  </div>
-						</label>
+				<div class="form-group row exact-toggle">
+					<div class="col-3">
+						<label for="spaceExact">Exact:</label>
+						<input class="form-control" id="spaceExact" name="spaceExact" value="" type="number" placeholder="Square feet">
+					</div>
+					<div id="spaceApprox" class="col-9">
+						<label>Or, estimate:</label>
+						<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+						  <label class="btn btn-secondary" for="spaceCritical">
+							  <input type="radio" id="spaceCritical" name="space" class="custom-control-input" value="250" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Small</div>
+									<div class="col-7"><em>living room, patio, or coffee kiosk</em></div>
+							  </div>
+							</label>
+						  <label class="btn btn-secondary" for="spaceHigh">
+							  <input type="radio" id="spaceHigh" name="space" class="custom-control-input" value="5000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Medium</div>
+									<div class="col-7"><em>restaurant, post office, or backyard</em></div>
+							  </div>
+							</label>
+						  <label class="btn btn-secondary" for="spaceModerate">
+						  	<input type="radio" id="spaceModerate" name="space" class="custom-control-input" value="50000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Large</div>
+									<div class="col-7"><em>supermarket, box store, or small park</em></div>
+							  </div>
+						  </label>
+						  <label class="btn btn-secondary" for="spaceLow">
+							  <input type="radio" id="spaceLow" name="space" class="custom-control-input" value="500000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Extra Large</div>
+									<div class="col-7"><em>stadium or large park</em></div>
+							  </div>
+							</label>
+						</div>
 					</div>
 				</div>
 
 				<p>How many people will attend, including you?</p>
 
-				<div class="form-group row">
+				<div class="form-group row exact-toggle">
 					<div class="col-3">
 						<label for="peopleExact">Exact:</label>
 						<input class="form-control" id="peopleExact" name="peopleExact" value="" type="number">
@@ -303,6 +310,7 @@
 
 		</div><!-- #footer -->
 
+    <script type="text/javascript" src="js/papaparse.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/popper.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200708091457"></script>

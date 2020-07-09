@@ -2,15 +2,16 @@ $(document).ready(function(){
 
 	var cutoffScore = 35;
 
-	$('#peopleExact').on('change',function(){
+	$('.exact-toggle input[type="number"]').on('change',function(){
+		var $parent = $(this).closest('.exact-toggle');
 		if ( $(this).val() && $(this).val() > 0 ){
-			$('#peopleApprox input').prop({
+			$parent.find('input[type="radio"]').prop({
 				'required': false,
 				'selected': false
 			})
 			.closest('label').removeClass('active');
 		} else {
-			$('#peopleApprox input').prop('required',true);
+			$parent.find('input[type="radio"]').prop('required',true);
 		}
 	})
 
@@ -26,20 +27,23 @@ $(document).ready(function(){
       event.stopPropagation();
     } else {
 
-			var results    = $(this).serializeArray();
-					results    = objectifyForm(results);
-console.log(results)
-			var totalScore = theAlgorithm(results);
-			console.log(totalScore);
+			var answers    = $(this).serializeArray();
+					answers    = objectifyForm(answers);
+
+			var totalScore = theAlgorithm(answers);
+
+			answers.score  = totalScore;
+			
+			console.table(answers);
 
 			if ( totalScore > cutoffScore ){
 				$('#no').removeClass('hidden');
 
-				if ( results.location > 1){	$('#no .location').removeClass('hidden'); }
-				if ( results.space 		> 1){	$('#no .space').removeClass('hidden'); }
-				if ( results.people 	> 1){	$('#no .people').removeClass('hidden'); }
-				if ( results.masks 		> 1){	$('#no .masks').removeClass('hidden'); }
-				if ( results.duration 		> 1){	$('#no .duration').removeClass('hidden'); }
+				if ( answers.location > 1){	$('#no .location').removeClass('hidden'); }
+				if ( answers.space 		> 1){	$('#no .space').removeClass('hidden'); }
+				if ( answers.people 	> 1){	$('#no .people').removeClass('hidden'); }
+				if ( answers.masks 		> 1){	$('#no .masks').removeClass('hidden'); }
+				if ( answers.duration 		> 1){	$('#no .duration').removeClass('hidden'); }
 
 			} else {
 				$('#yes').removeClass('hidden');
@@ -74,20 +78,18 @@ function objectifyForm(formArray) {
 
 }
 
-function theAlgorithm(results){
-	var publicTransport = results.publicTransport ? results.publicTransport : 0;
-	var restrooms = results.restrooms ? results.restrooms : 0;
-	var alcohol = results.alcohol ? results.alcohol : 0;
-	var sqFtPerPerson = results.peopleExact && results.peopleExact > 1 ? results.space/results.peopleExact : results.space/results.people;
-	var distancing = results.location > 1 ? sqFtPerPerson/100 : sqFtPerPerson/36;
-	return ( ( results.duration + publicTransport + restrooms + alcohol ) * results.riskLevel * results.masks * results.location ) / distancing;
+function theAlgorithm(answers){
+	var publicTransport = answers.publicTransport ? answers.publicTransport : 0;
+	var restrooms = answers.restrooms ? answers.restrooms : 0;
+	var alcohol = answers.alcohol ? answers.alcohol : 0;
+	var sqFtPerPerson = answers.peopleExact && answers.peopleExact > 1 ? answers.space/answers.peopleExact : answers.space/answers.people;
+	var distancing = Math.sqrt(sqFtPerPerson);
+	return ( ( answers.duration + publicTransport + restrooms + alcohol ) * answers.riskLevel * answers.masks * answers.location ) / distancing;
 }
 
 var metrics = [
 	{
 		name: "riskLevel",
-		type: "multiply",
-		layout: "custom",
 		inputType: "radio",
 		options: [
 			{
@@ -106,13 +108,10 @@ var metrics = [
 				label: "Critical",
 				value: 2
 			}
-		],
-		question: "Choose the risk level you found:"
+		]
 	},
 	{
 		name: "location",
-		type: "multiply",
-		layout: "btn-group",
 		inputType: "radio",
 		options: [
 			{
@@ -121,69 +120,56 @@ var metrics = [
 			},
 			{
 				label: "Outdoors",
-				value: 1
+				value: .1
 			}
-		],
-		question: "Is it indoors or outdoors?"
+		]
 	},
 	{
 		name: "space",
-		type: "add",
-		layout: "btn-group-vertical",
 		inputType: "radio",
 		options: [
 			{
 				label: "Small",
-				help: " - living room or patio",
-				value: 5
+				value: 250
 			},
 			{
 				label: "Medium",
-				help: " - restaurant or backyard",
-				value: 3
+				value: 5000
 			},
 			{
 				label: "Large",
-				help: " - movie theater or park",
-				value: 2
+				value: 50000
 			},
 			{
 				label: "Extra Large",
-				help: " - stadium or arena",
-				value: 1
+				value: 500000
 			}
-		],
-		question: "How big is the space?"
+		]
 	},
 	{
 		name: "people",
-		type: "add",
-		layout: "btn-group",
 		inputType: "radio",
 		options: [
 			{
 				label: "2",
-				value: 1
-			},
-			{
-				label: "3-10",
 				value: 2
 			},
 			{
-				label: "11-49",
-				value: 3
+				label: "3-10",
+				value: 10
 			},
 			{
-				label: "50+",
-				value: 4
+				label: "11-99",
+				value: 100
+			},
+			{
+				label: "100+",
+				value: 1000
 			}
-		],
-		question: "How many people do you expect to be there? (including you)"
+		]
 	},
 	{
 		name: "masks",
-		type: "multiply",
-		layout: "btn-group",
 		inputType: "radio",
 		options: [
 			{
@@ -202,13 +188,10 @@ var metrics = [
 				label: "All",
 				value: 1
 			}
-		],
-		question: "How many people do you expect to wear a mask?"
+		]
 	},
 	{
 		name: "duration",
-		type: "add",
-		layout: "btn-group",
 		inputType: "radio",
 		options: [
 			{
@@ -227,45 +210,146 @@ var metrics = [
 				label: "7+",
 				value: 4
 			}
-		],
-		question: "How long will you stay? (in hours)"
+		]
 	},
 	{
 		name: "publicTransport",
-		type: "add",
-		layout: "btn-group",
 		inputType: "checkbox",
 		options: [
 			{
-				label: "You must take public transportation.",
+				label: "Yes",
 				value: 3
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		]
 	},
 	{
 		name: "restrooms",
-		type: "add",
-		layout: "btn-group",
 		inputType: "checkbox",
 		options: [
 			{
-				label: "You will be using public or shared restrooms.",
+				label: "Yes",
 				value: 2
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		]
 	},
 	{
 		name: "alcohol",
-		type: "add",
-		layout: "btn-group",
 		inputType: "checkbox",
 		options: [
 			{
-				label: "Attendees will be drinking alcohol.",
-				value: 2
+				label: "Yes",
+				value: 1
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		],
 	}
 ];
+
+var scenarios = [];
+
+function nScenarios(n){
+	
+	for (i = 0; i < n; i++) {
+	  randomScenario();
+	}
+
+  var csv = Papa.unparse(scenarios);
+
+  downloadFile(csv,'cc-scenarios','csv');
+}
+
+function randomScenario(){
+
+	var scenario = {};
+
+	metrics.forEach(function(data,index){
+		var which = getRandomInt(0,data.options.length-1);
+		scenario[data.name] = data.options[which].value;
+		var metricText = data.name + ": " + data.options[which].label + "; ";
+		scenario.description = scenario.description ? scenario.description + metricText : metricText;
+	});
+
+	var totalScore = theAlgorithm(scenario);
+
+	scenario.score  = totalScore;
+
+	scenarios.push(scenario);
+
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function downloadFile(data,filename,type){
+  
+  var fileType = type === 'txt' ? 'plain' : type;
+  
+  var fileData = new Blob([data], {"type": 'text/'+fileType+';charset=utf-8;'});
+  
+  //IE11 & Edge
+  if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(fileData, exportFilename);
+  }
+
+  //iOS
+  else if ( navigator.userAgent.indexOf('iPhone') !== -1 && navigator.userAgent.indexOf('Safari') !== -1 ){
+
+    var popupTemplate =
+      '<div class="modal fade">' +
+      '  <div class="modal-dialog">' +
+      '    <div class="modal-content">' +
+      '      <div class="modal-header">' +
+      '        <button type="button" class="close" data-dismiss="modal">&times;</button>' +
+      '        <h4 class="modal-title">iOS CSV Download</h4>' +
+      '      </div>' +
+      '      <div class="modal-body">' +
+      '        <p>iOS doesn\'t like dynamically-created CSVs, so we\'ve pasted the data into the textarea below. All you gotta do is select the text, choose "Share...", then "Save to Files". Sorry for the bad vibes! We\'re working on a real solution.</p>' +
+      '        <textarea id="iosCSV" class="form-control" cols=25 rows=4>'+data+'</textarea>' +
+      '      </div>' +
+      '      <div class="modal-footer">' +
+      '        <button type="button" class="btn btn-link" data-dismiss="modal" onclick="csvLink.click();document.body.removeChild(csvLink);">Got it</button>' +
+      '      </div>' +
+      '    </div>' +
+      '  </div>' +
+      '</div>';
+
+      $(popupTemplate).modal();
+
+      $('#iosCSV').trigger('select');
+
+  }
+
+  // Everybody else
+  else {
+
+    var csvLink = document.createElement('a');
+        csvLink.href = window.URL.createObjectURL(fileData);
+        csvLink.setAttribute('download', filename+'.'+type);
+
+    // Attach
+    document.body.appendChild(csvLink);
+
+    // Click
+    csvLink.click();
+
+    // Remove
+    document.body.removeChild(csvLink);
+
+  }
+} // downloadFile
 
 // end cc.js
