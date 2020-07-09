@@ -2,6 +2,18 @@ $(document).ready(function(){
 
 	var cutoffScore = 35;
 
+	$('#peopleExact').on('change',function(){
+		if ( $(this).val() && $(this).val() > 0 ){
+			$('#peopleApprox input').prop({
+				'required': false,
+				'selected': false
+			})
+			.closest('label').removeClass('active');
+		} else {
+			$('#peopleApprox input').prop('required',true);
+		}
+	})
+
 	$('#covidCalculator').on('submit',function(e){
 		e.preventDefault();
 
@@ -16,7 +28,7 @@ $(document).ready(function(){
 
 			var results    = $(this).serializeArray();
 					results    = objectifyForm(results);
-
+console.log(results)
 			var totalScore = theAlgorithm(results);
 			console.log(totalScore);
 
@@ -66,7 +78,9 @@ function theAlgorithm(results){
 	var publicTransport = results.publicTransport ? results.publicTransport : 0;
 	var restrooms = results.restrooms ? results.restrooms : 0;
 	var alcohol = results.alcohol ? results.alcohol : 0;
-	return ( results.space + results.people + results.duration + publicTransport + restrooms + alcohol ) * results.riskLevel * results.masks * results.location;
+	var sqFtPerPerson = results.peopleExact && results.peopleExact > 1 ? results.space/results.peopleExact : results.space/results.people;
+	var distancing = results.location > 1 ? sqFtPerPerson/100 : sqFtPerPerson/36;
+	return ( ( results.duration + publicTransport + restrooms + alcohol ) * results.riskLevel * results.masks * results.location ) / distancing;
 }
 
 var metrics = [
