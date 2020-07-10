@@ -38,8 +38,9 @@
 				<li><a href="#multiplyingMetrics">Multiplying Metrics</a></li>
 				<li><a href="#formula">Formula</a></li>
 				<li><a href="#cutoffScore">Cutoff Score</a></li>
-				<li><a href="#exampleGo">"Go" Example</a></li>
-				<li><a href="#exampleDontgo">"Don't Go" Example</a></li>
+				<li><a href="#exampleGo">Example "Go"</a></li>
+				<li><a href="#exampleDontgo">Example "No Go"</a></li>
+				<li><a href="#scenarioGenerator">Generate More Scenarios</a></li>
 				<li><a href="#changelog">Changelog</a></li>
 			</ul>
 
@@ -379,6 +380,14 @@ x
 
 			<hr>
 
+			<h3 id="scenarioGenerator" class="text-center">Generate More Scenarios</h3>
+
+			<p>Generate 1000 random scenarios, dedupe them, sort them by score, and download the resulting CSV by clicking below:</p>
+
+			<p class="text-center"><a id="scenarioGeneratorBtn" class="btn btn-xl btn-warning" href="#" onclick="nScenarios(1000);return false;">Generate Scenarios</a></p>
+
+			<hr>
+
 			<h3 id="changelog" class="text-center">Changelog</h3>
 
 			<div class="card">
@@ -453,6 +462,8 @@ x
 
 		</div><!-- #footer -->
 
+    <script type="text/javascript" src="js/lodash.js?20200708091457"></script>
+    <script type="text/javascript" src="js/papaparse.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/popper.min.js?20200708091457"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200708091457"></script>

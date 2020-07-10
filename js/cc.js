@@ -223,8 +223,12 @@ var metrics = [
 		inputType: "checkbox",
 		options: [
 			{
-				label: "You must take public transportation.",
+				label: "Yes",
 				value: 3
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		]
 	},
@@ -235,8 +239,12 @@ var metrics = [
 		inputType: "checkbox",
 		options: [
 			{
-				label: "You will be using public or shared restrooms.",
+				label: "Yes",
 				value: 2
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		]
 	},
@@ -247,11 +255,90 @@ var metrics = [
 		inputType: "checkbox",
 		options: [
 			{
-				label: "Attendees will be drinking alcohol.",
+				label: "Yes",
 				value: 2
+			},
+			{
+				label: "No",
+				value: 0
 			}
 		],
 	}
 ];
+
+var scenarios = [];
+
+function nScenarios(n){
+
+	scenarios = [];
+
+	for (i = 0; i < n; i++) {
+	  randomScenario();
+	}
+
+	var uniqueScenarios = _.uniqBy(scenarios,'description');
+
+	var sortedScenarios = _.orderBy(uniqueScenarios, ['score'], ['desc']);
+
+  var csv = Papa.unparse(sortedScenarios);
+
+  downloadFile(csv,'cc-scenarios','csv');
+
+}
+
+function randomScenario(){
+
+	var scenario = {};
+
+	metrics.forEach(function(data,index){
+		var which = getRandomInt(0,data.options.length-1);
+		scenario[data.name] = data.options[which].value;
+		var metricText = data.name + ": " + data.options[which].label + "; ";
+		scenario.description = scenario.description ? scenario.description + metricText : metricText;
+	});
+
+	var totalScore = theAlgorithm(scenario);
+
+	scenario.score  = totalScore;
+
+	scenarios.push(scenario);
+
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function downloadFile(data,filename,type){
+
+  var fileType = type === 'txt' ? 'plain' : type;
+
+  var fileData = new Blob([data], {"type": 'text/'+fileType+';charset=utf-8;'});
+
+  //IE11 & Edge
+  if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(fileData, exportFilename);
+  }
+
+  // Everybody else
+  else {
+
+    var csvLink = document.createElement('a');
+        csvLink.href = window.URL.createObjectURL(fileData);
+        csvLink.setAttribute('download', filename+'.'+type);
+
+    // Attach
+    document.body.appendChild(csvLink);
+
+    // Click
+    csvLink.click();
+
+    // Remove
+    document.body.removeChild(csvLink);
+
+  }
+} // downloadFile
 
 // end cc.js
