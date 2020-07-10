@@ -1,16 +1,14 @@
 body { margin: 3rem 0; font-size: 115%; line-height: 175%; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
-.container { max-width: 728px; }
 p { margin-top: 2rem; }
 hr { margin: 3rem 0; }
 
+.container { max-width: 728px; }
 .hidden { display: none; }
 
 .feature-inset { text-align: center; }
 	.feature-inset > * { display: inline-block; width: calc(100% - 2rem); max-width: 640px; }
 	.feature-inset img { width: 100%; box-shadow: 2px 2px 2px #ccc; }
 	.feature-inset .btn-xl { font-size: 2rem; }
-
-.answer { float: left; font-size: 4rem; padding: 1rem; padding-left: 0; }
 
 .btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 1px solid #eee; }
 .btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 1px solid #eee; }

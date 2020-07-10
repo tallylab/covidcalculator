@@ -7,7 +7,8 @@ $(document).ready(function(){
 
 		var $form = $(this);
 
-		$('#no .nudge,#no,#yes,#result').addClass('hidden');
+		$('#result,#result .answer > span,#result .answer .nudge').addClass('hidden');
+		$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden')
 
     if ($form[0].checkValidity() === false) {
       event.preventDefault();
@@ -20,19 +21,20 @@ $(document).ready(function(){
 			var totalScore = theAlgorithm(results);
 			console.log(totalScore);
 
+			if ( results.location > 1){	$('#result .location').removeClass('hidden'); }
+			if ( results.space 		> 1){	$('#result .space').removeClass('hidden'); }
+			if ( results.people 	> 1){	$('#result .people').removeClass('hidden'); }
+			if ( results.masks 		> 1){	$('#result .masks').removeClass('hidden'); }
+			if ( results.duration 		> 1){	$('#result .duration').removeClass('hidden'); }
+
 			if ( totalScore > cutoffScore ){
-				$('#no').removeClass('hidden');
-
-				if ( results.location > 1){	$('#no .location').removeClass('hidden'); }
-				if ( results.space 		> 1){	$('#no .space').removeClass('hidden'); }
-				if ( results.people 	> 1){	$('#no .people').removeClass('hidden'); }
-				if ( results.masks 		> 1){	$('#no .masks').removeClass('hidden'); }
-				if ( results.duration 		> 1){	$('#no .duration').removeClass('hidden'); }
-
+				$('#result .answer').addClass('alert-danger');
+				$('#result .answer .no').removeClass('hidden');
 			} else {
-				$('#yes').removeClass('hidden');
+				$('#result .answer').addClass('alert-primary');
+				$('#result .answer .yes').removeClass('hidden');
 			}
-			$('#result').removeClass('hidden');
+			$('#result,#result .answer').removeClass('hidden');
 
 	    $([document.documentElement, document.body]).animate({
 	        scrollTop: $("#result").offset().top
