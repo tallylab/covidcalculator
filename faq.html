@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200712195849" />
-    <link rel="stylesheet" href="css/cc.css?20200712195849" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200713132323" />
+    <link rel="stylesheet" href="css/cc.css?20200713132323" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -25,15 +25,37 @@
 
 		<div class="container">
 
-			<p id="top"><a href="index.html">« Back to the Calculator</a></p>
-
-			<h1>C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</h1>
+			<nav id="top" class="navbar navbar-light">
+			  <a class="navbar-brand" href="index.html">C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse text-right" id="navbarNavAltMarkup">
+			    <div class="navbar-nav">
+			      <a class="nav-item nav-link" href="index.html">Home</a>
+			      <a class="nav-item nav-link active" href="faq.html">FAQ <span class="sr-only">(current)</span></a>
+			      <a class="nav-item nav-link" href="formula.html">Formula</a>
+			      <a class="nav-item nav-link" href="about.html">About</a>
+			      <a class="nav-item nav-link" href="contact.html">Contact</a>
+			    </div>
+			  </div>
+			</nav>
 
 			<h2 class="mt-4">Frequently Asked Questions</h2>
 
+			<p>Jump to a specific question:</p>
+
+			<ul>
+				<li><a href="#usOnly">Why is this only for the US?</a></li>
+				<li><a href="#alcohol">Why did you include alcohol as a variable?</a></li>
+				<li><a href="#food">Why did you not include eating food as a variable?</a></li>
+				<li><a href="#distancing">Why did you not ask about social distancing?</a></li>
+				<li><a href="#personalFactors">Why did you not include personal risk factors like age or a pre-existing condition?</a></li>
+			</ul>
+
 			<hr>
 
-			<h4>I want to use the calculator for a region outside of the United States. Why is the risk level tool in Step 1 only for the US?</h4>
+			<h4 id="usOnly">I want to use the calculator for a region outside of the United States. Why is the risk level tool in Step 1 only for the US?</h4>
 
 			<p><a href="https://covidactnow.org" target="_blank">CovidActNow.org</a> is the only tool we could find which gives a clear answer regarding regional risk, but it currently only covers the United States. We're actively trying to find similar tools for regions outside of the US, so <a href="mailto:info@tallylab.com">contact us</a> if you know of one.</p>
 			<p>In the meantime, you can estimate your region’s current risk level using  the following rubric:</p>
@@ -70,9 +92,11 @@
 				</tbody>
 			</table>
 
+			<p><a href="#top">&UpArrow; top</a></p>
+
 			<hr>
 
-			<h4>Why did you include alcohol as a variable?</h4>
+			<h4 id="alcohol">Why did you include alcohol as a variable?</h4>
 
 			<p>For a couple of reasons:</p>
 			<ol>
@@ -80,29 +104,44 @@
 				<li>Alcohol <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2031886/" target="_blank">harms hearing</a>, which increases speech volume, which <a href="https://www.nejm.org/doi/full/10.1056/NEJMc2009324" target="_blank">increases the emission of droplets</a></li>
 			</ol>
 
+			<p><a href="#top">&UpArrow; top</a></p>
+
 			<hr>
 
-			<h4>Why did you not include eating food as a variable?</h4>
+			<h4 id="food">Why did you not include eating food as a variable?</h4>
 
 			<p>Eating food, in and of itself, does not appear to be a problem; removing one's mask is the problem, which has to be done in order to eat. If people are going to be eating at the event, the answer to the question about mask-wearing should be "none" or "some", which will raise the event's overall score.</p>
 
-			<hr>
-
-			<h4>Why did you not ask about social distancing?</h4>
-
-			<p>We instead ask about the size of the space and the number of attendees in order to more objectively assess whether at least six feet of distance between attendees is possible. We have plans to make this more precise by enabling entry of a specific number of square feet for the space and a specific number of attendees.</p>
-
-			<p>Further, <a href="https://www.sciencenewsforstudents.org/article/coronavirus-covid-19-6-feet-social-distancing-not-always-enough" target="_blank">the recommended six feet of social distancing is a bare minimum</a>. Spacing between attendees who are indoors, or who are not wearing a mask, should ideally be greater than six feet.</p>
+			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h4>Why did you not include personal risk factors like age or a pre-existing condition? </h4>
+			<h4 id="distancing">Why did you not ask about social distancing?</h4>
+
+			<p>The current formula triangulates distancing via three questions:</p>
+
+			<ul>
+				<li>Is the event indoorsor outdoors? <a href="https://www.sciencenewsforstudents.org/article/coronavirus-covid-19-6-feet-social-distancing-not-always-enough" target="_blank">The recommended six feet of social distancing is a bare minimum for people gathering outdoors</a>. Spacing between attendees who are indoors, or who are not wearing a mask, should ideally be greater than six feet.</li>
+				<li>How big is the space? How many people will there be? This helps us calculate how many square feet of distancing is even possible for attendees.</li>
+			</ul>
+
+			<p>We chose this route rather than asking about distancing directly because studies suggest self-reporting is often, shall we say, <a href="https://news.iu.edu/stories/2020/05/iu/04-ask-the-experts-social-distancing-mask-wearing-covid-19.html" target="_blank">overly optimistic</a>.</p>
+
+			<p>Further, we are working on adding inputs for precise numbers on space and crowd size. For example, if you are a shop owner and you know the square footage of your store, you can enter that and how many folks you are letting in at a time in order to guage if minimum distancing is possible.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h4 id="personalFactors">Why did you not include personal risk factors like age or a pre-existing condition?</h4>
 
 			<p>Two reasons:</p>
 			<ol>
 				<li>First and foremost, the inclusion of personal health factors may create the impression that the tool is dispensing medical advice, which it is not!</li>
 				<li>We want to keep the tool as quick and easy to use as possible, while also keeping it as broadly applicable as possible. Our experiments with more variables did not seem to significantly increase accuracy, so we left them out for now.</li>
 			</ol>
+
+			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
@@ -114,35 +153,31 @@
 
 			<div class="container">
 
-				<h3>About the Calculator</h3>
-
-				<p>Inspired by <a class="link" href="https://twitter.com/DrTomFrieden/status/1276681525598224384" target="_blank">a tweet from Dr. Tom Frieden</a>. Based on recommendations from <a class="link" href="https://www.who.int/publications/i/item/public-health-criteria-to-adjust-public-health-and-social-measures-in-the-context-of-covid-19" target="_blank">WHO</a> & <a class="link" href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/deciding-to-go-out.html" target="_blank">CDC</a>.</p>
-
-				<div class="btn-group">
-					<a class="btn btn-xl btn-warning faq" href="faq.html">FAQ</a>
-					<a class="btn btn-xl btn-warning formula" href="formula.html">Formula Details</a>
-					<a class="btn btn-xl btn-warning" href="https://github.com/tallylab/covidcalculator" target="_blank"><img style="height: 1rem;" src="img/github.png" alt="Github"> Github Project</a>
+				<div class="site">
+					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
+					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
 				</div>
 
-				<p><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tallylab">
 
-				<a id="tallylabLogo" href="https://tallylab.com/" target="_blank">
-					<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-				</a>
+					<a class="logo" href="https://tallylab.com/" target="_blank">
+						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
+					</a>
 
-				<p style="position:relative;top:40px;line-height:1.1;">
-					This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-				</p>
+					<p>
+						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
+					</p>
 
+				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/cc.js?20200712195849"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/cc.js?20200713132323"></script>
 
 	</body>
 </html>

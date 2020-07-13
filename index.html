@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200712195849" />
-    <link rel="stylesheet" href="css/cc.css?20200712195849" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200713132323" />
+    <link rel="stylesheet" href="css/cc.css?20200713132323" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -24,7 +24,22 @@
 	<body>
 
 		<div class="container">
-			<h1>C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</h1>
+
+			<nav id="top" class="navbar navbar-light">
+			  <a class="navbar-brand" href="index.html">C<img src="img/covid-19.jpg" style="height:1em;position:relative;top:-.1em;" alt="O">VID-19 Situational Risk Calculator</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse text-right" id="navbarNavAltMarkup">
+			    <div class="navbar-nav">
+			      <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+			      <a class="nav-item nav-link" href="faq.html">FAQ</a>
+			      <a class="nav-item nav-link" href="formula.html">Formula</a>
+			      <a class="nav-item nav-link" href="about.html">About</a>
+			      <a class="nav-item nav-link" href="contact.html">Contact</a>
+			    </div>
+			  </div>
+			</nav>
 
 			<h3 class="mt-4">This tool can help you decide whether to attend an in-person event that includes people you don't live with.</h3>
 
@@ -240,7 +255,7 @@
 				<h1>RESULT</h1>
 
 				<div class="hidden alert answer">
-					<span class="no hidden"><strong><u>Do not go unless you absolutely have to.</u></strong> Make the event safer:</span>
+					<span class="no hidden"><strong>Do not go unless you absolutely have to.</strong> Make the event safer:</span>
 					<span class="yes hidden"><strong>Go to this event if it's important that you be there.</strong> Make it even safer:</span>
 					<ul>
 						<li class="hidden nudge location">Move it outdoors</li>
@@ -248,7 +263,7 @@
 						<li class="hidden nudge people">Include fewer people</li>
 						<li class="hidden nudge masks">Encourage more mask-wearing</li>
 						<li class="hidden nudge duration">Don't stay as long</li>
-						<li>Keep your distance from others – at least 6 feet outdoors, 10 feet indoors</li>
+						<li><a href="faq.html#distancing">Keep your distance from others – at least 6 feet outdoors, 10 feet indoors</a></li>
 						<li>Wash your hands frequently</li>
 					</ul>
 				</div>
@@ -265,35 +280,31 @@
 
 			<div class="container">
 
-				<h3>About the Calculator</h3>
-
-				<p>Inspired by <a class="link" href="https://twitter.com/DrTomFrieden/status/1276681525598224384" target="_blank">a tweet from Dr. Tom Frieden</a>. Based on recommendations from <a class="link" href="https://www.who.int/publications/i/item/public-health-criteria-to-adjust-public-health-and-social-measures-in-the-context-of-covid-19" target="_blank">WHO</a> & <a class="link" href="https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/deciding-to-go-out.html" target="_blank">CDC</a>.</p>
-
-				<div class="btn-group">
-					<a class="btn btn-xl btn-warning faq" href="faq.html">FAQ</a>
-					<a class="btn btn-xl btn-warning formula" href="formula.html">Formula Details</a>
-					<a class="btn btn-xl btn-warning" href="https://github.com/tallylab/covidcalculator" target="_blank"><img style="height: 1rem;" src="img/github.png" alt="Github"> Github Project</a>
+				<div class="site">
+					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
+					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
 				</div>
 
-				<p><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tallylab">
 
-				<a id="tallylabLogo" href="https://tallylab.com/" target="_blank">
-					<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-				</a>
+					<a class="logo" href="https://tallylab.com/" target="_blank">
+						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
+					</a>
 
-				<p style="position:relative;top:40px;line-height:1.1;">
-					This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-				</p>
+					<p>
+						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
+					</p>
 
+				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200712195849"></script>
-    <script type="text/javascript" src="js/cc.js?20200712195849"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713132323"></script>
+    <script type="text/javascript" src="js/cc.js?20200713132323"></script>
 
 	</body>
 </html>

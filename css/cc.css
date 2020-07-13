@@ -3,15 +3,21 @@ p { margin-top: 2rem; }
 hr { margin: 3rem 0; }
 
 .container { max-width: 728px; }
+.navbar { padding: 0; }
+.navbar-brand { width: calc(100% - 5rem); font-size: 2.75rem; white-space: normal; line-height: 1; }
+.navbar-light .navbar-toggler { border: none; }
+
 .hidden { display: none; }
+
+.alert-danger a { color: #721c24; text-decoration: underline; }
 
 .feature-inset { text-align: center; }
 	.feature-inset > * { display: inline-block; width: calc(100% - 2rem); max-width: 640px; }
 	.feature-inset img { width: 100%; box-shadow: 2px 2px 2px #ccc; }
 	.feature-inset .btn-xl { font-size: 2rem; }
 
-.btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 1px solid #eee; }
-.btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 1px solid #eee; }
+.btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 2px solid #ccc; }
+.btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 2px solid #ccc; }
 
 .btn-group-vertical .btn-light .row > div:first-child { color: transparent; }
 .btn-group-vertical .btn-light.active .row > div:first-child { color: #212529; }
@@ -29,7 +35,7 @@ hr { margin: 3rem 0; }
 
 .btn-group .btn-light:after { content: '\00a0 \00a0'; white-space: pre; }
 
-.form-group .btn { box-shadow: 1px 1px 0 #ccc; }
+.btn-light { box-shadow: 2px 2px 0 #ccc; }
 
 .btn-low { background: rgba(0, 208, 125, .5); }
 	.active.btn-low:not(:disabled):not(.disabled) { background: rgba(0, 208, 125, 1); }
@@ -40,13 +46,15 @@ hr { margin: 3rem 0; }
 .btn-critical { background: rgba(255, 0, 52, .5); }
 	.active.btn-critical:not(:disabled):not(.disabled) { background: rgba(255, 0, 52, 1); }
 
-#footer { margin-top: 5rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
-	#footer .faq:before { content: "?"; display: inline-block; text-align: center; padding: .1rem .35rem; position: relative; line-height: 1rem; top: .05rem; left: -.25rem; border-radius: 50%; background: #222; color: #ffc107; font-size: 90%; }
-	#footer .formula:before { content: "\022C7"; font-size: 2rem; position: relative; line-height: 1rem; top: .2rem; }
-	#footer .btn-group .btn + .btn { border-left: 1px solid #333; }
+#canRiskLevel .btn-light { border-color: #fff; border-width: 0px; }
+
+#footer { margin-top: 5rem; padding: 1rem 0; font-size: 95%; background: #333; color: #fff; }
 	#footer a.link { color: orange; }
 
-#tallylabLogo { float: left; margin: 0 1rem 0 0; background: white; padding: 2%; border-radius: 50%; overflow: hidden; }
+#footer .tallylab { margin-top: 3rem; }
+	#footer .tallylab .logo { float: left; margin-right: 15px; padding: 15px; border-radius: 50%; overflow: hidden; background: white; text-align: center; }
+		#footer .tallylab .logo img { width: 100px; }
+	#footer .tallylab p { margin: 0; padding: 35px 0; margin-bottom: -45px; height: 100px; vertical-align: baseline; }
 
 table th { padding-top: 2rem; }
 
