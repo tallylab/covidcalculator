@@ -19,9 +19,6 @@ hr { margin: 3rem 0; }
 .btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 2px solid #ccc; }
 .btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 2px solid #ccc; }
 
-.btn-group-vertical .btn-light .row > div:first-child { color: transparent; }
-.btn-group-vertical .btn-light.active .row > div:first-child { color: #212529; }
-
 .btn-group { display: flex; }
 .btn-group-vertical { width: 100%; }
 .btn-group-vertical .btn { text-align: left; position: relative; }
@@ -29,9 +26,9 @@ hr { margin: 3rem 0; }
 
 .checkboxes .btn-group-toggle { margin-bottom: 1rem; }
 
-.form-group .btn.active:before { content: '✓'; }
-.form-group .btn-light:before { content: '✓'; color: transparent; }
-.form-group .btn-light.active:before { color: #212529; }
+.btn-check:before { content: '✓'; }
+.btn-check:before, .btn-group-vertical .btn-light .row > div:first-child { color: transparent; }
+.btn-check.active:before , .btn-group-vertical .btn-light.active .row > div:first-child { color: #212529; }
 
 .btn-group .btn-light:after { content: '\00a0 \00a0'; white-space: pre; }
 

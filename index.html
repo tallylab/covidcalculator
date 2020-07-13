@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200713132323" />
-    <link rel="stylesheet" href="css/cc.css?20200713132323" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200713142229" />
+    <link rel="stylesheet" href="css/cc.css?20200713142229" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -71,19 +71,19 @@
 
 				<div id="canRiskLevel" class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-low" for="riskLevelLow">
+					  <label class="btn btn-light btn-check btn-low" for="riskLevelLow">
 						  <input type="radio" id="riskLevelLow" name="riskLevel" class="custom-control-input" value="0.9" required>
 						  Low
 						</label>
-					  <label class="btn btn-light btn-moderate" for="riskLevelModerate">
+					  <label class="btn btn-light btn-check btn-moderate" for="riskLevelModerate">
 							<input type="radio" id="riskLevelModerate" name="riskLevel" class="custom-control-input" value="1.2" required>
 					  	Medium
 					  </label>
-					  <label class="btn btn-light btn-high" for="riskLevelHigh">
+					  <label class="btn btn-light btn-check btn-high" for="riskLevelHigh">
 						  <input type="radio" id="riskLevelHigh" name="riskLevel" class="custom-control-input" value="1.5" required>
 						  High
 						</label>
-					  <label class="btn btn-light btn-critical" for="riskLevelCritical">
+					  <label class="btn btn-light btn-check btn-critical" for="riskLevelCritical">
 						  <input type="radio" id="riskLevelCritical" name="riskLevel" class="custom-control-input" value="2" required>
 						  Critical
 						</label>
@@ -100,11 +100,11 @@
 
 				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light" for="locationCritical">
+					  <label class="btn btn-light btn-check" for="locationCritical">
 						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="2" required>
 						  Indoors
 						</label>
-					  <label class="btn btn-light" for="locationLow">
+					  <label class="btn btn-light btn-check" for="locationLow">
 						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value="1" required>
 						  Outdoors
 						</label>
@@ -154,19 +154,19 @@
 
 				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light" for="peopleLow">
+					  <label class="btn btn-light btn-check" for="peopleLow">
 						  <input type="radio" id="peopleLow" name="people" class="custom-control-input" value="1" required>
 						  2
 						</label>
-					  <label class="btn btn-light" for="peopleModerate">
+					  <label class="btn btn-light btn-check" for="peopleModerate">
 					  	<input type="radio" id="peopleModerate" name="people" class="custom-control-input" value="2" required>
 					  	3-10
 					  </label>
-					  <label class="btn btn-light" for="peopleHigh">
+					  <label class="btn btn-light btn-check" for="peopleHigh">
 						  <input type="radio" id="peopleHigh" name="people" class="custom-control-input" value="3" required>
 						  11-49
 						</label>
-					  <label class="btn btn-light" for="peopleCritical">
+					  <label class="btn btn-light btn-check" for="peopleCritical">
 						  <input type="radio" id="peopleCritical" name="people" class="custom-control-input" value="4" required>
 						  50+
 						</label>
@@ -177,19 +177,19 @@
 
 				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light" for="masksCritical">
+					  <label class="btn btn-light btn-check" for="masksCritical">
 						  <input type="radio" id="masksCritical" name="masks" class="custom-control-input" value="4" required>
 						  None
 						</label>
-					  <label class="btn btn-light" for="masksHigh">
+					  <label class="btn btn-light btn-check" for="masksHigh">
 						  <input type="radio" id="masksHigh" name="masks" class="custom-control-input" value="3" required>
 						  Some
 						</label>
-					  <label class="btn btn-light" for="masksModerate">
+					  <label class="btn btn-light btn-check" for="masksModerate">
 					  	<input type="radio" id="masksModerate" name="masks" class="custom-control-input" value="2" required>
 					  	Most
 					  </label>
-					  <label class="btn btn-light" for="masksLow">
+					  <label class="btn btn-light btn-check" for="masksLow">
 						  <input type="radio" id="masksLow" name="masks" class="custom-control-input" value="1" required>
 						  All
 						</label>
@@ -201,19 +201,19 @@
 				<div class="form-group">
 					<div class="invalid-feedback">Hi</div>
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light" for="durationLow">
+					  <label class="btn btn-light btn-check" for="durationLow">
 						  <input type="radio" id="durationLow" name="duration" class="custom-control-input" value="1" required>
 						  < 1
 						</label>
-					  <label class="btn btn-light" for="durationModerate">
+					  <label class="btn btn-light btn-check" for="durationModerate">
 					  	<input type="radio" id="durationModerate" name="duration" class="custom-control-input" value="2" required>
 					  	1-2
 					  </label>
-					  <label class="btn btn-light" for="durationHigh">
+					  <label class="btn btn-light btn-check" for="durationHigh">
 						  <input type="radio" id="durationHigh" name="duration" class="custom-control-input" value="3" required>
 						  3-6
 						</label>
-					  <label class="btn btn-light" for="durationCritical">
+					  <label class="btn btn-light btn-check" for="durationCritical">
 						  <input type="radio" id="durationCritical" name="duration" class="custom-control-input" value="4" required>
 						  7+
 						</label>
@@ -225,19 +225,19 @@
 				<div class="form-group checkboxes">
 					
 					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light">
+					  <label class="btn btn-light btn-check">
 					    <input type="checkbox" name="publicTransport" value="3"> You must take public transportation.
 					  </label>
 					</div>
 
 					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light">
+					  <label class="btn btn-light btn-check">
 					    <input type="checkbox" name="restrooms" value="2"> You will be using public or shared restrooms.
 					  </label>
 					</div>
 
 					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light">
+					  <label class="btn btn-light btn-check">
 					    <input type="checkbox" name="alcohol" value="2"> You and/or others will be drinking alcohol.
 					  </label>
 					</div>
@@ -301,10 +301,10 @@
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713132323"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200713132323"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713132323"></script>
-    <script type="text/javascript" src="js/cc.js?20200713132323"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
+    <script type="text/javascript" src="js/cc.js?20200713142229"></script>
 
 	</body>
 </html>
