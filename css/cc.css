@@ -29,9 +29,9 @@ hr { margin: 3rem 0; }
 
 .checkboxes .btn-group-toggle { margin-bottom: 1rem; }
 
-.btn-group .btn.active:before { content: '✓'; }
-.btn-group .btn-light:before { content: '✓'; color: transparent; }
-.btn-group .btn-light.active:before { color: #212529; }
+.form-group .btn.active:before { content: '✓'; }
+.form-group .btn-light:before { content: '✓'; color: transparent; }
+.form-group .btn-light.active:before { color: #212529; }
 
 .btn-group .btn-light:after { content: '\00a0 \00a0'; white-space: pre; }
 
