@@ -20,7 +20,8 @@ $(document).ready(function(){
 
 		var $form = $(this);
 
-		$('#no .nudge,#no,#yes,#result').addClass('hidden');
+		$('#result,#result .answer > span,#result .answer .nudge').addClass('hidden');
+		$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden')
 
     if ($form[0].checkValidity() === false) {
       event.preventDefault();
@@ -36,19 +37,20 @@ $(document).ready(function(){
 			
 			console.table(answers);
 
+			if ( results.location > 1){	$('#result .location').removeClass('hidden'); }
+			if ( results.space 		> 1){	$('#result .space').removeClass('hidden'); }
+			if ( results.people 	> 1){	$('#result .people').removeClass('hidden'); }
+			if ( results.masks 		> 1){	$('#result .masks').removeClass('hidden'); }
+			if ( results.duration 		> 1){	$('#result .duration').removeClass('hidden'); }
+
 			if ( totalScore > cutoffScore ){
-				$('#no').removeClass('hidden');
-
-				if ( answers.location > 1){	$('#no .location').removeClass('hidden'); }
-				if ( answers.space 		> 1){	$('#no .space').removeClass('hidden'); }
-				if ( answers.people 	> 1){	$('#no .people').removeClass('hidden'); }
-				if ( answers.masks 		> 1){	$('#no .masks').removeClass('hidden'); }
-				if ( answers.duration 		> 1){	$('#no .duration').removeClass('hidden'); }
-
+				$('#result .answer').addClass('alert-danger');
+				$('#result .answer .no').removeClass('hidden');
 			} else {
-				$('#yes').removeClass('hidden');
+				$('#result .answer').addClass('alert-primary');
+				$('#result .answer .yes').removeClass('hidden');
 			}
-			$('#result').removeClass('hidden');
+			$('#result,#result .answer').removeClass('hidden');
 
 	    $([document.documentElement, document.body]).animate({
 	        scrollTop: $("#result").offset().top
@@ -259,14 +261,19 @@ var metrics = [
 var scenarios = [];
 
 function nScenarios(n){
-	
+
 	for (i = 0; i < n; i++) {
 	  randomScenario();
 	}
 
-  var csv = Papa.unparse(scenarios);
+	var uniqueScenarios = _.uniqBy(scenarios,'description');
+
+	var sortedScenarios = _.orderBy(uniqueScenarios, ['score'], ['desc']);
+
+  var csv = Papa.unparse(sortedScenarios);
 
   downloadFile(csv,'cc-scenarios','csv');
+
 }
 
 function randomScenario(){
@@ -299,38 +306,10 @@ function downloadFile(data,filename,type){
   var fileType = type === 'txt' ? 'plain' : type;
   
   var fileData = new Blob([data], {"type": 'text/'+fileType+';charset=utf-8;'});
-  
+
   //IE11 & Edge
   if (navigator.msSaveBlob) {
       navigator.msSaveBlob(fileData, exportFilename);
-  }
-
-  //iOS
-  else if ( navigator.userAgent.indexOf('iPhone') !== -1 && navigator.userAgent.indexOf('Safari') !== -1 ){
-
-    var popupTemplate =
-      '<div class="modal fade">' +
-      '  <div class="modal-dialog">' +
-      '    <div class="modal-content">' +
-      '      <div class="modal-header">' +
-      '        <button type="button" class="close" data-dismiss="modal">&times;</button>' +
-      '        <h4 class="modal-title">iOS CSV Download</h4>' +
-      '      </div>' +
-      '      <div class="modal-body">' +
-      '        <p>iOS doesn\'t like dynamically-created CSVs, so we\'ve pasted the data into the textarea below. All you gotta do is select the text, choose "Share...", then "Save to Files". Sorry for the bad vibes! We\'re working on a real solution.</p>' +
-      '        <textarea id="iosCSV" class="form-control" cols=25 rows=4>'+data+'</textarea>' +
-      '      </div>' +
-      '      <div class="modal-footer">' +
-      '        <button type="button" class="btn btn-link" data-dismiss="modal" onclick="csvLink.click();document.body.removeChild(csvLink);">Got it</button>' +
-      '      </div>' +
-      '    </div>' +
-      '  </div>' +
-      '</div>';
-
-      $(popupTemplate).modal();
-
-      $('#iosCSV').trigger('select');
-
   }
 
   // Everybody else
