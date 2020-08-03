@@ -84,6 +84,22 @@
 
 			<h3 id="sources">Sources</h3>
 
+		A note on assessing REGIONAL RISK
+
+		We launched with a tool that only assesses risk for Americans, CovidActNow.org. 
+		It's a great site, but we understandably received	reguarl requests for global data 
+		and have therefore switched to using the COV19.cc API, which includes a lot of 
+		useful data, updated regularly.
+
+		Since this is rawer data than CovidActNow.org (the previous risk tool we were using), 
+		we had to pick a metric that approximates current risk and is likely to be in the 
+		data itself. We chose Incidence Rate. Not perfect, by any means, but still more 
+		helpful than not.
+
+		When a locale does not have Incidence Rate data, we fallback to a rate of "500", which
+		is slightly below the median figure for all locales. Also imperfect! And we will update
+		that fallback reguarly, as the data shifts. 
+
 			<ul>
 				<li>
 					<a href="https://www.who.int/publications/i/item/modes-of-transmission-of-virus-causing-covid-19-implications-for-ipc-precaution-recommendations" target="_blank">Transmission of SARS-CoV-2: implications for infection prevention precautions</a>. World Health Organization. 9 July 2020 | COVID-19: Infection prevention and control
@@ -138,10 +154,14 @@
 
 		</div><!-- #footer -->
 
+		<script type="text/javascript" src="js/regional-risk-template.js?20200713142229"></script>
+    <script type="text/javascript" src="js/lodash.js?20200713142229"></script>
+    <script type="text/javascript" src="js/papaparse.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/cc.js?20200713142229"></script>
+
 
 	</body>
 </html>

@@ -1,6 +1,10 @@
 body { margin: 3rem 0; font-size: 115%; line-height: 175%; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
 p { margin-top: 2rem; }
-hr { margin: 3rem 0; }
+hr, h4 + .form-group  { margin: 4rem 0; }
+	.form-group + .form-group { margin: -2rem 0 4rem 0; }
+
+.alert a { color: inherit; text-decoration: underline; }
+	.alert a:hover { font-weight: bold; }
 
 .container { max-width: 728px; }
 .navbar { padding: 0; }
@@ -8,8 +12,6 @@ hr { margin: 3rem 0; }
 .navbar-light .navbar-toggler { border: none; }
 
 .hidden { display: none; }
-
-.alert-danger a { color: #721c24; text-decoration: underline; }
 
 .feature-inset { text-align: center; }
 	.feature-inset > * { display: inline-block; width: calc(100% - 2rem); max-width: 640px; }
