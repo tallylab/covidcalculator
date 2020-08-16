@@ -189,7 +189,7 @@ function finalize(answers){
 	answers.currentIR = incidenceRate(answers);
 
 	// Duration by unit
-	answers.duration = answers.timeunits ? parseFloat(answers.duration)*parseFloat(answers.timeunits) : parseFloat(answers.duration);
+	answers.duration = answers.timeUnits ? parseFloat(answers.duration)*parseFloat(answers.timeUnits) : parseFloat(answers.duration);
 
 	// Values with the option to input an exact value
 	if ( answers.spaceExact && answers.spaceExact > 0 )       { answers.space    = answers.country === "US" ? answers.spaceExact : answers.spaceExact/3.281 } // Use this occasion to convert from metric, if applicable
