@@ -46,53 +46,11 @@
 			<p>Jump to a specific question:</p>
 
 			<ul>
-				<li><a href="#usOnly">Why is this only for the US?</a></li>
 				<li><a href="#alcohol">Why did you include alcohol as a variable?</a></li>
 				<li><a href="#food">Why did you not include eating food as a variable?</a></li>
 				<li><a href="#distancing">Why did you not ask about social distancing?</a></li>
 				<li><a href="#personalFactors">Why did you not include personal risk factors like age or a pre-existing condition?</a></li>
 			</ul>
-
-			<hr>
-
-			<h4 id="usOnly">I want to use the calculator for a region outside of the United States. Why is the risk level tool in Step 1 only for the US?</h4>
-
-			<p><a href="https://covidactnow.org" target="_blank">CovidActNow.org</a> is the only tool we could find which gives a clear answer regarding regional risk, but it currently only covers the United States. We're actively trying to find similar tools for regions outside of the US, so <a href="mailto:info@tallylab.com">contact us</a> if you know of one.</p>
-			<p>In the meantime, you can estimate your region’s current risk level using  the following rubric:</p>
-
-			<table class="table">
-				<thead>
-					<tr>
-						<th></th>
-						<th>Case Growth</th>
-						<th><a href="https://www.who.int/docs/default-source/coronaviruse/covid-19-sprp-unct-guidelines.pdf?sfvrsn=81ff43d8_4" target="_blank">WHO Preparedness Standards</a></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th><span class="btn btn-light btn-block btn-low">Low</span></th></th>
-						<td>Declining</td>
-						<td>Meets or exceeds</td>
-					</tr>
-					<tr>
-						<th><span class="btn btn-light btn-block btn-moderate">Medium</span></th>
-						<td>Steady</td>
-						<td>Meets</td>
-					</tr>
-					<tr>
-						<th><span class="btn btn-light btn-block btn-high">High</span></th>
-						<td>Increasing</td>
-						<td>Below</td>
-					</tr>
-					<tr>
-						<th><span class="btn btn-light btn-block btn-critical">Critical</span></th>
-						<td>Exponential</td>
-						<td>Dangerously below</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
@@ -127,8 +85,6 @@
 
 			<p>We chose this route rather than asking about distancing directly because studies suggest self-reporting is often, shall we say, <a href="https://news.iu.edu/stories/2020/05/iu/04-ask-the-experts-social-distancing-mask-wearing-covid-19.html" target="_blank">overly optimistic</a>.</p>
 
-			<p>Further, we are working on adding inputs for precise numbers on space and crowd size. For example, if you are a shop owner and you know the square footage of your store, you can enter that and how many folks you are letting in at a time in order to guage if minimum distancing is possible.</p>
-
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
@@ -153,35 +109,61 @@
 
 			<div class="container">
 
-				<div class="site">
-					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
-					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tip row">
+					<div class="col-12">
+						<p>
+							<strong>Support our work</strong>
+							<a class="btn btn-sm btn-danger" href="#" onclick="tip('price_1HGm2hFiF0bSSC08VafHjPIO');return false;">Tip $1</a> 
+							<a class="btn btn-sm btn-info" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ewbTq45M');return false;">Tip $5</a> 
+							<a class="btn btn-sm btn-success" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ZAX8OHae');return false;">Tip $10</a>
+							<a class="btn btn-sm btn-warning" href="contact.html">Contact Us</a>
+						</p>
+						<p id="stripeError" class="alert alert-danger hidden">There was an error sending you to checkout. Please try again.</p>
+					</div>
 				</div>
 
-				<div class="tallylab">
+				<div class="sitemap row">
+					<div class="col-12">
+						<p>
+							<strong>Sitemap</strong>
+							<a class="text-warning" href="index.html">Home</a> | <a class="text-warning" href="faq.html">FAQ</a> | <a class="text-warning" href="formula.html">Formula</a> | <a class="text-warning" href="about.html">About</a> | <a class="text-warning" href="contact.html">Contact</a></p>
+					</div>
+				</div>
 
-					<a class="logo" href="https://tallylab.com/" target="_blank">
-						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-					</a>
+				<div class="privacy row">
+					<div class="col-12">
+						<p>
+							<strong>Privacy</strong>
+							<em>This tool will not save any of your answers and it does not track you in any way.</em></p>
+					</div>
+				</div>
 
-					<p>
-						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-					</p>
-
+				<div class="tallylab row align-items-center">
+					<div class="col-9">
+						<p>
+							<strong>A <a class="text-warning" href="https://tallylab.com" target="_blank">TallyLab</a> Project</strong>
+							Helping people collect, protect, and find answers in their data.
+						</p>
+					</div>
+					<div class="col-3">
+						<a class="logo" href="https://tallylab.com/" target="_blank">
+							<img src="img/tallylab.png" alt="TallyLab">
+						</a>
+					</div>
 				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-		<script type="text/javascript" src="js/regional-risk-template.js?20200713142229"></script>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script type="text/javascript" src="js/moment.js?20200713142229"></script>
     <script type="text/javascript" src="js/lodash.js?20200713142229"></script>
     <script type="text/javascript" src="js/papaparse.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/cc.js?20200713142229"></script>
-
 
 	</body>
 </html>

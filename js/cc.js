@@ -1,49 +1,99 @@
-var regionalData;
+var regions, regionalData;
 
 $(document).ready(function(){
 
-	//regionalData = example.regions;
-	$.getJSON('https://cov19.cc/report.json?',function(data){	regionalData = data.regions; });
+	// Region Selection
+	Papa.parse('locales.csv', {
+		complete: function(results) {
+			regions = results.data;
 
-	/* Form data and interactivity */
+			var regionArray = _.sortBy(_.map(_.filter(regions,{ "Province_State": "" }),'Country_Region')), 
+					regionListHtml = '<option></option>';
 
-		var regionArray = _.sortBy(_.uniq(_.map(regions.world.list,'country'))), regionListHtml = '<option></option>';
+			regionArray.forEach(function(data,index){
+				regionListHtml = data === "US" ? regionListHtml + '<option value="'+data+'">United States</option>': regionListHtml + '<option value="'+data+'">'+data+'</option>';
+			});
 
-		regionArray.forEach(function(data,index){
-			regionListHtml = regionListHtml + '<option value="'+data+'">'+data+'</option>';
-		});
+			$('#countries').html(regionListHtml);
 
-		$('#countries').html(regionListHtml);
+			var country, state, county;
 
-		$('#countries').on('change',function(){
-			var country = $(this).val().toLowerCase().replace(/ /g,'');
-			if ( regions[country] ){
-				var stateArray = _.sortBy(_.uniq(_.map(regions[country].list,'state'))), stateListHtml = '<option></option>';
-				stateArray.forEach(function(data,index){
-					stateListHtml = stateListHtml + '<option value="'+data+'">'+data+'</option>';
-				});
-				$('#state').prop('required',true).html(stateListHtml).closest('.form-group').removeClass('hidden')
-			} else {
-				$('#state').removeProp('required').empty().closest('.form-group').addClass('hidden');
-			}
-		});
+			$('#countries').on('change',function(){
+				country = $(this).val();
 
-		$('.exact-toggle input[type="number"]').on('change',function(){
-			var $parent = $(this).closest('.exact-toggle');
-			if ( $(this).val() && $(this).val() > 0 ){
-				$parent.find('input[type="radio"]').prop({
-					'required': false,
-					'selected': false
-				})
-				.closest('label').removeClass('active');
-			} else {
-				$parent.find('input[type="radio"]').prop('required',true);
-			}
-		});
+				// Show user the units they'll be familiar with
+				if ( country === "US" ){
+					$('#spaceExact').prop('placeholder',"Square feet");
+				} else {
+					$('#spaceExact').prop('placeholder',"Square meters")
+				}
+
+				// If there are states for this country/region, show them
+				var stateArray  = _.sortBy(_.map(_.filter(regions,{ "Country_Region": country, "Admin2" : "" }),'Province_State'));
+				if ( stateArray && stateArray.length > 1 ){
+					var stateListHtml = '<option></option>';
+					stateArray.forEach(function(data,index){
+						stateListHtml = stateListHtml + '<option value="'+data+'">'+data+'</option>';
+					});
+					$('#state').html(stateListHtml).closest('.form-group').removeClass('hidden');
+				} else {
+					$('#state').empty().closest('.form-group').addClass('hidden');
+				}
+
+				// We can't know county yet, so
+				$('#county').empty().closest('.form-group').addClass('hidden');
+
+			});
+
+			$('#state').on('change',function(){
+				state = $(this).val();
+
+				var countyArray  = _.sortBy(_.map(_.filter(regions,{ "Country_Region": country, "Province_State" : state }),'Admin2'));
+				if ( countyArray && countyArray.length > 1 ){
+					var countyListHtml = '<option></option>';
+					countyArray.forEach(function(data,index){
+						countyListHtml = countyListHtml + '<option value="'+data+'">'+data+'</option>';
+					});
+					$('#county').html(countyListHtml).closest('.form-group').removeClass('hidden')
+				} else {
+					$('#county').empty().closest('.form-group').addClass('hidden');
+				}
+			});
+
+			$('#county').on('change',function(){
+
+			});
+
+		},
+		download: true,
+		header: true
+	});
+
+	// Retrieve latest data
+	getRegionalData(moment());
+
+	// Toggles between exact and estimated values
+	$('.exact-toggle input[type="number"]').on('change',function(){
+		var $parent = $(this).closest('.exact-toggle');
+		if ( $(this).val() && $(this).val() > 0 ){
+			$parent.find('input[type="radio"]').prop({
+				'required': false,
+				'selected': false
+			})
+			.closest('label').removeClass('active');
+		} else {
+			$parent.find('input[type="radio"]').prop('required',true);
+		}
+	});
+
+	// Undo validation displays when values change
+	$('#covidCalculator :input').on('change.validation',function(){
+		$('#covidCalculator').removeClass('was-validated');
+	})
 
 	/* Calculate */
 
-		var cutoffScore = 1180;
+		var cutoffScore = 0.03333333333;
 
 		$('#covidCalculator').on('submit',function(e){
 			e.preventDefault();
@@ -52,7 +102,8 @@ $(document).ready(function(){
 
 			// Remove prior validation
 			$('#result,#result .answer > span,#result .answer .nudge').addClass('hidden');
-			$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden')
+			$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden');
+			$('#result .answer .no, #result .answer .yes').addClass('hidden');
 
 			// If invalid, show errors and stop processing
 	    if ($form[0].checkValidity() === false) {
@@ -76,7 +127,9 @@ $(document).ready(function(){
 
 					// Show answer-dependent advice
 					for (const [key, value] of Object.entries(answers)) {
-						if ( value && value > 0 || ( key === "alcohol" && value > 1 ) ){
+						var oneKeys = ['publicTransport','restrooms','alcohol','location'];
+						var valShow = oneKeys.indexOf(key) !== -1 ? 1 : 0;
+						if ( value && value > valShow ){
 							$('#result .' + key).removeClass('hidden');
 						}
 					}
@@ -108,65 +161,39 @@ $(document).ready(function(){
 
 	$('[data-toggle="tooltip"]').tooltip();
 
+	$('#theFormula').html('<pre><code>'+theAlgorithm+'</code></pre>');
+
 }); // document ready
+
+function getRegionalData(date2){
+	
+	var date1    = date2.subtract(1,'day');
+	var filename = 'regionalData/' + date1.format('MM-DD-YYYY') + '.csv';
+
+	Papa.parse(filename, {
+		complete: function(results) {
+			regionalData = results.data;
+		},
+		download: true,
+		header: true,
+		error: function(error){
+			getRegionalData(date1); // Try the day before, then
+		}
+	});
+
+}
 
 function finalize(answers){
 
-	// Regional Risk defaults to country level
-	var country = answers.country.toLowerCase().replace(/ /g,'');
-	var countryData = _.find(regionalData.world.list,{'country': answers.country });
+	// "Incidence Rate" is complicated
+	answers.currentIR = incidenceRate(answers);
 
-	// If there is no Incidence Rate for a country, create a mean Incidence Rate from all countries that do have an Incidence Rate specified
-	answers.incidenceRate = countryData['Incidence_Rate'] ? parseFloat(countryData['Incidence_Rate']) : _.mean(_.map(regionalData.world.list,function(o){ if ( o.Incidence_Rate ) return parseFloat(o.Incidence_Rate); }));
-
-	// If there is state data, use it
-	if ( answers.state ){
-		var stateData = _.find(regionalData[country].list,{'state': answers.state });
-		answers.incidenceRate = stateData['Incidence_Rate'] ? parseFloat(stateData['Incidence_Rate']) : answers.incidenceRate; // Falls back to country
-	} 
+	// Duration by unit
+	answers.duration = answers.timeunits ? parseFloat(answers.duration)*parseFloat(answers.timeunits) : parseFloat(answers.duration);
 
 	// Values with the option to input an exact value
-	if ( answers.spaceExact && answers.spaceExact.length > 0 )    { answers.space = answers.spaceExact }
-	if ( answers.peopleExact && answers.peopleExact.length > 0 )   { answers.people = answers.peopleExact }
-	if ( answers.durationExact && answers.durationExact.length > 0 ) { answers.duration = answers.durationExact }
-
-	if ( answers.publicTransport === 1 ) {
-		answers.publicTransport = theAlgorithm({
-
-			// Our assumptions about PT...
-			location: 1.87,      // Indoors
-			space: 300,          // Average square feet of a city bus or train car according to https://www.codot.gov/programs/commuterchoices/documents/trandir_transit.pdf)
-			masks: 0.9,          // Most are wearing masks
-			duration: 60,        // Length of trip is an optimistic 30 minutes each way, considering the average commute is 45 minutes one-way, according to https://www.governing.com/gov-data/transportation-infrastructure/commute-time-averages-drive-public-transportation-bus-rail-by-metro-area.html
-			people: 25,			     // Roughly 25-33% capcity, according to [citation needed]
-			publicTransport: 0,  // This is public transportation already, so don't add more
-			restrooms: 0,				 // Assume no bathroom stops as part of transit
-			alcohol: 1,					 // Assume this is not a party ride
-			
-			// Context-dependent variables
-			incidenceRate: answers.incidenceRate
-
-		});
-	}
-	
-	if ( answers.restrooms === 1 ) { 
-		answers.restrooms = theAlgorithm({
-			
-			// Our assumptions about restrooms...
-			location: 1.87,			// Indoors
-			space: 200,					// Average square feet of public restroom [citation needed]
-			duration: 5,				// Average length of bathroom visit [citation needed]
-			people: 2,					// Average occupancy of public restroom at any given moment [citation needed]
-			publicTransport: 0, // Assume we don't have to take additional transit in order to arrive at bathroom
-			restrooms: 0,				// This is bathroom already, so don't add more
-			alcohol: 1,					// Assume this is not a party bathroom
-
-			// Context-dependent variables
-			incidenceRate: answers.incidenceRate,
-			masks: answers.masks
-
-		});
-	}
+	if ( answers.spaceExact && answers.spaceExact > 0 )       { answers.space    = answers.country === "US" ? answers.spaceExact : answers.spaceExact/3.281 } // Use this occasion to convert from metric, if applicable
+	if ( answers.peopleExact && answers.peopleExact > 0 )     { answers.people   = answers.peopleExact }
 
 	answers.score  = theAlgorithm(answers);
 
@@ -174,6 +201,112 @@ function finalize(answers){
 	console.table(answers);
 
 	return answers;
+
+}
+
+function incidenceRate(answers){
+
+	var curWeek = moment().week();
+
+	var entry = {};
+
+	// Gather at least country-level data
+	var countryAlone = _.find(regionalData,{ "Country_Region": answers.country, "Province_State" : "", "Admin2" : "" });
+	var countryAll   = _.filter(regionalData,{ "Country_Region": answers.country });
+
+	var countryConfirmed  = countryAlone && countryAlone.Confirmed && _.isNumber(parseFloat(countryAlone.Confirmed)) ? Math.abs(parseFloat(countryAlone.Confirmed)) : regionalAggregate(countryAll,'Confirmed');
+	var countryActive     = countryAlone && countryAlone.Active && _.isNumber(parseFloat(countryAlone.Active)) ? Math.abs(parseFloat(countryAlone.Active)) : regionalAggregate(countryAll,'Active');
+	var countryRecovered  = countryAlone && countryAlone.Recovered && _.isNumber(parseFloat(countryAlone.Recovered)) ? Math.abs(parseFloat(countryAlone.Recovered)) : regionalAggregate(countryAll,'Recovered');
+	var countryPopulation = parseFloat(_.find(regions,{ "Country_Region": answers.country, "Province_State" : "", "Admin2" : "" }).Population);
+	var countryIR;
+
+	if ( countryRecovered/countryConfirmed > .3 ){
+		countryIR = countryActive/countryPopulation;
+	} else {
+		countryIR = (countryConfirmed/curWeek)/countryPopulation;
+	}
+
+	entry.country = countryIR;
+
+	// But also state, if we have it
+	if ( answers.state ){ 
+
+		var stateAlone = _.find(regionalData,{ "Country_Region": answers.country, "Province_State" : answers.state, "Admin2" : "" });
+		var stateAll   = _.filter(regionalData,{ "Country_Region": answers.country, "Province_State" : answers.state });
+
+		var stateConfirmed  = stateAlone && stateAlone.Confirmed && _.isNumber(parseFloat(stateAlone.Confirmed)) ? Math.abs(parseFloat(stateAlone.Confirmed)) : regionalAggregate(stateAll,'Confirmed');
+		var stateActive     = stateAlone && stateAlone.Active && _.isNumber(parseFloat(stateAlone.Active)) ? Math.abs(parseFloat(stateAlone.Active)) : regionalAggregate(stateAll,'Active');
+		var stateRecovered  = stateAlone && stateAlone.Recovered && _.isNumber(parseFloat(stateAlone.Recovered)) ? Math.abs(parseFloat(stateAlone.Recovered)) : regionalAggregate(stateAll,'Recovered');
+		var statePopulation = parseFloat(_.find(regions,{ "Country_Region": answers.country, "Province_State" : answers.state, "Admin2" : "" }).Population);
+		var stateIR;
+
+		if ( stateRecovered/stateConfirmed > .3 ){
+			stateIR = stateActive/statePopulation;
+		} else {
+			stateIR = (stateConfirmed/curWeek)/statePopulation;
+		}
+
+		entry.state = stateIR;
+
+	}
+
+	// County-level is ideal
+	if ( answers.county ){ 
+		var countyAlone      = _.find(regionalData,{ "Country_Region": answers.country, "Province_State" : answers.state, "Admin2" : answers.county });
+		if ( countyAlone ){
+			var countyConfirmed  = Math.abs(parseFloat(countyAlone.Confirmed));
+			var countyActive     = Math.abs(parseFloat(countyAlone.Active));
+			var countyRecovered  = Math.abs(parseFloat(countyAlone.Recovered));
+			var countyPopulation = parseFloat(_.find(regions,{ "Country_Region": answers.country, "Province_State" : answers.state, "Admin2" : answers.county }).Population);
+			
+			if ( countyAlone && countyPopulation ){
+				var countyIR;
+
+				if ( parseFloat(countyRecovered)/parseFloat(countyConfirmed) > .3 ){
+					countyIR = parseFloat(countyActive)/countyPopulation;
+				} else {
+					countyIR = (parseFloat(countyConfirmed)/curWeek)/countyPopulation;
+				}
+
+				entry.county = countyIR;
+			}
+		}
+	}
+
+	// Then prioritize by specificity, with country as the default since it is a required field in the UI
+	if ( entry.county ){
+		return entry.county;
+	} else if ( entry.state ){
+		return entry.state;
+	} else {
+		return entry.country;
+	}
+}
+
+function regionalAggregate(all,key){
+	var entries = _.reject(all,[key,'']);
+	_.forEach(entries,function(o){
+		o[key] = Math.abs(parseFloat(o[key]));
+	});
+
+	return _.sumBy(entries,key);
+}
+
+function tip(id){
+	$('#stripeError').addClass('hidden');
+	var stripe = Stripe('pk_live_TSrb3B6aJLHDffTFBDh5JD3a');
+	stripe
+	.redirectToCheckout({
+    lineItems: [{price: id, quantity: 1}],
+    mode: 'payment',
+	  successUrl: 'https://covidcalculator.xyz/thanks',
+	  cancelUrl: 'https://covidcalculator.xyz/cancel'
+	})
+	.then(function (result) {
+    if (result.error) {
+      $('#stripeError').removeClass('hidden');
+    }
+  });
 
 }
 
@@ -192,266 +325,14 @@ function objectifyForm(formArray) {
 }
 
 function theAlgorithm(answers){
-	answers.distancing = Math.sqrt(answers.space/answers.people);
-	return ( ( answers.incidenceRate * answers.location * answers.masks * answers.duration * answers.alcohol ) / answers.distancing ) + answers.publicTransport + answers.restrooms;
+ answers.regionalRisk = 1 + (answers.currentIR*1000);
+ answers.distance     = Math.sqrt(answers.space/answers.people);
+ answers.distancing   = 100/Math.pow(answers.distance,2);
+ answers.exposure     = 0.004*answers.duration + 1.04;
+ return answers.regionalRisk * answers.location * answers.masks * answers.exposure * answers.distancing * answers.publicTransport * answers.restrooms * answers.alcohol;
 }
 
 var metrics = [
-	{
-		name: "country",
-		options: [
-			{
-				label: "United States",
-				value: "United States"
-			}
-		]
-	},
-	{
-		name: "state",
-		options: [
-      {
-        label: "South Carolina",
-        value: "South Carolina"
-      },
-      {
-        label: "Louisiana",
-        value: "Louisiana"
-      },
-      {
-        label: "Virginia",
-        value: "Virginia"
-      },
-      {
-        label: "Idaho",
-        value: "Idaho"
-      },
-      {
-        label: "Iowa",
-        value: "Iowa"
-      },
-      {
-        label: "Kentucky",
-        value: "Kentucky"
-      },
-      {
-        label: "Missouri",
-        value: "Missouri"
-      },
-      {
-        label: "Oklahoma",
-        value: "Oklahoma"
-      },
-      {
-        label: "Colorado",
-        value: "Colorado"
-      },
-      {
-        label: "Illinois",
-        value: "Illinois"
-      },
-      {
-        label: "Indiana",
-        value: "Indiana"
-      },
-      {
-        label: "Mississippi",
-        value: "Mississippi"
-      },
-      {
-        label: "Nebraska",
-        value: "Nebraska"
-      },
-      {
-        label: "North Dakota",
-        value: "North Dakota"
-      },
-      {
-        label: "Ohio",
-        value: "Ohio"
-      },
-      {
-        label: "Pennsylvania",
-        value: "Pennsylvania"
-      },
-      {
-        label: "Washington",
-        value: "Washington"
-      },
-      {
-        label: "Wisconsin",
-        value: "Wisconsin"
-      },
-      {
-        label: "Vermont",
-        value: "Vermont"
-      },
-      {
-        label: "Puerto Rico",
-        value: "Puerto Rico"
-      },
-      {
-        label: "Minnesota",
-        value: "Minnesota"
-      },
-      {
-        label: "Florida",
-        value: "Florida"
-      },
-      {
-        label: "North Carolina",
-        value: "North Carolina"
-      },
-      {
-        label: "California",
-        value: "California"
-      },
-      {
-        label: "New York",
-        value: "New York"
-      },
-      {
-        label: "Wyoming",
-        value: "Wyoming"
-      },
-      {
-        label: "Michigan",
-        value: "Michigan"
-      },
-      {
-        label: "Alaska",
-        value: "Alaska"
-      },
-      {
-        label: "Maryland",
-        value: "Maryland"
-      },
-      {
-        label: "Kansas",
-        value: "Kansas"
-      },
-      {
-        label: "Tennessee",
-        value: "Tennessee"
-      },
-      {
-        label: "Texas",
-        value: "Texas"
-      },
-      {
-        label: "Maine",
-        value: "Maine"
-      },
-      {
-        label: "Arizona",
-        value: "Arizona"
-      },
-      {
-        label: "Georgia",
-        value: "Georgia"
-      },
-      {
-        label: "Arkansas",
-        value: "Arkansas"
-      },
-      {
-        label: "New Jersey",
-        value: "New Jersey"
-      },
-      {
-        label: "South Dakota",
-        value: "South Dakota"
-      },
-      {
-        label: "Alabama",
-        value: "Alabama"
-      },
-      {
-        label: "Oregon",
-        value: "Oregon"
-      },
-      {
-        label: "West Virginia",
-        value: "West Virginia"
-      },
-      {
-        label: "Massachusetts",
-        value: "Massachusetts"
-      },
-      {
-        label: "Utah",
-        value: "Utah"
-      },
-      {
-        label: "Montana",
-        value: "Montana"
-      },
-      {
-        label: "New Hampshire",
-        value: "New Hampshire"
-      },
-      {
-        label: "New Mexico",
-        value: "New Mexico"
-      },
-      {
-        label: "Rhode Island",
-        value: "Rhode Island"
-      },
-      {
-        label: "Nevada",
-        value: "Nevada"
-      },
-      {
-        label: "District of Columbia",
-        value: "District of Columbia"
-      },
-      {
-        label: "Connecticut",
-        value: "Connecticut"
-      },
-      {
-        label: "Hawaii",
-        value: "Hawaii"
-      },
-      {
-        label: "Delaware",
-        value: "Delaware"
-      },
-      {
-        label: "Guam",
-        value: "Guam"
-      },
-      {
-        label: "Northern Mariana Islands",
-        value: "Northern Mariana Islands"
-      },
-      {
-        label: "Virgin Islands",
-        value: "Virgin Islands"
-      },
-      {
-        label: "United States Virgin Islands",
-        value: "United States Virgin Islands"
-      },
-      {
-
-        label: "Veteran Affairs",
-        value: "Veteran Affairs"
-      },
-      {
-        label: "U.S. Military",
-        value: "U.S. Military"
-      },
-      {
-        label: "Federal Prisons",
-        value: "Federal Prisons"
-      },
-      {
-        label: "Navajo Nation",
-        value: "Navajo Nation"
-      }
-    ]
-	},
 	{
 		name: "location",
 		options: [
@@ -494,16 +375,32 @@ var metrics = [
 				value: 2
 			},
 			{
-				label: "3-10",
+				label: "3",
+				value: 3
+			},
+			{
+				label: "4",
+				value: 4
+			},
+			{
+				label: "5",
+				value: 5
+			},
+			{
+				label: "10",
 				value: 10
 			},
 			{
-				label: "11-99",
-				value: 100
+				label: "30",
+				value: 30
 			},
 			{
-				label: "100+",
-				value: 1000
+				label: "75",
+				value: 75
+			},
+			{
+				label: "500",
+				value: 500
 			}
 		]
 	},
@@ -532,20 +429,32 @@ var metrics = [
 		name: "duration",
 		options: [
 			{
-				label: "< 1",
+				label: "15 minutes",
+				value: 15
+			},
+			{
+				label: "1 hour",
 				value: 60
 			},
 			{
-				label: "1-2",
+				label: "2 hours",
 				value: 120
 			},
 			{
-				label: "3-4",
+				label: "3 hours",
+				value: 180
+			},
+			{
+				label: "4 hours",
 				value: 240
 			},
 			{
-				label: "5+",
-				value: 360
+				label: "5 hours",
+				value: 300
+			},
+			{
+				label: "8 hours",
+				value: 480
 			}
 		]
 	},
@@ -554,11 +463,11 @@ var metrics = [
 		options: [
 			{
 				label: "Yes",
-				value: 1
+				value: 1.2
 			},
 			{
 				label: "No",
-				value: 0
+				value: 1
 			}
 		]
 	},
@@ -567,11 +476,11 @@ var metrics = [
 		options: [
 			{
 				label: "Yes",
-				value: 1
+				value: 1.1
 			},
 			{
 				label: "No",
-				value: 0
+				value: 1
 			}
 		]
 	},
@@ -580,7 +489,7 @@ var metrics = [
 		options: [
 			{
 				label: "Yes",
-				value: 1.25
+				value: 1.3
 			},
 			{
 				label: "No",
@@ -612,6 +521,15 @@ function randomScenario(){
 
 	var scenario = {};
 
+	// Random Location
+	var randnum = getRandomInt(0,regions.length-1);
+	var randloc = regions[randnum];
+	scenario.country = randloc.Country_Region;
+	if ( randloc.Province_State !== "" ){ scenario.state = randloc.Province_State; }
+	if ( randloc.Admin2 !== "" ){ scenario.county = randloc.Admin2; }
+	scenario.description = "Location: " + randloc.Combined_Key + "; ";
+
+	// Random Attributes
 	metrics.forEach(function(data,index){
 
 		// Pick a random answer
@@ -620,7 +538,7 @@ function randomScenario(){
 
 		// Add a description for easy eyeball
 		var metricText = data.name + ": " + data.options[which].label + "; ";
-		scenario.description = scenario.description ? scenario.description + metricText : metricText;
+		scenario.description = scenario.description + metricText;
 
 	});
 

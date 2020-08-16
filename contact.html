@@ -41,16 +41,37 @@
 			  </div>
 			</nav>
 
-			<h2 class="mt-4"></h2>
+			<h2 class="my-5">Contact Us</h2>
 
-			<p>So far, this is pretty much just the work of me, <a href="https://skybondsor.com/" target="_blank">Jordyn Bonds</a>. You can reach me on the following platforms:</p>
+			<div class="row">
 
-			<ul>
-				<li><a href="https://twitter.com/skybondsor" target="_blank">Twitter</a></li>
-				<li><a href="https://www.linkedin.com/in/skybondsor/" target="_blank">LinkedIn</a></li>
-				<li><a href="https://www.github.com/skybondsor/" target="_blank">Github</a></li>
-				<li><a href="https://www.skybondsor.com/contact" target="_blank">This contact form</a></li>
-			</ul>
+				<div class="col-12 col-sm-6">
+
+					<h5>TallyLab</h5>
+
+					<ul>
+						<li><a href="mailto:info@tallylab.com">Email</a></li>
+						<li><a href="https://twitter.com/tallylabapp" target="_blank">Twitter</a></li>
+						<li><a href="https://www.linkedin.com/company/tallylab/" target="_blank">LinkedIn</a></li>
+						<li><a href="https://www.github.com/tallylab/" target="_blank">Github</a></li>
+					</ul>
+
+				</div>
+
+				<div class="col-12 col-sm-6">
+
+					<h5>Jordyn</h5>
+
+					<ul>
+						<li><a href="https://twitter.com/skybondsor" target="_blank">Twitter</a></li>
+						<li><a href="https://www.linkedin.com/in/skybondsor/" target="_blank">LinkedIn</a></li>
+						<li><a href="https://www.github.com/skybondsor/" target="_blank">Github</a></li>
+						<li><a href="https://www.skybondsor.com/contact" target="_blank">This contact form</a></li>
+					</ul>
+
+				</div>
+
+			</div>
 
 		</div><!-- .container -->
 
@@ -58,35 +79,61 @@
 
 			<div class="container">
 
-				<div class="site">
-					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
-					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tip row">
+					<div class="col-12">
+						<p>
+							<strong>Support our work</strong>
+							<a class="btn btn-sm btn-danger" href="#" onclick="tip('price_1HGm2hFiF0bSSC08VafHjPIO');return false;">Tip $1</a> 
+							<a class="btn btn-sm btn-info" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ewbTq45M');return false;">Tip $5</a> 
+							<a class="btn btn-sm btn-success" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ZAX8OHae');return false;">Tip $10</a>
+							<a class="btn btn-sm btn-warning" href="contact.html">Contact Us</a>
+						</p>
+						<p id="stripeError" class="alert alert-danger hidden">There was an error sending you to checkout. Please try again.</p>
+					</div>
 				</div>
 
-				<div class="tallylab">
+				<div class="sitemap row">
+					<div class="col-12">
+						<p>
+							<strong>Sitemap</strong>
+							<a class="text-warning" href="index.html">Home</a> | <a class="text-warning" href="faq.html">FAQ</a> | <a class="text-warning" href="formula.html">Formula</a> | <a class="text-warning" href="about.html">About</a> | <a class="text-warning" href="contact.html">Contact</a></p>
+					</div>
+				</div>
 
-					<a class="logo" href="https://tallylab.com/" target="_blank">
-						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-					</a>
+				<div class="privacy row">
+					<div class="col-12">
+						<p>
+							<strong>Privacy</strong>
+							<em>This tool will not save any of your answers and it does not track you in any way.</em></p>
+					</div>
+				</div>
 
-					<p>
-						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-					</p>
-
+				<div class="tallylab row align-items-center">
+					<div class="col-9">
+						<p>
+							<strong>A <a class="text-warning" href="https://tallylab.com" target="_blank">TallyLab</a> Project</strong>
+							Helping people collect, protect, and find answers in their data.
+						</p>
+					</div>
+					<div class="col-3">
+						<a class="logo" href="https://tallylab.com/" target="_blank">
+							<img src="img/tallylab.png" alt="TallyLab">
+						</a>
+					</div>
 				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-		<script type="text/javascript" src="js/regional-risk-template.js?20200713142229"></script>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script type="text/javascript" src="js/moment.js?20200713142229"></script>
     <script type="text/javascript" src="js/lodash.js?20200713142229"></script>
     <script type="text/javascript" src="js/papaparse.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
     <script type="text/javascript" src="js/cc.js?20200713142229"></script>
-
 
 	</body>
 </html>

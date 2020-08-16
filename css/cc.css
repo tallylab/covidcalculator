@@ -1,10 +1,10 @@
-body { margin: 3rem 0; font-size: 115%; line-height: 175%; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
+body { margin: 3rem 0 0 0; font-size: 115%; line-height: 175%; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
 p { margin-top: 2rem; }
 hr, h4 + .form-group  { margin: 4rem 0; }
 	.form-group + .form-group { margin: -2rem 0 4rem 0; }
 
 .alert a { color: inherit; text-decoration: underline; }
-	.alert a:hover { font-weight: bold; }
+	.alert a:hover { opacity: .8; }
 
 .container { max-width: 728px; }
 .navbar { padding: 0; }
@@ -17,6 +17,8 @@ hr, h4 + .form-group  { margin: 4rem 0; }
 	.feature-inset > * { display: inline-block; width: calc(100% - 2rem); max-width: 640px; }
 	.feature-inset img { width: 100%; box-shadow: 2px 2px 2px #ccc; }
 	.feature-inset .btn-xl { font-size: 2rem; }
+
+.exact-toggle > div:first-child { padding-bottom: 2rem; }
 
 .btn-group.btn-group-toggle .btn + .btn { margin-left: 0; border-left: 2px solid #ccc; }
 .btn-group-vertical.btn-group-toggle .btn + .btn { margin-top: 0; border-top: 2px solid #ccc; }
@@ -47,13 +49,15 @@ hr, h4 + .form-group  { margin: 4rem 0; }
 
 #canRiskLevel .btn-light { border-color: #fff; border-width: 0px; }
 
-#footer { margin-top: 5rem; padding: 1rem 0; font-size: 95%; background: #333; color: #fff; }
-	#footer a.link { color: orange; }
+#footer { margin-top: 5rem; margin-bottom: 2rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
+	#footer p { margin-bottom: 2rem; line-height: 130%; }
+	#footer strong { display: block; margin-bottom: .5rem; }
+	#footer .btn-sm { width: 23%; }
 
-#footer .tallylab { margin-top: 3rem; }
-	#footer .tallylab .logo { float: left; margin-right: 15px; padding: 15px; border-radius: 50%; overflow: hidden; background: white; text-align: center; }
-		#footer .tallylab .logo img { width: 100px; }
-	#footer .tallylab p { margin: 0; padding: 35px 0; margin-bottom: -45px; height: 100px; vertical-align: baseline; }
+#footer .tallylab { margin-bottom: -3.5rem; }
+
+#footer .logo { display: block; width: 100%; padding: 10%; border-radius: 50%; overflow: hidden; background: white; text-align: center; }
+	#footer .logo img { width: 100%; }
 
 table th { padding-top: 2rem; }
 

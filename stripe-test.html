@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<style>
+			.alert-danger { color: red; }
+			.hidden { display: none; }
+		</style>
+	</head>
+	<body>
+		<!-- Load Stripe.js on your website. -->
+		<script src="https://js.stripe.com/v3"></script>
+
+		<a class="btn btn-sm btn-danger" href="#" onclick="tip('price_1HGm2hFiF0bSSC08VafHjPIO');return false;">Tip $1</a> 
+		<a class="btn btn-sm btn-info" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ewbTq45M');return false;">Tip $5</a> 
+		<a class="btn btn-sm btn-success" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ZAX8OHae');return false;">Tip $10</a>
+
+		<p id="stripeError" class="alert alert-danger hidden">There was an error sending you to checkout. Please try again.</p>
+
+		<script>
+		  function tip(id){
+		  	var stripe = Stripe('pk_live_TSrb3B6aJLHDffTFBDh5JD3a');
+		    var errorMsg = document.getElementById('stripeError');
+		    errorMsg.classList.add("hidden");
+		    stripe.redirectToCheckout({
+		      lineItems: [{price: id, quantity: 1}],
+		      mode: 'payment',
+		      // Do not rely on the redirect to the successUrl for fulfilling
+		      // purchases, customers may not always reach the success_url after
+		      // a successful payment.
+		      // Instead use one of the strategies described in
+		      // https://stripe.com/docs/payments/checkout/fulfillment
+		      successUrl: 'https://covidcalculator.xyz/success',
+		      cancelUrl: 'https://covidcalculator.xyz/canceled',
+		    })
+		    .then(function (result) {
+		      if (result.error) {
+		        errorMsg.classList.remove("hidden");
+		      }
+		    });		  	
+		  }
+		</script>
+	</body>
+</html>
