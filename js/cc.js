@@ -125,13 +125,26 @@ $(document).ready(function(){
 
 				/* Update UI */
 
+					var msgMin = {
+						location: 1,
+						duration: 5,
+						masks: .4,
+						people: 2,
+						publicTransport: 1,
+						restrooms: 1,
+						alcohol: 1
+					}
+
 					// Show answer-dependent advice
 					for (const [key, value] of Object.entries(answers)) {
-						var oneKeys = ['publicTransport','restrooms','alcohol','location'];
-						var valShow = oneKeys.indexOf(key) !== -1 ? 1 : 0;
-						if ( value && value > valShow ){
+						if ( key === "space" && value < 5000000 || value > msgMin[key] ){
 							$('#result .' + key).removeClass('hidden');
+							$('#resultNudges, #result .make-it-safer').removeClass('hidden');
 						}
+					}
+
+					if ( $('#result .nudge.hidden').length === $('#result .nudge').length ){
+						$('#resultNudges, #result .make-it-safer').addClass('hidden');
 					}
 
 					// Yes or no?
