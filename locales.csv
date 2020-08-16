@@ -125,7 +125,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 208,DK,DNK,208,,,,Denmark,56.2639,9.5018,Denmark,5792203
 234,FO,FRO,234,,,Faroe Islands,Denmark,61.8926,-6.9118,"Faroe Islands, Denmark",48865
 304,GL,GRL,304,,,Greenland,Denmark,71.7069,-42.6043,"Greenland, Denmark",56772
-9999,,,,,,,Diamond Princess,,,Diamond Princess,
 262,DJ,DJI,262,,,,Djibouti,11.8251,42.5903,Djibouti,988002
 212,DM,DMA,212,,,,Dominica,15.415,-61.371,Dominica,71991
 214,DO,DOM,214,,,,Dominican Republic,18.7357,-70.1627,Dominican Republic,10847904
@@ -711,9 +710,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 12410,CA,CAN,124,,,Quebec,Canada,52.9399,-73.5491,"Quebec, Canada",8537674
 12411,CA,CAN,124,,,Saskatchewan,Canada,52.9399,-106.4509,"Saskatchewan, Canada",1181666
 12412,CA,CAN,124,,,Yukon,Canada,64.2823,-135,"Yukon, Canada",41078
-12413,CA,CAN,124,,,Diamond Princess,Canada,,,"Diamond Princess, Canada",
-12414,CA,CAN,124,,,Grand Princess,Canada,,,"Grand Princess, Canada",
-12415,CA,CAN,124,,,Recovered,Canada,,,"Recovered, Canada",
 156,CN,CHN,156,,,,China,30.5928,114.3055,China,1404676330
 15601,CN,CHN,156,,,Anhui,China,31.8257,117.2264,"Anhui, China",63240000
 15602,CN,CHN,156,,,Beijing,China,40.1824,116.4142,"Beijing, China",21540000
@@ -883,7 +879,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 84000054,US,USA,840,54,,West Virginia,US,38.4912,-80.9545,"West Virginia, US",1792147
 84000055,US,USA,840,55,,Wisconsin,US,44.2685,-89.6165,"Wisconsin, US",5822434
 84000056,US,USA,840,56,,Wyoming,US,42.756,-107.3025,"Wyoming, US",578759
-84070001,US,USA,840,,,Recovered,US,,,"Recovered, US",
 84070002,US,USA,840,,Dukes and Nantucket,Massachusetts,US,41.40674725,-70.68763497,"Dukes and Nantucket, Massachusetts, US",28731
 84070003,US,USA,840,,Kansas City,Missouri,US,39.0997,-94.5786,"Kansas City, Missouri, US",488943
 84070004,US,USA,840,,Michigan Department of Corrections (MDOC),Michigan,US,,,"Michigan Department of Corrections (MDOC), Michigan, US",
