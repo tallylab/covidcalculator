@@ -1,5 +1,8 @@
 body { margin: 3rem 0 0 0; font-size: 115%; line-height: 175%; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
 p { margin-top: 2rem; }
+
+.form-control.is-valid:not(:required), .was-validated .form-control:valid:not(:required) { border-color: #ced4da; padding-right: .75rem; background-image: none; }
+
 hr, h4 + .form-group  { margin: 4rem 0; }
 	.form-group + .form-group { margin: -2rem 0 4rem 0; }
 

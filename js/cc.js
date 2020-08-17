@@ -73,16 +73,22 @@ $(document).ready(function(){
 	getRegionalData(moment());
 
 	// Toggles between exact and estimated values
-	$('.exact-toggle input[type="number"]').on('change',function(){
-		var $parent = $(this).closest('.exact-toggle');
-		if ( $(this).val() && $(this).val() > 0 ){
-			$parent.find('input[type="radio"]').prop({
-				'required': false,
-				'selected': false
-			})
-			.closest('label').removeClass('active');
-		} else {
-			$parent.find('input[type="radio"]').prop('required',true);
+	$('.exact-toggle input').on('change',function(){
+		var $w = $(this), $t = $w.prop('type'), $p = $w.closest('.exact-toggle');
+		if ( $w.val() && $w.val() > 0 ){
+			$w.prop('required',true);
+
+			$p.find('input').not(this)
+				.prop({
+					'required': false,
+					'selected': false
+				})
+				.closest('label')
+				.removeClass('active');
+
+			if ( $t !== "number" ){
+				$p.find('input[type="number"]').val('');
+			}
 		}
 	});
 
