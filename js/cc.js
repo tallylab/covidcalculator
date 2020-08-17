@@ -1,9 +1,9 @@
-var regions, regionalData;
+var regions, regionalData, cutoffScore;
 
 $(document).ready(function(){
 
 	// Region Selection
-	Papa.parse('locales.csv', {
+	Papa.parse('locales.csv?20200817100026', {
 		complete: function(results) {
 			regions = results.data;
 
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
 	/* Calculate */
 
-		var cutoffScore = 0.03333333333;
+		cutoffScore = 0.10865;
 
 		$('#covidCalculator').on('submit',function(e){
 			e.preventDefault();
@@ -176,6 +176,8 @@ $(document).ready(function(){
 
 	$('#theFormula').html('<pre><code>'+theAlgorithm+'</code></pre>');
 
+	$('#cutoffScore').html(cutoffScore);
+
 }); // document ready
 
 function getRegionalData(date2){
@@ -205,8 +207,8 @@ function finalize(answers){
 	answers.duration = answers.timeUnits ? parseFloat(answers.duration)*parseFloat(answers.timeUnits) : parseFloat(answers.duration);
 
 	// Values with the option to input an exact value
-	if ( answers.spaceExact && answers.spaceExact > 0 )       { answers.space    = answers.country === "US" ? answers.spaceExact : answers.spaceExact/3.281 } // Use this occasion to convert from metric, if applicable
-	if ( answers.peopleExact && answers.peopleExact > 0 )     { answers.people   = answers.peopleExact }
+	if ( answers.spaceExact && answers.spaceExact > 0 )   { answers.space  = answers.country === "US" ? answers.spaceExact : answers.spaceExact/3.281 } // Use this occasion to convert from metric, if applicable
+	if ( answers.peopleExact && answers.peopleExact > 0 ) { answers.people = answers.peopleExact }
 
 	answers.score  = theAlgorithm(answers);
 
@@ -340,7 +342,7 @@ function objectifyForm(formArray) {
 function theAlgorithm(answers){
  answers.regionalRisk = 1 + (answers.currentIR*1000);
  answers.distance     = Math.sqrt(answers.space/answers.people);
- answers.distancing   = 100/Math.pow(answers.distance,2);
+ answers.distancing   = answers.location > 1 ? 100/Math.pow(answers.distance,2) : (20/Math.pow(answers.distance,2))+.5;
  answers.exposure     = 0.004*answers.duration + 1.04;
  return answers.regionalRisk * answers.location * answers.masks * answers.exposure * answers.distancing * answers.publicTransport * answers.restrooms * answers.alcohol;
 }

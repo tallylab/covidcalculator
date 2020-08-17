@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200816190712" />
-    <link rel="stylesheet" href="css/cc.css?20200816190712" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200817100026" />
+    <link rel="stylesheet" href="css/cc.css?20200817100026" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -46,39 +46,51 @@
 			<p>Jump to a section of this page:</p>
 
 			<ul>
-				<li><a href="#approach">Our Approach</a></li>
-				<li><a href="#cutoffScore">Cutoff Score</a></li>
-				<li><a href="#regionalRiskMetric">Regional Risk</a></li>
-				<li><a href="#indoorsOutdoors">Indoors/Outdoors</a></li>
-				<li><a href="#distancing">Distancing</a></li>
-				<li><a href="#masking">Mask Wearing</a></li>
-				<li><a href="#duration">Duration</a></li>
-				<li><a href="#publicTransportation">Public Transportation</a></li>
-				<li><a href="#publicRestrooms">Public/Shared Restrooms</a></li>
-				<li><a href="#alcohol">Alcohol</a></li>
-				<li><a href="#scenarioGenerator">Generate Scenarios</a></li>
+				<li><a href="#approach">Overall Approach</a></li>
+				<li><a href="#cutoff">Cutoff Score</a></li>
+				<li>
+					Metrics:
+					<ul>
+						<li><a href="#regionalRiskMetric">Regional Risk</a></li>
+						<li><a href="#indoorsOutdoors">Indoors/Outdoors</a></li>
+						<li><a href="#distancing">Distancing</a></li>
+						<li><a href="#masking">Mask Wearing</a></li>
+						<li><a href="#duration">Duration</a></li>
+						<li><a href="#publicTransportation">Public Transportation</a></li>
+						<li><a href="#publicRestrooms">Public/Shared Restrooms</a></li>
+						<li><a href="#alcohol">Alcohol</a></li>
+					</ul>
+				</li>
+				<li><a href="#formula">Final Formula</a></li>
+				<li><a href="#scenarioGenerator">Scenario Generator</a></li>
 				<li><a href="#changelog">Changelog</a></li>
 			</ul>
 
 			<hr>
 
-			<h3 id="approach" class="text-center">Our Approach</h3>
+			<h3 id="approach" class="text-center">Overall Approach</h3>
 
 			<p>Humanity's understanding of COVID-19 is constantly evolving and we therefore update the calculator as scientific understanding improves. We've already done so several times, in fact (see Changelog below).</p>
 
 			<p>The dynamics at play in contracting any viral disease are complex. We do not consider the math underlying this calculator to be a nuanced model of COVID-19's communicability. Our aim is to provide an actionable approximation of risk given the knowable factors at play in a specific social situation.</p>
 
-			<p>Each metric in this calculator therefore represents a factor proven to contribute to your risk of contracting COVID-19 in a situation. We weight each metric as described below and then we multiply them. The resulting score can range from nearly zero at the low end (very little risk) to over two thousand at the high end (extreme risk). The median score is roughly <code>0.1</code>.</p>
+			<p>Each metric in this calculator therefore represents a factor proven to contribute to your risk of contracting COVID-19 in a situation. We weight each metric as described below and then we multiply them. The resulting score can range from nearly zero at the low end (very little risk) to over two thousand at the high end (extreme risk). The median score is currently around <code>0.17</code>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h3 id="cutoffScore" class="text-center">Cutoff Score</h3>
+			<h3 id="cutoff" class="text-center">Cutoff Score</h3>
 
-			<p>The current cutoff score is <code>0.03333333333</code>.</p>
+			<p>The current cutoff score is <code id="cutoffScore"></code>. Our methodology for arriving at that score is as follows:</p>
 
-			<p>While appearing to be a tidy third of the median score, we did not pick this cutoff on mathematical or epidemiological grounds, though we wish that were possible. Instead, we generated many lists of random scenarios (you can do the same below), sorted them by score, and then asked ourselves and our advisors where we would "draw the line". More art than science, to be sure! But an art informed by science, and one that yields better results than any other we've tried so far.</p>
+			<p>We keep our eyes and ears out for the latest science. When a new consensus begins to form – e.g. around mask wearing or distancing – we dive into the numbers to see how it might make our formula more accurate.</p>
+
+			<p>Whenever we update the formula in light of the newest science, we don't just test it in the interface – we also <a href="#scenarioGenerator">generate thousands of random scenarios</a>, sort them by score, and then ask ourselves and our advisors two questions: 1) More often than not, are riskier scenarios scoring higher than less risky scenarios? and 2) Where in the list we would draw the line between events we'd attend and ones we woudln't?</p>
+
+			<p>While we we wish it were possible to find the cutoff via pure math or epidemiological principles, it's simply not yet. That said, we have found that the consensus cutoff yields about one-third of scenarios we would say "yes" to, and two-thirds we'd say "no" to.</p>
+
+			<p>More art than science, to be sure! But an art that is deeply informed by science. And we are eager to hear from more specialists on how we could be doing this better, so <a href="contact.html">definitely reach out if you have ideas for us</a>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -118,9 +130,9 @@
 
 			<p>Given the size of the space and the number of attendees, we calculate the maximum <em>possible</em> distancing.</p>
 
-			<p>The effect of distancing on transmission <a href="https://www.medrxiv.org/content/10.1101/2020.03.16.20037291v1.full.pdf" target="_blank">has been shown</a> to follow roughly an inversely exponential path – that is, as distancing shrinks, risk increases exponentially.</p>
+			<p>The effect of distancing on transmission <a href="https://www.medrxiv.org/content/10.1101/2020.03.16.20037291v1.full.pdf" target="_blank">has been shown</a> to follow roughly an inversely exponential path – that is, as distancing shrinks, risk increases exponentially. Also, <a href="https://www.cebm.net/covid-19/what-is-the-evidence-to-support-the-2-metre-social-distancing-rule-to-reduce-covid-19-transmission/" target="_blank">recent evidence suggests 6 feet is not nearly enough, especially indoors</a>.</p>
 
-			<p>Given <a href="https://www.cebm.net/covid-19/what-is-the-evidence-to-support-the-2-metre-social-distancing-rule-to-reduce-covid-19-transmission/" target="_blank">recent evidence that 6 feet is not nearly enough</a>, we pegged a neutral multiplier of <code>1</code> to 10 feet (or roughly 3 meters). Exposure gently slopes off at distances greater than 10 feet, and shoots up exponetionally at distances shorter than 10 feet.</p>
+			<p>We therefore peg a neutral multiplier of <code>1</code> to 10 feet (or roughly 3 meters) for indoor events and 6 feet for outdoor events. Exposure gently slopes off at distances greater than – and shoots up exponetionally at distances shorter than – the neutral distance.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -181,7 +193,7 @@
 
 			<hr>
 
-			<h3 id="formula" class="text-center">Formula</h3>
+			<h3 id="formula" class="text-center">Final Formula</h3>
 
 			<p>As it appears in the JavaScript:</p>
 
@@ -191,11 +203,13 @@
 
 			<hr>
 
-			<h3 id="scenarioGenerator" class="text-center">Generate Scenarios</h3>
+			<h3 id="scenarioGenerator" class="text-center">Scenario Generator</h3>
 
-			<p>We invite the curious to download and analyze a CSV of 1000 random, unique scenarios for analysis:</p>
+			<p>We encourage the curious to download and analyze a CSV of 1000 random, unique scenarios for analysis:</p>
 
 			<p class="text-center"><a id="scenarioGeneratorBtn" class="btn btn-xl btn-light" href="#" onclick="nScenarios(1000);return false;">Generate Scenarios</a></p>
+
+			<p>Each CSV will be different, so definitely make more than one. We find it fascinating!</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -306,13 +320,13 @@
 		</div><!-- #footer -->
 
 		<script src="https://js.stripe.com/v3/"></script>
-		<script type="text/javascript" src="js/moment.js?20200816190712"></script>
-    <script type="text/javascript" src="js/lodash.js?20200816190712"></script>
-    <script type="text/javascript" src="js/papaparse.min.js?20200816190712"></script>
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200816190712"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200816190712"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200816190712"></script>
-    <script type="text/javascript" src="js/cc.js?20200816190712"></script>
+		<script type="text/javascript" src="js/moment.js?20200817100026"></script>
+    <script type="text/javascript" src="js/lodash.js?20200817100026"></script>
+    <script type="text/javascript" src="js/papaparse.min.js?20200817100026"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200817100026"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200817100026"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200817100026"></script>
+    <script type="text/javascript" src="js/cc.js?20200817100026"></script>
 
 	</body>
 </html>
