@@ -3,7 +3,7 @@ var regions, regionalData, cutoffScore;
 $(document).ready(function(){
 
 	// Region Selection
-	Papa.parse('locales.csv?20200817100026', {
+	Papa.parse('locales.csv?20200817163106', {
 		complete: function(results) {
 			regions = results.data;
 
