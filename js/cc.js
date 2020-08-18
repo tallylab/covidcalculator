@@ -75,7 +75,7 @@ $(document).ready(function(){
 	// Toggles between exact and estimated values
 	$('.exact-toggle input').on('change',function(){
 		var $w = $(this), $t = $w.prop('type'), $p = $w.closest('.exact-toggle');
-		if ( $w.val() && $w.val() > 0 ){
+		if ( $w.val() && $w.val().length > 0 ){
 			$w.prop('required',true);
 
 			$p.find('input').not(this)
@@ -94,7 +94,9 @@ $(document).ready(function(){
 
 	// Undo validation displays when values change
 	$('#covidCalculator :input').on('change.validation',function(){
-		$('#covidCalculator').removeClass('was-validated');
+		if ( $('#covidCalculator').hasClass('was-validated') ){
+			validateCalculator();
+		}
 	})
 
 	/* Calculate */
@@ -104,18 +106,11 @@ $(document).ready(function(){
 		$('#covidCalculator').on('submit',function(e){
 			e.preventDefault();
 
-			var $form = $(this);
+			var valid = validateCalculator();
 
-			// Remove prior validation
-			$('#result,#result .answer > span,#result .answer .nudge').addClass('hidden');
-			$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden');
-			$('#result .answer .no, #result .answer .yes').addClass('hidden');
-
-			// If invalid, show errors and stop processing
-	    if ($form[0].checkValidity() === false) {
-	      event.preventDefault();
-	      event.stopPropagation();
-	    } 
+			if ( !valid ) {
+	      e.stopPropagation();
+			}
 
 	    // If valid
 	    else {
@@ -171,9 +166,6 @@ $(document).ready(function(){
 			    }, 1500);
 
 	    }
-	    
-	    // Shows validation indicators in the UI, if applicable
-	    $form.addClass('was-validated');
 
 			return false;
 		});
@@ -185,6 +177,48 @@ $(document).ready(function(){
 	$('#cutoffScore').html(cutoffScore);
 
 }); // document ready
+
+function validateCalculator(){
+
+	valid = true; // Assume the best
+
+	// Remove prior validation
+	$('#covidCalculator').removeClass('was-validated');
+	$('#covidCalculator div').removeClass('wrong-number has-invalid');
+	$('#result,#result .answer > span,#result .answer .nudge').addClass('hidden');
+	$('#result .answer').removeClass('alert-danger alert-primary').addClass('hidden');
+	$('#result .answer .no, #result .answer .yes').addClass('hidden');
+
+  if ($('#covidCalculator')[0].checkValidity() === false) {
+		valid = false;
+
+	  // Radios
+	  $('input[type="radio"]:invalid').each(function(){
+			$w = $(this);
+			if ( $w.closest('.btn-group-toggle').find('label.active').length === 0 ){
+				$w.closest('.form-group').addClass('has-invalid');
+			}
+	  });
+
+	  // Numeric Inputs
+	  $('input[type="number"]:invalid').each(function(){
+			$(this).closest('.form-group').addClass('has-invalid wrong-number');
+	  });
+
+	  // Shows validation indicators in the UI, if applicable
+	  $('#covidCalculator').addClass('was-validated');
+
+	  // Scroll to first error
+	  var $firstError = $(":invalid").not('form').eq(0);
+	  $([document.documentElement, document.body]).animate({
+			scrollTop: $firstError.offset().top-260
+	  }, 1000);
+
+	}
+
+	return valid;
+
+}
 
 function getRegionalData(date2){
 	

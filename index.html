@@ -47,7 +47,7 @@
 
 			<hr >
 
-			<form id="covidCalculator">
+			<form id="covidCalculator" novalidate>
 
 				<h4>1. Where is the event?</h4>
 
@@ -96,7 +96,7 @@
 				<div class="form-group row exact-toggle">
 					<div class="col-12 col-sm-3">
 						<label for="spaceExact">Exact:</label>
-						<input class="form-control" id="spaceExact" name="spaceExact" type="number">
+						<input class="form-control" id="spaceExact" name="spaceExact" type="number" min=1>
 					</div>
 					<div id="spaceApprox" class="col-12 col-sm-9">
 						<label>Or, estimate:</label>
@@ -143,7 +143,7 @@
 
 				<div class="form-group row exact-toggle">
 					<div class="col-6 col-sm-4">
-						<input class="form-control" id="people" name="people" type="number">
+						<input class="form-control" id="people" name="people" type="number" min=1 required>
 					</div>
 				</div>
 
@@ -178,7 +178,7 @@
 
 				<div class="form-group row">
 					<div class="col-4 col-sm-3">
-						<input class="form-control" id="duration" name="duration" type="number" required>
+						<input class="form-control" id="duration" name="duration" type="number" min=1 required>
 					</div>
 					<div class="col-6 col-sm-3">
 						<select id="timeUnits" name="timeUnits" class="custom-select mb-3" required>
@@ -253,12 +253,12 @@
 
 					<span class="no hidden">
 						<strong>Do not go unless you absolutely have to.</strong>
-						<span class="make-it-safer hidden">Make the event safer:</span>
+						<span class="make-it-safer hidden">To make the event safer:</span>
 					</span>
 
 					<span class="yes hidden">
 						<strong>Go to this event if it's important that you be there.</strong>
-						<span class="make-it-safer hidden">Make it even safer:</span>
+						<span class="make-it-safer hidden">To make it even safer:</span>
 					</span>
 
 					<ul id="resultNudges">
