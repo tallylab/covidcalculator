@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200713142229" />
-    <link rel="stylesheet" href="css/cc.css?20200713142229" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200818114840" />
+    <link rel="stylesheet" href="css/cc.css?20200818114840" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -41,372 +41,195 @@
 			  </div>
 			</nav>
 
-			<h2 class="mt-4">Formula Details</h2>
+			<h2 class="mt-4">Formula Explanation</h2>
 
 			<p>Jump to a section of this page:</p>
 
 			<ul>
-				<li><a href="#additiveMetrics">Additive Metrics</a></li>
-				<li><a href="#multiplyingMetrics">Multiplying Metrics</a></li>
-				<li><a href="#formula">Formula</a></li>
-				<li><a href="#cutoffScore">Cutoff Score</a></li>
-				<li><a href="#exampleGo">Example "Go"</a></li>
-				<li><a href="#exampleDontgo">Example "No Go"</a></li>
-				<li><a href="#scenarioGenerator">Generate More Scenarios</a></li>
+				<li><a href="#approach">Overall Approach</a></li>
+				<li><a href="#cutoff">Cutoff Score</a></li>
+				<li>
+					Metrics:
+					<ul>
+						<li><a href="#regionalRiskMetric">Regional Risk</a></li>
+						<li><a href="#indoorsOutdoors">Indoors/Outdoors</a></li>
+						<li><a href="#distancing">Distancing</a></li>
+						<li><a href="#masking">Mask Wearing</a></li>
+						<li><a href="#duration">Duration</a></li>
+						<li><a href="#publicTransportation">Public Transportation</a></li>
+						<li><a href="#publicRestrooms">Public/Shared Restrooms</a></li>
+						<li><a href="#alcohol">Alcohol</a></li>
+					</ul>
+				</li>
+				<li><a href="#formula">Final Formula</a></li>
+				<li><a href="#scenarioGenerator">Scenario Generator</a></li>
 				<li><a href="#changelog">Changelog</a></li>
 			</ul>
 
 			<hr>
 
-			<h3 id="additiveMetrics" class="text-center">Additive Metrics</h3>
+			<h3 id="approach" class="text-center">Overall Approach</h3>
 
-			<table width="100%">
-				<tbody>
-					<tr>
-						<th colspan=2>LOCATION SIZE</th>
-					</tr>
-					<tr>
-						<td>Small</td>
-						<td class="text-right">5</td>
-					</tr>
-					<tr>
-						<td>Medium</td>
-						<td class="text-right">3</td>
-					</tr>
-					<tr>
-						<td>Large</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>Extra Large</td>
-						<td class="text-right">1</td>
-					</tr>
-					<tr>
-						<th colspan=2>GROUP SIZE</th>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td class="text-right">1</td>
-					</tr>
-					<tr>
-						<td>3-10</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>11-49</td>
-						<td class="text-right">3</td>
-					</tr>
-					<tr>
-						<td>50+</td>
-						<td class="text-right">4</td>
-					</tr>
-					<tr>
-						<th colspan=2>HOURS AT EVENT</th>
-					</tr>
-					<tr>
-						<td>< 1</td>
-						<td class="text-right">1</td>
-					</tr>
-					<tr>
-						<td>1-2</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>3-6</td>
-						<td class="text-right">3</td>
-					</tr>
-					<tr>
-						<td>7+</td>
-						<td class="text-right">4</td>
-					</tr>
-					<tr>
-						<th colspan=2>MISCELLANEOUS</th>
-					</tr>
-					<tr>
-						<td>Public Transportation</td>
-						<td class="text-right">3</td>
-					</tr>
-					<tr>
-						<td>Shared/Public Restrooms</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>Alcohol</td>
-						<td class="text-right">2</td>
-					</tr>
-				</tbody>
-			</table>
+			<p>Humanity's understanding of COVID-19 is constantly evolving and we therefore update the calculator as scientific understanding improves. We've already done so several times, in fact (see Changelog below).</p>
+
+			<p>The dynamics at play in contracting any viral disease are complex. We do not consider the math underlying this calculator to be a nuanced model of COVID-19's communicability. Our aim is to provide an actionable approximation of risk given the knowable factors at play in a specific social situation.</p>
+
+			<p>Each metric in this calculator therefore represents a factor proven to contribute to your risk of contracting COVID-19 in a situation. We weight each metric as described below and then we multiply them. The resulting score can range from nearly zero at the low end (very little risk) to over two thousand at the high end (extreme risk). The median score is currently around <code>0.17</code>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h3 id="multiplyingMetrics" class="text-center">Multiplying Metrics</h3>
+			<h3 id="cutoff" class="text-center">Cutoff Score</h3>
 
-			<table width="100%">
-				<tbody>
-					<tr>
-						<th colspan=2>LOCATION TYPE</th>
-					</tr>
-					<tr>
-						<td>Indoors</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>Outdoors</td>
-						<td class="text-right">1</td>
-					</tr>
-					<tr>
-						<th colspan=2>MASK WEARING</th>
-					</tr>
-					<tr>
-						<td>None</td>
-						<td class="text-right">4</td>
-					</tr>
-					<tr>
-						<td>Some</td>
-						<td class="text-right">3</td>
-					</tr>
-					<tr>
-						<td>Most</td>
-						<td class="text-right">2</td>
-					</tr>
-					<tr>
-						<td>All</td>
-						<td class="text-right">1</td>
-					</tr>
-					<tr>
-						<th colspan=2>CovidActNow.org RISK LEVELS</th>
-					</tr>
-					<tr>
-						<td>Low</td>
-						<td class="text-right">0.9</td>
-					</tr>
-					<tr>
-						<td>Medium</td>
-						<td class="text-right">1.2</td>
-					</tr>
-					<tr>
-						<td>High</td>
-						<td class="text-right">1.5</td>
-					</tr>
-					<tr>
-						<td>Critical</td>
-						<td class="text-right">2</td>
-					</tr>
-				</tbody>
-			</table>
+			<p>The current cutoff score is <code id="cutoffScore"></code>. Our methodology for arriving at that score is as follows:</p>
+
+			<p>We keep our eyes and ears out for the latest science. When a new consensus begins to form – e.g. around mask wearing or distancing – we dive into the numbers to see how it might make our formula more accurate.</p>
+
+			<p>Whenever we update the formula in light of the newest science, we don't just test it in the interface – we also <a href="#scenarioGenerator">generate thousands of random scenarios</a>, sort them by score, and then ask ourselves and our advisors two questions: 1) More often than not, are riskier scenarios scoring higher than less risky scenarios? and 2) Where in the list we would draw the line between events we'd attend and ones we woudln't?</p>
+
+			<p>While we we wish it were possible to find the cutoff via pure math or epidemiological principles, it's simply not yet. That said, we have found that the consensus cutoff yields about one-third of scenarios we would say "yes" to, and two-thirds we'd say "no" to.</p>
+
+			<p>More art than science, to be sure! But an art that is deeply informed by science. And we are eager to hear from more specialists on how we could be doing this better, so <a href="contact.html">definitely reach out if you have ideas for us</a>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h3 id="formula" class="text-center">Formula</h3>
+			<h3 id="regionalRiskMetric" class="text-center">Regional Risk</h3>
 
-			<pre class="alert alert-warning text-center"><code>( [additive metric] + [additive metric] ... )
-x
-( [multiplying metric] x [multiplying metric] ...)
-= total score</code></pre>
+			<p>When we first launched the calculator, we used <a href="https://CovidActNow.org" target="_blank">CovidActNow.org</a> to assess risk. Their assessment is a comprehensive blend of important epidemiological factors, but it had two major drawbacks: It was US-only and their risk assessment (low, medium, high, critical) was not available via their API.</p>
 
-			<p><a href="#top">&UpArrow; top</a></p>
+			<p>We therefore spent considerable time looking for an alternative, eventually deciding on the <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">data that powers the 2019 Novel Coronavirus Visual Dashboard operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)</a>. This data is well-researched, reliable, and programmatically available, however it is far less comprehensive (often because regional reporting is lacking, not due to JH's efforts!).</p>
 
-			<hr>
+			<p>We are therefore using a fairly coarse estimate of regional risk based on the data that is consistently available across regions:</p>
 
-			<h3 id="cutoffScore" class="text-center">Cutoff Score</h3>
+			<p>First, we look for the most granular possible region – a county/district within in a state/province within a country. If the user doesn't know their county/district, or if there isn't data available at that level, we move up a level.</p>
 
-			<p class="alert alert-danger text-center"><strong id="cutoffScore">35</strong></p>
+			<p>Then we look for an accurate number of currently active cases. We triangulate whether this number is accurate based on whether the region is also reporting a significant number of recovered cases. If it does, we divide the number of active cases by the population of the region to get a rough sense of the region's current incidence rate.</p>
 
-			<p><a href="#top">&UpArrow; top</a></p>
+			<p>However, if the number of active cases is suspicious because there is no data for recoveries or deaths, we take the entire number of confirmed cases and divide it evenly across the population across time. That is, we get an average number of active cases per three-week period since January 1st, 2020.</p>
 
-			<hr>
+			<p>We are painfully aware of how imperfect this approach is, but we believe it is better than having no time-bound incidence rate at all and it's better than only having data for the US.</p>
 
-			<h3 id="exampleGo" class="text-center">"Go" Example</h3>
-
-			<div class="alert alert-primary">
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th colspan=2>LOCATION SIZE</th>
-						</tr>
-						<tr>
-							<td>Medium</td>
-							<td class="text-right">3</td>
-						</tr>
-						<tr>
-							<th colspan=2>GROUP SIZE</th>
-						</tr>
-						<tr>
-							<td>3-10</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th colspan=2>HOURS AT EVENT</th>
-						</tr>
-						<tr>
-							<td>1-2</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th colspan=2>MISCELLANEOUS</th>
-						</tr>
-						<tr>
-							<td>Shared/Public Restrooms</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th>SUM OF ADDITIVE METRICS</th>
-							<th class="text-right">9</th>
-						</tr>
-					</tbody>
-				</table>
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th colspan=2>LOCATION TYPE</th>
-						</tr>
-						<tr>
-							<td>Outdoors</td>
-							<td class="text-right">1</td>
-						</tr>
-						<tr>
-							<th colspan=2>MASK WEARING</th>
-						</tr>
-						<tr>
-							<td>All</td>
-							<td class="text-right">1</td>
-						</tr>
-						<tr>
-							<th colspan=2>CovidActNow.org RISK LEVEL</th>
-						</tr>
-						<tr>
-							<td>Medium</td>
-							<td class="text-right">1.2</td>
-						</tr>
-						<tr>
-							<th>PRODUCT OF MULTIPLYING METRICS</th>
-							<th class="text-right">1.2</th>
-						</tr>
-					</tbody>
-				</table>
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th>PRODUCT OF ADDITIVE & MULTIPLICATIVE METRICS</th>
-							<th class="text-right">10.8</th>
-						</tr>
-						<tr>
-							<th>EVALUATE AGAINST CUTOFF</th>
-							<th class="text-right">10.8 < 35</th>
-						</tr>
-					</tbody>
-				</table>
-			</div><!-- example 1 -->
+			<p>The resulting score is a rough estimate of the percentage of the population that is currently infected with COVID-19.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h3 id="exampleDontgo" class="text-center">"Don't Go" Example</h3>
+			<h3 id="indoorsOutdoors" class="text-center">Indoors vs. Outdoors</h3>
 
-			<div class="alert alert-danger">
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th colspan=2>LOCATION SIZE</th>
-						</tr>
-						<tr>
-							<td>Small</td>
-							<td class="text-right">5</td>
-						</tr>
-						<tr>
-							<th colspan=2>GROUP SIZE</th>
-						</tr>
-						<tr>
-							<td>3-10</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th colspan=2>HOURS AT EVENT</th>
-						</tr>
-						<tr>
-							<td>1-2</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th colspan=2>MISCELLANEOUS</th>
-						</tr>
-						<tr>
-							<td>Alcohol</td>
-							<td class="text-right">2</td>
-						</tr>
-						<tr>
-							<th>SUM OF ADDITIVE METRICS</th>
-							<th class="text-right">11</th>
-						</tr>
-					</tbody>
-				</table>
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th colspan=2>LOCATION TYPE</th>
-						</tr>
-						<tr>
-							<td>Outdoors</td>
-							<td class="text-right">1</td>
-						</tr>
-						<tr>
-							<th colspan=2>MASK WEARING</th>
-						</tr>
-						<tr>
-							<td>Some</td>
-							<td class="text-right">3</td>
-						</tr>
-						<tr>
-							<th colspan=2>CovidActNow.org RISK LEVEL</th>
-						</tr>
-						<tr>
-							<td>Medium</td>
-							<td class="text-right">1.2</td>
-						</tr>
-						<tr>
-							<th>PRODUCT OF MULTIPLYING METRICS</th>
-							<th class="text-right">3.6</th>
-						</tr>
-					</tbody>
-				</table>
-				<table width="100%">
-					<tbody>
-						<tr>
-							<th>PRODUCT OF ADDITIVE & MULTIPLICATIVE METRICS</th>
-							<th class="text-right">39.6</th>
-						</tr>
-						<tr>
-							<th>EVALUATE AGAINST CUTOFF</th>
-							<th class="text-right">39.6 > 35</th>
-						</tr>
-					</tbody>
-				</table>
-			</div><!-- example 2 -->
+			<p>This one is comparatively easy, since we have <a href="https://doi.org/10.1101/2020.02.28.20029272" target="_blank">some high quality studies giving us numbers</a> for this. Basically, indoor transmission is 18.7 times more likely than outdoors. We therefore score indoor events as <code>1.87</code> and outdoor events as <code>.1</code>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
-			<h3 id="scenarioGenerator" class="text-center">Generate More Scenarios</h3>
+			<h3 id="distancing" class="text-center">Distancing</h3>
 
-			<p>Generate 1000 random scenarios, dedupe them, sort them by score, and download the resulting CSV by clicking below:</p>
+			<p>Given the size of the space and the number of attendees, we calculate the maximum <em>possible</em> distancing.</p>
+
+			<p>The effect of distancing on transmission <a href="https://www.medrxiv.org/content/10.1101/2020.03.16.20037291v1.full.pdf" target="_blank">has been shown</a> to follow roughly an inversely exponential path – that is, as distancing shrinks, risk increases exponentially. Also, <a href="https://www.cebm.net/covid-19/what-is-the-evidence-to-support-the-2-metre-social-distancing-rule-to-reduce-covid-19-transmission/" target="_blank">recent evidence suggests 6 feet is not nearly enough, especially indoors</a>.</p>
+
+			<p>We therefore peg a neutral multiplier of <code>1</code> to 10 feet (or roughly 3 meters) for indoor events and 6 feet for outdoor events. Exposure gently slopes off at distances greater than – and shoots up exponetionally at distances shorter than – the neutral distance.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="masking" class="text-center">Mask Wearing</h3>
+
+			<p>A <a href="https://www.preprints.org/manuscript/202004.0203/v3" target="_blank">recent survey of masking studies</a> created a model for decrease in risk based on the percentage of people in a situation wearing a mask and the effectiveness of the mask's construction.</p>
+
+			<p>Since we can't necessarily know beforehand how effective everyone's masks will be, we opted for a middle-of-the-road 50% effectiveness and then used the study's model based on percentage of wearers:</p>
+
+			<ul>
+				<li>0% mask-wearing has no effect on risk, so the score remains <code>1</code></li>
+				<li>33% mask-wearing decreases risk slightly, for a score of <code>.9</code></li>
+				<li>66% mask-wearing decreases risk more, for a score of <code>.6</code></li>
+				<li>100% mask-wearing decreases risk the most but not entirely, for a score of <code>.4</code></li>
+			</ul>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="duration" class="text-center">Duration</h3>
+
+			<p>We have yet to find some good studies on the exact model for risk as a function of duration, but <a href="https://www.cnn.com/2020/05/18/us/coronavirus-time-risk/index.html" target="_blank">broadly speaking epidemiologists agree</a> that "Everyone has a little bit of risk per minute, and it's a cumulative thing".</p>
+
+			<p>Therefore our approach was to assume a neutral amount of exposure ends at 15 minutes (score = <code>1</code>) and increases gradually and linearly from there. Two hours of exposure gets a score of <code>2</code>.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="publicTransportation" class="text-center">Public Transportation</h3>
+
+			<p><a href="https://www.scientificamerican.com/article/there-is-little-evidence-that-mass-transit-poses-a-risk-of-coronavirus-outbreaks/" target="_blank">There's a tentative consensus emerging that public transportation is not especially risky.</a> For example, studies in France and Japan have shown that none of those countries' COVID-19 clusters so far can be traced to public transit.</p>
+
+			<p>That said, these are enclosed spaces with varying levels of ventilation, mask adherence is variable, as is whether people are talking, etc. We therefore give taking public transportation a score of <code>1.2</code> in our formula – it is an additional risk, but not an overwhelming one.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="publicRestrooms" class="text-center">Public/Shared Restrooms</h3>
+
+			<p>Similar to public transportation, <a href="https://www.health.harvard.edu/blog/how-risky-is-using-a-public-bathroom-during-the-pandemic-2020071420556" target="_blank">public/shared restrooms have not proven to be large risk multipliers for this disease</a>. Also similarly, however, it is an additional enclosed environment with varying levels of ventilation, mask-adherence, etc. We therefore give using public/shared restrooms a score of <code>1.1</code> – a slight additional risk.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="alcohol" class="text-center">Alcohol</h3>
+
+			<p>Consumption of alcohol <a href="https://scholar.google.com/scholar?q=effect+of+alcohol+on+perception+of+risk&hl=en&as_sdt=0&as_vis=1&oi=scholart" target="_blank">lowers perception of risk</a>, which may decrease distancing and mask-wearing. Consuming alcohol also <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2031886/" target="_blank">harms hearing, which increases speech volume</a>, which <a href="https://www.nejm.org/doi/full/10.1056/NEJMc2009324" target="_blank">increases the emission of respiratory droplets</a>.</p>
+
+			<p>For those reasons, we give alcohol consumption a score of <code>1.3</code> – higher than both restrooms and public transportation, but not overwhelming.</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="formula" class="text-center">Final Formula</h3>
+
+			<p>As it appears in the JavaScript:</p>
+
+			<pre id="theFormula" class="alert alert-warning"></pre>
+
+			<p><a href="#top">&UpArrow; top</a></p>
+
+			<hr>
+
+			<h3 id="scenarioGenerator" class="text-center">Scenario Generator</h3>
+
+			<p>We encourage the curious to download and analyze a CSV of 1000 random, unique scenarios for analysis:</p>
 
 			<p class="text-center"><a id="scenarioGeneratorBtn" class="btn btn-xl btn-light" href="#" onclick="nScenarios(1000);return false;">Generate Scenarios</a></p>
+
+			<p>Each CSV will be different, so definitely make more than one. We find it fascinating!</p>
+
+			<p><a href="#top">&UpArrow; top</a></p>
 
 			<hr>
 
 			<h3 id="changelog" class="text-center">Changelog</h3>
 
+			<div class="card mb-3">
+			  <div class="card-body">
+			    <h5 class="card-title">Formula Overhaul</h5>
+			    <h6 class="card-subtitle mb-2 text-muted">8/17/2020 9:45 am ET</h6>
+			    <p class="card-text">In light of requests for global data, new studies released about indoor vs. outdoor risk as well as effect of mask wearing, and feedback on some outlier scenarios, we have completely overhauled how we are scoring situations. The page above explains the new formula.</p>
+			  </div>
+			</div>
+
 			<div class="card">
 			  <div class="card-body">
 			    <h5 class="card-title">New Risk Level Mulipliers</h5>
 			    <h6 class="card-subtitle mb-2 text-muted">7/5/2020 9:45 am ET</h6>
-			    <p class="card-text">In light of feedback about low risk, outdoor, masked events in high-risk areas, I <u>raised the cutoff from 28 to 35</u> and <u>changed the multiplying values for CovidActNow.org Risk Levels</u>:</p><br />
+			    <p class="card-text">In light of feedback about low risk, outdoor, masked events in high-risk areas, we <u>raised the cutoff from 28 to 35</u> and <u>changed the multiplying values for CovidActNow.org Risk Levels</u>:</p><br />
 					<table class="table table-sm">
 						<thead>
 							<tr>
@@ -449,33 +272,61 @@ x
 
 			<div class="container">
 
-				<div class="site">
-					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
-					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tip row">
+					<div class="col-12">
+						<p>
+							<strong>Support our work</strong>
+							<a class="btn btn-sm btn-danger" href="#" onclick="tip('price_1HGm2hFiF0bSSC08VafHjPIO');return false;">Tip $1</a> 
+							<a class="btn btn-sm btn-info" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ewbTq45M');return false;">Tip $5</a> 
+							<a class="btn btn-sm btn-success" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ZAX8OHae');return false;">Tip $10</a>
+							<a class="btn btn-sm btn-warning" href="contact.html">Contact Us</a>
+						</p>
+						<p id="stripeError" class="alert alert-danger hidden">There was an error sending you to checkout. Please try again.</p>
+					</div>
 				</div>
 
-				<div class="tallylab">
+				<div class="sitemap row">
+					<div class="col-12">
+						<p>
+							<strong>Sitemap</strong>
+							<a class="text-warning" href="index.html">Home</a> | <a class="text-warning" href="faq.html">FAQ</a> | <a class="text-warning" href="formula.html">Formula</a> | <a class="text-warning" href="about.html">About</a> | <a class="text-warning" href="contact.html">Contact</a></p>
+					</div>
+				</div>
 
-					<a class="logo" href="https://tallylab.com/" target="_blank">
-						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-					</a>
+				<div class="privacy row">
+					<div class="col-12">
+						<p>
+							<strong>Privacy</strong>
+							<em>This tool will not save any of your answers and it does not track you in any way.</em></p>
+					</div>
+				</div>
 
-					<p>
-						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-					</p>
-
+				<div class="tallylab row align-items-center">
+					<div class="col-9">
+						<p>
+							<strong>A <a class="text-warning" href="https://tallylab.com" target="_blank">TallyLab</a> Project</strong>
+							Helping people collect, protect, and find answers in their data.
+						</p>
+					</div>
+					<div class="col-3">
+						<a class="logo" href="https://tallylab.com/" target="_blank">
+							<img src="img/tallylab.png" alt="TallyLab">
+						</a>
+					</div>
 				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/lodash.js?20200713142229"></script>
-    <script type="text/javascript" src="js/papaparse.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/cc.js?20200713142229"></script>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script type="text/javascript" src="js/moment.js?20200818114840"></script>
+    <script type="text/javascript" src="js/lodash.js?20200818114840"></script>
+    <script type="text/javascript" src="js/papaparse.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/cc.js?20200818114840"></script>
 
 	</body>
 </html>

@@ -15,8 +15,8 @@
     <meta property="og:image"       content="https://covidcalculator.xyz/img/covid-19.jpg" />
 
     <title>COVID-19 Situational Risk Calculator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?20200713142229" />
-    <link rel="stylesheet" href="css/cc.css?20200713142229" />
+    <link rel="stylesheet" href="css/bootstrap.min.css?20200818114840" />
+    <link rel="stylesheet" href="css/cc.css?20200818114840" />
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico">
 	</head>
@@ -41,208 +41,203 @@
 			  </div>
 			</nav>
 
-			<h3 class="mt-4">This tool can help you decide whether to attend an in-person event that includes people you don't live with.</h3>
+			<h2 class="mt-4">This tool can help you decide whether to attend an in-person event that includes people you don't live with.</h2>
 
 			<p class="alert alert-danger"><strong>This is not medical advice</strong>! If you are unclear on your risk, or have a pre-existing condition that makes you especially vulnerable to COVID-19, talk to your doctor.</p>
 
 			<hr >
 
-			<form id="covidCalculator">
+			<form id="covidCalculator" autocomplete="off" novalidate>
 
-				<h2>STEP 1</h2>
+				<h4>1. Where is the event?</h4>
 
-				<p>Use the search function on CovidActNow.org to find the current risk level for your state/county. The results will show risk level in the upper right:</p>
-				
-				<p class="feature-inset">
-					<a href="https://covidactnow.org/" target="_blank">
-						<img src="img/canrisklevel.png">
-					</a>
-				</p>
+				<div class="form-group row">
+					<label for="countries" class="col-sm-3 col-form-label">Country:*</label>
+					<div class="col-12 col-sm-9">
+						<select id="countries" name="country" class="custom-select custom-select-lg mb-3" required></select>
+					</div>
+				</div>
 
-				<p class="feature-inset">
-					<a class="btn btn-xl btn-dark" href="https://covidactnow.org/" target="_blank">
-						Covid<span style="color:rgb(0, 208, 125);">ActNow.org</span> &rarr;
-					</a>
-				</p>
+				<div class="form-group row hidden">
+					<label for="state" class="col-sm-3 col-form-label">State/Province:</label>
+					<div class="col-12 col-sm-9">
+						<select id="state" name="state" class="custom-select custom-select-lg mb-3"></select>
+					</div>
+				</div>
 
-				<p><strong>Tip:</strong> If you search the county and the result is "unknown", try the state.</p>
+				<div class="form-group row hidden">
+					<label for="county" class="col-sm-3 col-form-label">County/District:</label>
+					<div class="col-12 col-sm-9">
+						<select id="county" name="county" class="custom-select custom-select-lg mb-3"></select>
+					</div>
+				</div>
 
-				<p>Choose the risk level you found:</p>
+				<hr>
 
-				<div id="canRiskLevel" class="form-group">
+				<h4>2. Is the event indoors or outdoors?</h4>
+
+				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check btn-low" for="riskLevelLow">
-						  <input type="radio" id="riskLevelLow" name="riskLevel" class="custom-control-input" value="0.9" required>
-						  Low
+					  <label class="btn btn-light btn-check" for="locationCritical">
+						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="1.87" required>
+						  Indoors
 						</label>
-					  <label class="btn btn-light btn-check btn-moderate" for="riskLevelModerate">
-							<input type="radio" id="riskLevelModerate" name="riskLevel" class="custom-control-input" value="1.2" required>
-					  	Medium
-					  </label>
-					  <label class="btn btn-light btn-check btn-high" for="riskLevelHigh">
-						  <input type="radio" id="riskLevelHigh" name="riskLevel" class="custom-control-input" value="1.5" required>
-						  High
-						</label>
-					  <label class="btn btn-light btn-check btn-critical" for="riskLevelCritical">
-						  <input type="radio" id="riskLevelCritical" name="riskLevel" class="custom-control-input" value="2" required>
-						  Critical
+					  <label class="btn btn-light btn-check" for="locationLow">
+						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value=".1" required>
+						  Outdoors
 						</label>
 					</div>
 				</div>
 
 				<hr>
 
-				<h2>STEP 2</h2>
+				<h4>3. How big is the space?</h4>
 
-				<p>Answer some questions about the event.</p>
-
-				<p>Is it indoors or outdoors?</p>
-
-				<div class="form-group">
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check" for="locationCritical">
-						  <input type="radio" id="locationCritical" name="location" class="custom-control-input" value="2" required>
-						  Indoors
-						</label>
-					  <label class="btn btn-light btn-check" for="locationLow">
-						  <input type="radio" id="locationLow" name="location" class="custom-control-input" value="1" required>
-						  Outdoors
-						</label>
+				<div class="form-group row exact-toggle">
+					<div class="col-12 col-sm-3">
+						<label for="spaceExact">Exact:</label>
+						<input class="form-control" id="spaceExact" name="spaceExact" type="number" min=1>
+					</div>
+					<div id="spaceApprox" class="col-12 col-sm-9">
+						<label>Or, estimate:</label>
+						<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+						  <label class="btn btn-light" for="spaceCritical">
+							  <input type="radio" id="spaceCritical" name="space" class="custom-control-input" value="250" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Small</div>
+									<div class="col-7"><em>living room, patio, or coffee kiosk</em></div>
+							  </div>
+							</label>
+						  <label class="btn btn-light" for="spaceHigh">
+							  <input type="radio" id="spaceHigh" name="space" class="custom-control-input" value="5000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Medium</div>
+									<div class="col-7"><em>restaurant, post office, or backyard</em></div>
+							  </div>
+							</label>
+						  <label class="btn btn-light" for="spaceModerate">
+						  	<input type="radio" id="spaceModerate" name="space" class="custom-control-input" value="50000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Large</div>
+									<div class="col-7"><em>supermarket, box store, or small park</em></div>
+							  </div>
+						  </label>
+						  <label class="btn btn-light" for="spaceLow">
+							  <input type="radio" id="spaceLow" name="space" class="custom-control-input" value="5000000" required>
+							  <div class="row">
+									<div class="col-1">✓</div>
+									<div class="col-3">Extra Large</div>
+									<div class="col-7"><em>stadium or large park</em></div>
+							  </div>
+							</label>
+						</div>
 					</div>
 				</div>
-				
-				<p>How big is the space?</p>
 
-				<div class="form-group">
-					<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light" for="spaceCritical">
-						  <input type="radio" id="spaceCritical" name="space" class="custom-control-input" value="5" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Small</div>
-								<div class="col-7"><em>living room, patio, or coffee kiosk</em></div>
-						  </div>
-						</label>
-					  <label class="btn btn-light" for="spaceHigh">
-						  <input type="radio" id="spaceHigh" name="space" class="custom-control-input" value="3" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Medium</div>
-								<div class="col-7"><em>restaurant, post office, or backyard</em></div>
-						  </div>
-						</label>
-					  <label class="btn btn-light" for="spaceModerate">
-					  	<input type="radio" id="spaceModerate" name="space" class="custom-control-input" value="2" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Large</div>
-								<div class="col-7"><em>supermarket, box store, or small park</em></div>
-						  </div>
-					  </label>
-					  <label class="btn btn-light" for="spaceLow">
-						  <input type="radio" id="spaceLow" name="space" class="custom-control-input" value="1" required>
-						  <div class="row">
-								<div class="col-1">✓</div>
-								<div class="col-3">Extra Large</div>
-								<div class="col-7"><em>stadium or large park</em></div>
-						  </div>
-						</label>
+				<hr>
+
+				<h4>4. How many people will attend, including you?</h4>
+
+				<div class="form-group row exact-toggle">
+					<div class="col-6 col-sm-4">
+						<input class="form-control" id="people" name="people" type="number" min=1 required>
 					</div>
-				</div>		
+				</div>
 
-				<p>How many people do you expect to be there? (including you)</p>
+				<hr>
 
-				<div class="form-group">
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check" for="peopleLow">
-						  <input type="radio" id="peopleLow" name="people" class="custom-control-input" value="1" required>
-						  2
-						</label>
-					  <label class="btn btn-light btn-check" for="peopleModerate">
-					  	<input type="radio" id="peopleModerate" name="people" class="custom-control-input" value="2" required>
-					  	3-10
-					  </label>
-					  <label class="btn btn-light btn-check" for="peopleHigh">
-						  <input type="radio" id="peopleHigh" name="people" class="custom-control-input" value="3" required>
-						  11-49
-						</label>
-					  <label class="btn btn-light btn-check" for="peopleCritical">
-						  <input type="radio" id="peopleCritical" name="people" class="custom-control-input" value="4" required>
-						  50+
-						</label>
-					</div>
-				</div>	
-
-				<p>How many people do you expect to wear a mask?</p>
+				<h4>5. How many people will be wearing a mask?</h4>
 
 				<div class="form-group">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-light btn-check" for="masksCritical">
-						  <input type="radio" id="masksCritical" name="masks" class="custom-control-input" value="4" required>
+						  <input type="radio" id="masksCritical" name="masks" class="custom-control-input" value="1" required>
 						  None
 						</label>
 					  <label class="btn btn-light btn-check" for="masksHigh">
-						  <input type="radio" id="masksHigh" name="masks" class="custom-control-input" value="3" required>
+						  <input type="radio" id="masksHigh" name="masks" class="custom-control-input" value=".9" required>
 						  Some
 						</label>
 					  <label class="btn btn-light btn-check" for="masksModerate">
-					  	<input type="radio" id="masksModerate" name="masks" class="custom-control-input" value="2" required>
+					  	<input type="radio" id="masksModerate" name="masks" class="custom-control-input" value=".6" required>
 					  	Most
 					  </label>
 					  <label class="btn btn-light btn-check" for="masksLow">
-						  <input type="radio" id="masksLow" name="masks" class="custom-control-input" value="1" required>
+						  <input type="radio" id="masksLow" name="masks" class="custom-control-input" value=".4" required>
 						  All
 						</label>
 					</div>
 				</div>	
 
-				<p>How long will you stay? (in hours)</p>
+				<hr>
+
+				<h4>6. How long will you stay?</h4>
+
+				<div class="form-group row">
+					<div class="col-4 col-sm-3">
+						<input class="form-control" id="duration" name="duration" type="number" min=1 required>
+					</div>
+					<div class="col-6 col-sm-3">
+						<select id="timeUnits" name="timeUnits" class="custom-select mb-3" required>
+							<option value=1>Minutes</option>
+							<option value=60>Hours</option>
+						</select>
+					</div>
+				</div>
+
+				<hr>
+
+				<h4>7. Will you take public transportation to get there?</h4>
 
 				<div class="form-group">
-					<div class="invalid-feedback">Hi</div>
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check" for="durationLow">
-						  <input type="radio" id="durationLow" name="duration" class="custom-control-input" value="1" required>
-						  < 1
+					  <label class="btn btn-light btn-check" for="publicTransportCritical">
+						  <input type="radio" id="publicTransportCritical" name="publicTransport" class="custom-control-input" value="1.2" required>
+						  Yes
 						</label>
-					  <label class="btn btn-light btn-check" for="durationModerate">
-					  	<input type="radio" id="durationModerate" name="duration" class="custom-control-input" value="2" required>
-					  	1-2
-					  </label>
-					  <label class="btn btn-light btn-check" for="durationHigh">
-						  <input type="radio" id="durationHigh" name="duration" class="custom-control-input" value="3" required>
-						  3-6
-						</label>
-					  <label class="btn btn-light btn-check" for="durationCritical">
-						  <input type="radio" id="durationCritical" name="duration" class="custom-control-input" value="4" required>
-						  7+
+					  <label class="btn btn-light btn-check" for="publicTransportLow">
+						  <input type="radio" id="publicTransportLow" name="publicTransport" class="custom-control-input" value="1" required>
+						  No
 						</label>
 					</div>
 				</div>
 
-				<p>Do any of the following apply? Select as many as you like.</p>
+				<hr>
 
-				<div class="form-group checkboxes">
-					
-					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check">
-					    <input type="checkbox" name="publicTransport" value="3"> You must take public transportation.
-					  </label>
+				<h4>8. Will you be using shared/public restrooms?</h4>
+
+				<div class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-light btn-check" for="restroomsCritical">
+						  <input type="radio" id="restroomsCritical" name="restrooms" class="custom-control-input" value="1.1" required>
+						  Yes
+						</label>
+					  <label class="btn btn-light btn-check" for="restroomsLow">
+						  <input type="radio" id="restroomsLow" name="restrooms" class="custom-control-input" value="1" required>
+						  No
+						</label>
 					</div>
+				</div>
 
-					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check">
-					    <input type="checkbox" name="restrooms" value="2"> You will be using public or shared restrooms.
-					  </label>
+				<hr>
+
+				<h4>9. Will people at the event be drinking alcohol?</h4>
+
+				<div class="form-group">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-light btn-check" for="alcoholCritical">
+						  <input type="radio" id="alcoholCritical" name="alcohol" class="custom-control-input" value="1.3" required>
+						  Yes
+						</label>
+					  <label class="btn btn-light btn-check" for="alcoholLow">
+						  <input type="radio" id="alcoholLow" name="alcohol" class="custom-control-input" value="1" required>
+						  No
+						</label>
 					</div>
-
-					<div class="btn-group-toggle" data-toggle="buttons">
-					  <label class="btn btn-light btn-check">
-					    <input type="checkbox" name="alcohol" value="2"> You and/or others will be drinking alcohol.
-					  </label>
-					</div>
-
-				</div>	
+				</div>
 
 				<p class="text-right"><button class="btn btn-lg btn-primary" type="submit">Calculate Risk</button></p>
 
@@ -255,22 +250,40 @@
 				<h1>RESULT</h1>
 
 				<div class="hidden alert answer">
-					<span class="no hidden"><strong>Do not go unless you absolutely have to.</strong> Make the event safer:</span>
-					<span class="yes hidden"><strong>Go to this event if it's important that you be there.</strong> Make it even safer:</span>
-					<ul>
+
+					<span class="no hidden">
+						<strong>Do not go unless you absolutely have to.</strong>
+						<span class="make-it-safer hidden">To make the event safer:</span>
+					</span>
+
+					<span class="yes hidden">
+						<strong>Go to this event if it's important that you be there.</strong>
+						<span class="make-it-safer hidden">To make it even safer:</span>
+					</span>
+
+					<ul id="resultNudges">
 						<li class="hidden nudge location">Move it outdoors</li>
 						<li class="hidden nudge space">Move it to a larger venue</li>
 						<li class="hidden nudge people">Include fewer people</li>
 						<li class="hidden nudge masks">Encourage more mask-wearing</li>
-						<li class="hidden nudge duration">Don't stay as long</li>
-						<li><a href="faq.html#distancing">Keep your distance from others – at least 6 feet outdoors, 10 feet indoors</a></li>
-						<li>Wash your hands frequently</li>
+						<li class="hidden nudge duration">Shorten your stay</li>
+						<li class="hidden nudge publicTransport">Use a non-public form of transportation</li>
+						<li class="hidden nudge restrooms">Plan ahead to avoid using public/shared restrooms</li>
+						<li class="hidden nudge alcohol"><a href="faq.html#alcohol">Encourage less alcohol consumption</a></li>
 					</ul>
+
 				</div>
 
-				<p class="alert alert-warning">
-					No matter what, there will be some amount of risk of coronavirus infection with any public activity. Follow the mandates, laws, and advice of your location's government and health officials. Stay home as much as possible, preferably leaving only for essential tasks.
-				</p>
+				<div class="alert alert-warning">
+					<strong>No matter what, there will be some amount of risk of coronavirus infection with any public activity.</strong> Always: 
+					<ul>
+						<li><a href="faq.html#distancing">Keep your distance from others – at least 6 feet outdoors, 10 feet indoors</a></li>
+						<li>Wash your hands frequently.</li>
+						<li>Wear a mask.</li>
+						<li>Stay home as much as possible, preferably leaving only for essential tasks.</li>
+						<li>Follow the mandates, laws, and advice of your location's government and health officials.</li>
+					</ul>
+				</div>
 
 			</div>
 
@@ -280,31 +293,61 @@
 
 			<div class="container">
 
-				<div class="site">
-					<p><strong>Sitemap</strong><br/><a class="link" href="index.html">Home</a> | <a class="link" href="faq.html">FAQ</a> | <a class="link" href="formula.html">Formula</a> | <a class="link" href="about.html">About</a> | <a class="link" href="contact.html">Contact</a></p>
-					<p><strong>Privacy</strong><br/><em>This tool will not save any of your answers and it does not track you AT ALL. No cookies, no trackers, nothing. Calculate in peace, friends.</em></p>
+				<div class="tip row">
+					<div class="col-12">
+						<p>
+							<strong>Support our work</strong>
+							<a class="btn btn-sm btn-danger" href="#" onclick="tip('price_1HGm2hFiF0bSSC08VafHjPIO');return false;">Tip $1</a> 
+							<a class="btn btn-sm btn-info" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ewbTq45M');return false;">Tip $5</a> 
+							<a class="btn btn-sm btn-success" href="#" onclick="tip('price_1HGm2iFiF0bSSC08ZAX8OHae');return false;">Tip $10</a>
+							<a class="btn btn-sm btn-warning" href="contact.html">Contact Us</a>
+						</p>
+						<p id="stripeError" class="alert alert-danger hidden">There was an error sending you to checkout. Please try again.</p>
+					</div>
 				</div>
 
-				<div class="tallylab">
+				<div class="sitemap row">
+					<div class="col-12">
+						<p>
+							<strong>Sitemap</strong>
+							<a class="text-warning" href="index.html">Home</a> | <a class="text-warning" href="faq.html">FAQ</a> | <a class="text-warning" href="formula.html">Formula</a> | <a class="text-warning" href="about.html">About</a> | <a class="text-warning" href="contact.html">Contact</a></p>
+					</div>
+				</div>
 
-					<a class="logo" href="https://tallylab.com/" target="_blank">
-						<img src="img/tallylab.png" style="height: 100px;" alt="TallyLab">
-					</a>
+				<div class="privacy row">
+					<div class="col-12">
+						<p>
+							<strong>Privacy</strong>
+							<em>This tool will not save any of your answers and it does not track you in any way.</em></p>
+					</div>
+				</div>
 
-					<p>
-						This calculator is a project of <a class="link" href="https://tallylab.com/" target="_blank">TallyLab</a>.
-					</p>
-
+				<div class="tallylab row align-items-center">
+					<div class="col-9">
+						<p>
+							<strong>A <a class="text-warning" href="https://tallylab.com" target="_blank">TallyLab</a> Project</strong>
+							Helping people collect, protect, and find answers in their data.
+						</p>
+					</div>
+					<div class="col-3">
+						<a class="logo" href="https://tallylab.com/" target="_blank">
+							<img src="img/tallylab.png" alt="TallyLab">
+						</a>
+					</div>
 				</div>
 
 			</div><!-- .container -->
 
 		</div><!-- #footer -->
 
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/popper.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200713142229"></script>
-    <script type="text/javascript" src="js/cc.js?20200713142229"></script>
+		<script src="https://js.stripe.com/v3/"></script>
+		<script type="text/javascript" src="js/moment.js?20200818114840"></script>
+    <script type="text/javascript" src="js/lodash.js?20200818114840"></script>
+    <script type="text/javascript" src="js/papaparse.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/popper.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js?20200818114840"></script>
+    <script type="text/javascript" src="js/cc.js?20200818114840"></script>
 
 	</body>
 </html>
