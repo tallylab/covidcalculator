@@ -11,7 +11,7 @@ $(document).ready(function(){
 					regionListHtml = '<option></option>';
 
 			regionArray.forEach(function(data,index){
-				regionListHtml = data === "US" ? regionListHtml + '<option value="'+data+'">United States</option>': regionListHtml + '<option value="'+data+'">'+data+'</option>';
+				regionListHtml = data === "US" ? regionListHtml + '<option value="'+data+'">United States</option>': regionListHtml + '<option value="'+data+'">'+data.replace('*','')+'</option>';
 			});
 
 			$('#countries').html(regionListHtml);
@@ -31,7 +31,7 @@ $(document).ready(function(){
 				// If there are states for this country/region, show them
 				var stateArray  = _.sortBy(_.map(_.filter(regions,{ "Country_Region": country, "Admin2" : "" }),'Province_State'));
 				if ( stateArray && stateArray.length > 1 ){
-					var stateListHtml = '<option></option>';
+					var stateListHtml = '';
 					stateArray.forEach(function(data,index){
 						stateListHtml = stateListHtml + '<option value="'+data+'">'+data+'</option>';
 					});
@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 				var countyArray  = _.sortBy(_.map(_.filter(regions,{ "Country_Region": country, "Province_State" : state }),'Admin2'));
 				if ( countyArray && countyArray.length > 1 ){
-					var countyListHtml = '<option></option>';
+					var countyListHtml = '';
 					countyArray.forEach(function(data,index){
 						countyListHtml = countyListHtml + '<option value="'+data+'">'+data+'</option>';
 					});
