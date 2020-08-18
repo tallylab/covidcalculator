@@ -49,7 +49,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 7625,BR,BRA,76,,,Sao Paulo,Brazil,-23.5505,-46.6333,"Sao Paulo, Brazil",45919049
 7626,BR,BRA,76,,,Sergipe,Brazil,-10.5741,-37.3857,"Sergipe, Brazil",2298696
 7627,BR,BRA,76,,,Tocantins,Brazil,-10.1753,-48.2982,"Tocantins, Brazil",1572866
-7628,BR,BRA,76,,,Unknown,Brazil,,,"Unknown, Brazil",
 96,BN,BRN,96,,,,Brunei,4.5353,114.7277,Brunei,437483
 100,BG,BGR,100,,,,Bulgaria,42.7339,25.4858,Bulgaria,6948445
 854,BF,BFA,854,,,,Burkina Faso,12.2383,-1.5616,Burkina Faso,20903278
@@ -77,7 +76,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 15214,CL,CHL,152,,,OHiggins,Chile,-34.5755,-71.0022,"OHiggins, Chile",914555
 15215,CL,CHL,152,,,Tarapaca,Chile,-19.9232,-69.5132,"Tarapaca, Chile",330558
 15216,CL,CHL,152,,,Valparaiso,Chile,-33.0472,-71.6127,"Valparaiso, Chile",1815902
-15217,CL,CHL,152,,,Unknown,Chile,,,"Unknown, Chile",
 170,CO,COL,170,,,,Colombia,4.5709,-74.2973,Colombia,50882884
 17001,CO,COL,170,,,Amazonas,Colombia,-1.4429,-71.5724,"Amazonas, Colombia",76589
 17002,CO,COL,170,,,Antioquia,Colombia,7.1986,-75.3412,"Antioquia, Colombia",6407102
@@ -112,7 +110,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 17031,CO,COL,170,,,Valle del Cauca,Colombia,3.8009,-76.6413,"Valle del Cauca, Colombia",4475886
 17032,CO,COL,170,,,Vaupes,Colombia,0.8554,-70.812,"Vaupes, Colombia",40797
 17033,CO,COL,170,,,Vichada,Colombia,4.4234,-69.2878,"Vichada, Colombia",107808
-17034,CO,COL,170,,,Unknown,Colombia,,,"Unknown, Colombia",
 178,CG,COG,178,,,,Congo (Brazzaville),-0.228,15.8277,Congo (Brazzaville),5518092
 180,CD,COD,180,,,,Congo (Kinshasa),-4.0383,21.7587,Congo (Kinshasa),89561404
 174,KM,COM,174,,,,Comoros,-11.6455,43.3333,Comoros,869595
@@ -169,7 +166,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 27614,DE,DEU,276,,,Sachsen-Anhalt,Germany,51.9503,11.6923,"Sachsen-Anhalt, Germany",2208321
 27615,DE,DEU,276,,,Schleswig-Holstein,Germany,54.2194,9.6961,"Schleswig-Holstein, Germany",2896712
 27616,DE,DEU,276,,,Thuringen,Germany,51.011,10.8453,"Thuringen, Germany",2143145
-27617,DE,DEU,276,,,Unknown,Germany,,,"Unknown, Germany",
 288,GH,GHA,288,,,,Ghana,7.9465,-1.0232,Ghana,31072945
 300,GR,GRC,300,,,,Greece,39.0742,21.8243,Greece,10423056
 308,GD,GRD,308,,,,Grenada,12.1165,-61.679,Grenada,112519
@@ -218,7 +214,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 35633,IN,IND,356,,,Uttar Pradesh,India,26.925425,80.560982,"Uttar Pradesh, India",237882725
 35634,IN,IND,356,,,Uttarakhand,India,30.156447,79.197608,"Uttarakhand, India",11250858
 35635,IN,IND,356,,,West Bengal,India,23.814082,87.979803,"West Bengal, India",99609303
-35636,IN,IND,356,,,Unknown,India,,,"Unknown, India",
 35637,IN,IND,356,,,Lakshadweep,India,13.6999972,72.1833326,"Lakshadweep, India",64429
 360,ID,IDN,360,,,,Indonesia,-0.7893,113.9213,Indonesia,273523621
 364,IR,IRN,364,,,,Iran,32.427908,53.688046,Iran,83992953
@@ -297,7 +292,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 39246,JP,JPN,392,,,Yamaguchi,Japan,34.20119,131.573293,"Yamaguchi, Japan",1358336
 39247,JP,JPN,392,,,Yamanashi,Japan,35.612364,138.611489,"Yamanashi, Japan",810956
 39248,JP,JPN,392,,,Port Quarantine,Japan,,,"Port Quarantine, Japan",
-39249,JP,JPN,392,,,Unknown,Japan,,,"Unknown, Japan",
 400,JO,JOR,400,,,,Jordan,31.24,36.51,Jordan,10203140
 398,KZ,KAZ,398,,,,Kazakhstan,48.0196,66.9237,Kazakhstan,18776707
 404,KE,KEN,404,,,,Kenya,-0.0236,37.9062,Kenya,53771300
@@ -355,7 +349,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 48430,MX,MEX,484,,,Veracruz,Mexico,19.1738,-96.1342,"Veracruz, Mexico",8539862
 48431,MX,MEX,484,,,Yucatan,Mexico,20.7099,-89.0943,"Yucatan, Mexico",2259098
 48432,MX,MEX,484,,,Zacatecas,Mexico,22.7709,-102.5832,"Zacatecas, Mexico",1666426
-48433,MX,MEX,484,,,Unknown,Mexico,,,"Unknown, Mexico",
 498,MD,MDA,498,,,,Moldova,47.4116,28.3699,Moldova,4033963
 492,MC,MCO,492,,,,Monaco,43.7333,7.4167,Monaco,39244
 496,MN,MNG,496,,,,Mongolia,46.8625,103.8467,Mongolia,3278292
@@ -378,7 +371,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 52810,NL,NLD,528,,,Utrecht,Netherlands,52.084251,5.163824,"Utrecht, Netherlands",1354834
 52811,NL,NLD,528,,,Zeeland,Netherlands,51.47936,3.861559,"Zeeland, Netherlands",383488
 52812,NL,NLD,528,,,Zuid-Holland,Netherlands,51.937835,4.462114,"Zuid-Holland, Netherlands",3708696
-52813,NL,NLD,528,,,Unknown,Netherlands,,,"Unknown, Netherlands",
 533,AW,ABW,533,,,Aruba,Netherlands,12.5211,-69.9683,"Aruba, Netherlands",106766
 531,CW,CUW,531,,,Curacao,Netherlands,12.1696,-68.99,"Curacao, Netherlands",164100
 534,SX,SXM,534,,,Sint Maarten,Netherlands,18.0425,-63.0548,"Sint Maarten, Netherlands",42882
@@ -424,7 +416,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 56635,NG,NGA,566,,,Taraba,Nigeria,7.9994,10.774,"Taraba, Nigeria",3066834
 56636,NG,NGA,566,,,Yobe,Nigeria,12.2939,11.439,"Yobe, Nigeria",3294137
 56637,NG,NGA,566,,,Zamfara,Nigeria,12.1222,6.2236,"Zamfara, Nigeria",4515427
-56638,NG,NGA,566,,,Unknown,Nigeria,,,"Unknown, Nigeria",
 807,MK,MKD,807,,,,North Macedonia,41.6086,21.7453,North Macedonia,2083380
 578,NO,NOR,578,,,,Norway,60.472,8.4689,Norway,5421242
 512,OM,OMN,512,,,,Oman,21.512583,55.923255,Oman,5106622
@@ -436,7 +427,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 58605,PK,PAK,586,,,Khyber Pakhtunkhwa,Pakistan,34.485332,72.09169,"Khyber Pakhtunkhwa, Pakistan",30523371
 58606,PK,PAK,586,,,Punjab,Pakistan,30.811346,72.139132,"Punjab, Pakistan",110012442
 58607,PK,PAK,586,,,Sindh,Pakistan,26.009446,68.776807,"Sindh, Pakistan",47886051
-58608,PK,PAK,586,,,Unknown,Pakistan,,,"Unknown, Pakistan",
 591,PA,PAN,591,,,,Panama,8.538,-80.7821,Panama,4314768
 598,PG,PNG,598,,,,Papua New Guinea,-6.314993,143.95555,Papua New Guinea,8947027
 600,PY,PRY,600,,,,Paraguay,-23.4425,-58.4438,Paraguay,7132530
@@ -466,7 +456,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 60423,PE,PER,604,,,Tacna,Peru,-17.644161,-70.27756,"Tacna, Peru",371000
 60424,PE,PER,604,,,Tumbes,Peru,-3.857496,-80.545255,"Tumbes, Peru",251500
 60425,PE,PER,604,,,Ucayali,Peru,-9.621718,-73.444929,"Ucayali, Peru",589100
-60426,PE,PER,604,,,Unknown,Peru,,,"Unknown, Peru",
 608,PH,PHL,608,,,,Philippines,12.879721,121.774017,Philippines,109581085
 616,PL,POL,616,,,,Poland,51.9194,19.1451,Poland,37846605
 620,PT,PRT,620,,,,Portugal,39.3999,-8.2245,Portugal,10196707
@@ -556,7 +545,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 64381,RU,RUS,643,,,Yamalo-Nenets Autonomous Okrug,Russia,67.1471631,74.3415488,"Yamalo-Nenets Autonomous Okrug, Russia",538547
 64382,RU,RUS,643,,,Yaroslavl Oblast,Russia,57.7781976,39.0021095,"Yaroslavl Oblast, Russia",1265684
 64383,RU,RUS,643,,,Zabaykalsky Krai,Russia,52.248521,115.956325,"Zabaykalsky Krai, Russia",1072806
-64384,RU,RUS,643,,,Unknown,Russia,,,"Unknown, Russia",
 646,RW,RWA,646,,,,Rwanda,-1.9403,29.8739,Rwanda,12952209
 659,KN,KNA,659,,,,Saint Kitts and Nevis,17.357822,-62.782998,Saint Kitts and Nevis,53192
 662,LC,LCA,662,,,,Saint Lucia,13.9094,-60.9789,Saint Lucia,183629
@@ -594,7 +582,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 72417,ES,ESP,724,,,Navarra,Spain,42.6954,-1.6761,"Navarra, Spain",649946
 72418,ES,ESP,724,,,Pais Vasco,Spain,42.9896,-2.6189,"Pais Vasco, Spain",2177880
 72419,ES,ESP,724,,,La Rioja,Spain,42.2871,-2.5396,"La Rioja, Spain",313571
-72420,ES,ESP,724,,,Unknown,Spain,,,"Unknown, Spain",
 144,LK,LKA,144,,,,Sri Lanka,7.873054,80.771797,Sri Lanka,21413250
 729,SD,SDN,729,,,,Sudan,12.8628,30.2176,Sudan,43849269
 740,SR,SUR,740,,,,Suriname,3.9193,-56.0278,Suriname,586634
@@ -620,7 +607,6 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 75219,SE,SWE,752,,,Vasternorrland,Sweden,63.4276,17.7292,"Vasternorrland, Sweden",245347
 75220,SE,SWE,752,,,Vastmanland,Sweden,59.6714,16.2159,"Vastmanland, Sweden",275845
 75221,SE,SWE,752,,,Vastra Gotaland,Sweden,58.2528,13.0596,"Vastra Gotaland, Sweden",1725881
-75222,SE,SWE,752,,,Unknown,Sweden,,,"Unknown, Sweden",
 756,CH,CHE,756,,,,Switzerland,46.8182,8.2275,Switzerland,8654618
 760,SY,SYR,760,,,,Syria,34.802075,38.996815,Syria,17500657
 158,TW,TWN,158,,,,Taiwan*,23.7,121,Taiwan*,23816775
@@ -661,14 +647,12 @@ UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined
 80425,UA,UKR,804,,,Zakarpattia Oblast,Ukraine,48.6208,22.2879,"Zakarpattia Oblast, Ukraine",1256802
 80426,UA,UKR,804,,,Zaporizhia Oblast,Ukraine,47.8388,35.1396,"Zaporizhia Oblast, Ukraine",1705836
 80427,UA,UKR,804,,,Zhytomyr Oblast,Ukraine,50.2547,28.6587,"Zhytomyr Oblast, Ukraine",1220193
-80428,UA,UKR,804,,,Unknown,Ukraine,,,"Unknown, Ukraine",
 784,AE,ARE,784,,,,United Arab Emirates,23.424076,53.847818,United Arab Emirates,9890400
 826,GB,GBR,826,,,,United Kingdom,55.3781,-3.436,United Kingdom,67886004
 82601,GB,GBR,826,,,England,United Kingdom,52.3555,-1.1743,"England, United Kingdom",55977200
 82602,GB,GBR,826,,,Northern Ireland,United Kingdom,54.7877,-6.4923,"Northern Ireland, United Kingdom",1881600
 82603,GB,GBR,826,,,Scotland,United Kingdom,56.4907,-4.2026,"Scotland, United Kingdom",5463300
 82604,GB,GBR,826,,,Wales,United Kingdom,52.1307,-3.7837,"Wales, United Kingdom",3138600
-82605,GB,GBR,826,,,Unknown,United Kingdom,,,"Unknown, United Kingdom",
 60,BM,BMU,60,,,Bermuda,United Kingdom,32.3078,-64.7505,"Bermuda, United Kingdom",62273
 92,VG,VGB,92,,,British Virgin Islands,United Kingdom,18.4207,-64.64,"British Virgin Islands, United Kingdom",30237
 136,KY,CYM,136,,,Cayman Islands,United Kingdom,19.3133,-81.2546,"Cayman Islands, United Kingdom",65720
