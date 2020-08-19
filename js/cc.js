@@ -101,7 +101,7 @@ $(document).ready(function(){
 
 	/* Calculate */
 
-		cutoffScore = 0.10865;
+		cutoffScore = 0.31;
 
 		$('#covidCalculator').on('submit',function(e){
 			e.preventDefault();
@@ -246,9 +246,10 @@ function finalize(answers){
 	// Duration by unit
 	answers.duration = answers.timeUnits ? parseFloat(answers.duration)*parseFloat(answers.timeUnits) : parseFloat(answers.duration);
 
-	// Values with the option to input an exact value
-	if ( answers.spaceExact && answers.spaceExact > 0 )   { answers.space  = answers.country === "US" ? answers.spaceExact : answers.spaceExact/3.281 } // Use this occasion to convert from metric, if applicable
-	if ( answers.peopleExact && answers.peopleExact > 0 ) { answers.people = answers.peopleExact }
+	// If user inputted (i.e. not randomly generated) and exact, int'l locations need to use meters
+	if ( answers.spaceExact && answers.spaceExact > 0 ) {
+		answers.space = answers.country === "US" ? parseFloat(answers.spaceExact) : parseFloat(answers.spaceExact)*10.764;
+	}
 
 	answers.score  = theAlgorithm(answers);
 
@@ -382,8 +383,8 @@ function objectifyForm(formArray) {
 function theAlgorithm(answers){
  answers.regionalRisk = 1 + (answers.currentIR*1000);
  answers.distance     = Math.sqrt(answers.space/answers.people);
- answers.distancing   = answers.location > 1 ? 100/Math.pow(answers.distance,2) : (20/Math.pow(answers.distance,2))+.5;
- answers.exposure     = 0.004*answers.duration + 1.04;
+ answers.distancing   = answers.location > 1 ? 100/Math.pow(answers.distance,2) : (20/Math.pow(answers.distance,2))+.5; // Indoors? 10 ft.       Outdoors? 6 ft.
+ answers.exposure     = answers.location > 1 ? (0.0001*Math.pow(answers.duration,2))+1 : 0.004*answers.duration + 1.04; // Indoors? Exponential. Outdoors? Linear.
  return answers.regionalRisk * answers.location * answers.masks * answers.exposure * answers.distancing * answers.publicTransport * answers.restrooms * answers.alcohol;
 }
 
@@ -391,165 +392,75 @@ var metrics = [
 	{
 		name: "location",
 		options: [
-			{
-				label: "Indoors",
-				value: 1.87
-			},
-			{
-				label: "Outdoors",
-				value: .1
-			}
+			{ label: "Indoors",	  value: 1.87	},
+			{ label: "Outdoors",	value: .1	}
 		]
 	},
 	{
 		name: "space",
 		options: [
-			{
-				label: "Small",
-				value: 250
-			},
-			{
-				label: "Medium",
-				value: 5000
-			},
-			{
-				label: "Large",
-				value: 50000
-			},
-			{
-				label: "Extra Large",
-				value: 500000
-			}
+			{ label: "250 sqft",     value: 250	},
+			{ label: "750 sqft",     value: 750	},
+			{ label: "2,000 sqft",   value: 2000	},
+			{ label: "5,000 sqft",	 value: 5000	},
+			{ label: "15,000 sqft",	 value: 15000	},
+			{ label: "50,000 sqft",	 value: 50000	},
+			{ label: "500,000 sqft", value: 500000	}
 		]
 	},
 	{
 		name: "people",
 		options: [
-			{
-				label: "2",
-				value: 2
-			},
-			{
-				label: "3",
-				value: 3
-			},
-			{
-				label: "4",
-				value: 4
-			},
-			{
-				label: "5",
-				value: 5
-			},
-			{
-				label: "10",
-				value: 10
-			},
-			{
-				label: "30",
-				value: 30
-			},
-			{
-				label: "75",
-				value: 75
-			},
-			{
-				label: "500",
-				value: 500
-			}
+			{ label: "2",	  value: 2	},
+			{ label: "3",	  value: 3	},
+			{ label: "4",	  value: 4	},
+			{ label: "5",	  value: 5	},
+			{ label: "10",	value: 10	},
+			{ label: "30",	value: 30	},
+			{ label: "75",	value: 75	},
+			{ label: "500",	value: 500	}
 		]
 	},
 	{
 		name: "masks",
 		options: [
-			{
-				label: "None",
-				value: 1
-			},
-			{
-				label: "Some",
-				value: .9
-			},
-			{
-				label: "Most",
-				value: .6
-			},
-			{
-				label: "All",
-				value: .4
-			}
+			{ label: "None", value: 1.0	},
+			{ label: "Some", value: 0.9	},
+			{ label: "Most", value: 0.6	},
+			{ label: "All",	 value: 0.4	}
 		]
 	},
 	{
 		name: "duration",
 		options: [
-			{
-				label: "15 minutes",
-				value: 15
-			},
-			{
-				label: "1 hour",
-				value: 60
-			},
-			{
-				label: "2 hours",
-				value: 120
-			},
-			{
-				label: "3 hours",
-				value: 180
-			},
-			{
-				label: "4 hours",
-				value: 240
-			},
-			{
-				label: "5 hours",
-				value: 300
-			},
-			{
-				label: "8 hours",
-				value: 480
-			}
+			{ label: "15 minutes",	value: 15	},
+			{ label: "1 hour",			value: 60	},
+			{ label: "2 hours",			value: 120	},
+			{ label: "3 hours",			value: 180	},
+			{ label: "4 hours",			value: 240	},
+			{ label: "5 hours",			value: 300	},
+			{ label: "8 hours",			value: 480	}
 		]
 	},
 	{
 		name: "publicTransport",
 		options: [
-			{
-				label: "Yes",
-				value: 1.2
-			},
-			{
-				label: "No",
-				value: 1
-			}
+			{ label: "Yes",	value: 1.2	},
+			{ label: "No",	value: 1.0	}
 		]
 	},
 	{
 		name: "restrooms",
 		options: [
-			{
-				label: "Yes",
-				value: 1.1
-			},
-			{
-				label: "No",
-				value: 1
-			}
+			{ label: "Yes",	value: 1.1	},
+			{ label: "No",	value: 1	}
 		]
 	},
 	{
 		name: "alcohol",
 		options: [
-			{
-				label: "Yes",
-				value: 1.3
-			},
-			{
-				label: "No",
-				value: 1
-			}
+			{ label: "Yes",	value: 1.3	},
+			{ label: "No",	value: 1	}
 		],
 	}
 ];

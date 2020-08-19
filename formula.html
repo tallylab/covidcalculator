@@ -70,11 +70,11 @@
 
 			<h3 id="approach" class="text-center">Overall Approach</h3>
 
-			<p>Humanity's understanding of COVID-19 is constantly evolving and we therefore update the calculator as scientific understanding improves. We've already done so several times, in fact (see Changelog below).</p>
+			<p>Humanity's understanding of COVID-19 is constantly evolving and we are actively updating the calculator as scientific understanding improves. We've already done so several times, in fact (see <a href="#changelog">Changelog</a> below).</p>
 
 			<p>The dynamics at play in contracting any viral disease are complex. We do not consider the math underlying this calculator to be a nuanced model of COVID-19's communicability. Our aim is to provide an actionable approximation of risk given the knowable factors at play in a specific social situation.</p>
 
-			<p>Each metric in this calculator therefore represents a factor proven to contribute to your risk of contracting COVID-19 in a situation. We weight each metric as described below and then we multiply them. The resulting score can range from nearly zero at the low end (very little risk) to over two thousand at the high end (extreme risk). The median score is currently around <code>0.17</code>.</p>
+			<p>Each metric in this calculator therefore represents a factor proven to contribute to your risk of contracting COVID-19 in a situation. We weight each metric as described below and then we multiply them. Given the open-ended nature of some metrics (e.g. you can invite an infinite number of people to an event), the range of scores is quite large, but ~80% of them fall between <code>0</code> and <code>4</code> The median score is currently around <code>0.25</code>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -86,11 +86,9 @@
 
 			<p>We keep our eyes and ears out for the latest science. When a new consensus begins to form – e.g. around mask wearing or distancing – we dive into the numbers to see how it might make our formula more accurate.</p>
 
-			<p>Whenever we update the formula in light of the newest science, we don't just test it in the interface – we also <a href="#scenarioGenerator">generate thousands of random scenarios</a>, sort them by score, and then ask ourselves and our advisors two questions: 1) More often than not, are riskier scenarios scoring higher than less risky scenarios? and 2) Where in the list we would draw the line between events we'd attend and ones we woudln't?</p>
+			<p>Whenever we update the formula in light of the newest science, we don't just test it in the interface – we also <a href="#scenarioGenerator">generate thousands of random scenarios</a>, sort them by score, and then ask ourselves and our advisors two questions: 1) More often than not, are riskier scenarios scoring higher than less risky scenarios? and 2) Where in the list would we draw the line between events we'd attend and ones we woudln't?</p>
 
-			<p>While we we wish it were possible to find the cutoff via pure math or epidemiological principles, it's simply not yet. That said, we have found that the consensus cutoff yields about one-third of scenarios we would say "yes" to, and two-thirds we'd say "no" to.</p>
-
-			<p>More art than science, to be sure! But an art that is deeply informed by science. And we are eager to hear from more specialists on how we could be doing this better, so <a href="contact.html">definitely reach out if you have ideas for us</a>.</p>
+			<p>While we we wish it were possible to find the cutoff via pure math or epidemiological principles, it's simply not yet. We are eager to hear from more specialists on how we could be doing this better, so <a href="contact.html">definitely reach out if you have ideas for us</a>.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -157,9 +155,9 @@
 
 			<h3 id="duration" class="text-center">Duration</h3>
 
-			<p>We have yet to find some good studies on the exact model for risk as a function of duration, but <a href="https://www.cnn.com/2020/05/18/us/coronavirus-time-risk/index.html" target="_blank">broadly speaking epidemiologists agree</a> that "Everyone has a little bit of risk per minute, and it's a cumulative thing".</p>
+			<p>We have yet to find some good studies that directly model risk as a function of duration, but <a href="https://www.cnn.com/2020/05/18/us/coronavirus-time-risk/index.html" target="_blank">broadly speaking epidemiologists agree</a> that "Everyone has a little bit of risk per minute, and it's a cumulative thing".</p>
 
-			<p>Therefore our approach was to assume a neutral amount of exposure ends at 15 minutes (score = <code>1</code>) and increases gradually and linearly from there. Two hours of exposure gets a score of <code>2</code>.</p>
+			<p>That general principle, combined with what we know about indoor vs. outodoor transmission led us to an approach where indoor duration is gradual but exponential and outdoor is gradual but linear. We assume a neutral amount of exposure ends at 15 minutes (score = <code>1</code>).</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
@@ -177,7 +175,7 @@
 
 			<h3 id="publicRestrooms" class="text-center">Public/Shared Restrooms</h3>
 
-			<p>Similar to public transportation, <a href="https://www.health.harvard.edu/blog/how-risky-is-using-a-public-bathroom-during-the-pandemic-2020071420556" target="_blank">public/shared restrooms have not proven to be large risk multipliers for this disease</a>. Also similarly, however, it is an additional enclosed environment with varying levels of ventilation, mask-adherence, etc. We therefore give using public/shared restrooms a score of <code>1.1</code> – a slight additional risk.</p>
+			<p>Similar to public transportation, <a href="https://www.health.harvard.edu/blog/how-risky-is-using-a-public-bathroom-during-the-pandemic-2020071420556" target="_blank">public/shared restrooms have not proven to be large risk multipliers for this disease</a>. Also similarly, however, it is an additional enclosed environment with varying levels of ventilation, mask-adherence, etc. We give using public/shared restrooms a score of <code>1.1</code> – a slight additional risk because the time frame tends to be extremely short.</p>
 
 			<p><a href="#top">&UpArrow; top</a></p>
 
