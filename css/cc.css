@@ -28,7 +28,7 @@ hr, h4 + .form-group  { margin: 4rem 0; }
 
 .btn-group { display: flex; }
 .btn-group-vertical { width: 100%; }
-.btn-group-vertical .btn { text-align: left; position: relative; white-space: normal; }
+.btn-group-vertical .btn { text-align: left; position: relative; }
 	.btn-group-vertical .info { position: absolute; right: -2rem; top: .5rem; padding: 0 .5rem; background: #7d868e; color: #fff; border-radius: 50%; font-style: italic; font-size: 90%; font-family: Georgia, Times, serif; }
 
 .checkboxes .btn-group-toggle { margin-bottom: 1rem; }
@@ -37,9 +37,9 @@ hr, h4 + .form-group  { margin: 4rem 0; }
 .btn-check:before, .btn-group-vertical .btn-light .row > div:first-child { color: transparent; }
 .btn-check.active:before , .btn-group-vertical .btn-light.active .row > div:first-child { color: #212529; }
 
-.btn-group .btn-light:after { content: '\00a0 \00a0'; white-space: pre; }
+@media (min-width: 400px) { .btn-group .btn-light:after { content: '\00a0 \00a0'; white-space: pre; } }
 
-.btn-light { white-space: nowrap; box-shadow: 2px 2px 0 #ccc; }
+.btn-light { box-shadow: 2px 2px 0 #ccc; }
 
 .btn-low { background: rgba(0, 208, 125, .5); }
 	.active.btn-low:not(:disabled):not(.disabled) { background: rgba(0, 208, 125, 1); }
@@ -55,7 +55,7 @@ hr, h4 + .form-group  { margin: 4rem 0; }
 #footer { margin-top: 5rem; margin-bottom: 2rem; padding: 2rem 0; font-size: 95%; background: #333; color: #fff; }
 	#footer p { margin-bottom: 2rem; line-height: 130%; }
 	#footer strong { display: block; margin-bottom: .5rem; }
-	#footer .btn-sm { width: 23%; }
+	#footer .btn-sm { width: 23%; white-space: nowrap; }
 
 #footer .tallylab { margin-bottom: -3.5rem; }
 
