@@ -355,8 +355,8 @@ function tip(id){
 	.redirectToCheckout({
     lineItems: [{price: id, quantity: 1}],
     mode: 'payment',
-	  successUrl: 'https://covidcalculator.xyz/thanks',
-	  cancelUrl: 'https://covidcalculator.xyz/cancel'
+	  successUrl: 'https://covidcalculator.xyz/thanks.html',
+	  cancelUrl: 'https://covidcalculator.xyz/cancel.html'
 	})
 	.then(function (result) {
     if (result.error) {
